@@ -1,0 +1,13 @@
+{
+	"botman-driver-config": [
+        "stubs/facebook.php"
+    ],
+    "botman/driver": [
+        "BotMan\\Drivers\\Facebook\\FacebookDriver",
+        "BotMan\\Drivers\\Facebook\\FacebookAudioDriver",
+        "BotMan\\Drivers\\Facebook\\FacebookFileDriver",
+        "BotMan\\Drivers\\Facebook\\FacebookImageDriver",
+        "BotMan\\Drivers\\Facebook\\FacebookLocationDriver",
+        "BotMan\\Drivers\\Facebook\\FacebookVideoDriver"
+    ]
+}
