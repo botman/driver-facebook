@@ -18,7 +18,7 @@ return [
     | Facebook App Secret
     |--------------------------------------------------------------------------
     |
-    | Your Facebook application secret, which i sued to verify
+    | Your Facebook application secret, which is used to verify
     | incoming requests from Facebook.
     |
     */
