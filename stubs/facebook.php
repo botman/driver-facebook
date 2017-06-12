@@ -11,7 +11,7 @@ return [
     | the messenger page / application on Facebook.
     |
     */
-    'facebook_token' => env('FACEBOOK_TOKEN'),
+    'token' => env('FACEBOOK_TOKEN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,5 +22,15 @@ return [
     | incoming requests from Facebook.
     |
     */
-    'facebook_app_secret' => env('FACEBOOK_APP_SECRET'),
+    'app_secret' => env('FACEBOOK_APP_SECRET'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Facebook Verification
+    |--------------------------------------------------------------------------
+    |
+    | Your Facebook verification token, used to validate the webhooks.
+    |
+    */
+    'verification' => env('FACEBOOK_VERIFICATION'),
 ];

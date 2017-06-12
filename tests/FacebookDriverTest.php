@@ -38,8 +38,15 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         return $request;
     }
 
-    private function getDriver($responseData, array $config = ['facebook_token' => 'Foo'], $signature = '')
+    private function getDriver($responseData, array $config = null, $signature = '')
     {
+        if (is_null($config)) {
+            $config = [
+                'facebook' => [
+                    'token' => 'Foo'
+                ]
+            ];
+        }
         $request = $this->getRequest($responseData);
         $request->headers->set('X_HUB_SIGNATURE', $signature);
 
@@ -64,19 +71,36 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $driver = $this->getDriver($request);
         $this->assertTrue($driver->matchesRequest());
 
-        $config = ['facebook_token' => 'Foo', 'facebook_app_secret' => 'Bar'];
+        $config = [
+            'facebook' => [
+                'token' => 'Foo',
+                'app_secret' => 'Bar',
+            ]
+        ];
         $request = '{}';
         $driver = $this->getDriver($request, $config);
         $this->assertFalse($driver->matchesRequest());
 
         $signature = 'Foo';
-        $config = ['facebook_token' => 'Foo', 'facebook_app_secret' => 'Bar'];
+
+        $config = [
+            'facebook' => [
+                'token' => 'Foo',
+                'app_secret' => 'Bar',
+            ]
+        ];
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi"}}]}]}';
         $driver = $this->getDriver($request, $config, $signature);
         $this->assertFalse($driver->matchesRequest());
 
         $signature = 'sha1=74432bfe572675092cc81b5ac903ff3f971b04e5';
-        $config = ['facebook_token' => 'Foo', 'facebook_app_secret' => 'Bar'];
+
+        $config = [
+            'facebook' => [
+                'token' => 'Foo',
+                'app_secret' => 'Bar',
+            ]
+        ];
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi"}}]}]}';
         $driver = $this->getDriver($request, $config, $signature);
         $this->assertTrue($driver->matchesRequest());
@@ -103,9 +127,13 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request = m::mock(\Symfony\Component\HttpFoundation\Request::class.'[getContent]');
         $request->shouldReceive('getContent')->andReturn('');
 
-        $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
-        ], $html);
+        $config = [
+            'facebook' => [
+                'token' => 'Foo',
+            ]
+        ];
+
+        $driver = new FacebookDriver($request, $config, $html);
 
         $user_id = '1234567890';
         $botman->say('Test', $user_id, $driver);
@@ -217,7 +245,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn(json_encode($responseData));
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], $html);
 
         $message = new IncomingMessage('', '1234567890', '');
@@ -266,7 +296,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn(json_encode($responseData));
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], $html);
 
         $message = new IncomingMessage('', '1234567890', '');
@@ -282,7 +314,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn(json_encode([]));
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], m::mock(Curl::class));
 
         $message = new IncomingMessage('Red', '0987654321', '1234567890', [
@@ -312,7 +346,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn(json_encode([]));
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], m::mock(Curl::class));
 
         $message = new IncomingMessage('Red', '0987654321', '1234567890', [
@@ -369,7 +405,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn('[]');
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], $html);
 
         $message = new IncomingMessage('', '1234567890', '');
@@ -415,7 +453,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn('[]');
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], $html);
 
         $message = new IncomingMessage('', '1234567890', '');
@@ -429,15 +469,25 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn('');
         $htmlInterface = m::mock(Curl::class);
 
-        $driver = new FacebookDriver($request, [
-            'facebook_token' => 'token',
-        ], $htmlInterface);
+
+
+        $config = [
+            'facebook' => [
+                'token' => 'Foo',
+                'app_secret' => 'Bar',
+            ]
+        ];
+        $driver = new FacebookDriver($request, $config, $htmlInterface);
 
         $this->assertTrue($driver->isConfigured());
 
-        $driver = new FacebookDriver($request, [
-            'facebook_token' => null,
-        ], $htmlInterface);
+        $config = [
+            'facebook' => [
+                'token' => null,
+                'app_secret' => 'Bar',
+            ]
+        ];
+        $driver = new FacebookDriver($request, $config, $htmlInterface);
 
         $this->assertFalse($driver->isConfigured());
 
@@ -487,7 +537,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn(json_encode($responseData));
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], $html);
 
         $message = new IncomingMessage('', '1234567890', '');
@@ -540,7 +592,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn(json_encode($responseData));
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], $html);
 
         $message = new IncomingMessage('', '1234567890', '');
@@ -593,7 +647,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn(json_encode($responseData));
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], $html);
 
         $message = new IncomingMessage('', '1234567890', '');
@@ -646,7 +702,9 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn(json_encode($responseData));
 
         $driver = new FacebookDriver($request, [
-            'facebook_token' => 'Foo',
+            'facebook' => [
+                'token' => 'Foo',
+            ],
         ], $html);
 
         $message = new IncomingMessage('', '1234567890', '');

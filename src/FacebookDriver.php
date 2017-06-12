@@ -12,6 +12,7 @@ use BotMan\BotMan\Messages\Attachments\Audio;
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Attachments\Video;
 use BotMan\BotMan\Messages\Outgoing\Question;
+use BotMan\BotMan\Interfaces\VerifiesService;
 use Symfony\Component\HttpFoundation\Response;
 use BotMan\BotMan\Drivers\Events\GenericEvent;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -27,7 +28,7 @@ use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
 use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 use BotMan\Drivers\Facebook\Extensions\ReceiptTemplate;
 
-class FacebookDriver extends HttpDriver
+class FacebookDriver extends HttpDriver implements VerifiesService
 {
     /** @var string */
     protected $signature;
@@ -66,6 +67,7 @@ class FacebookDriver extends HttpDriver
         $this->event = Collection::make((array) $this->payload->get('entry')[0]);
         $this->signature = $request->headers->get('X_HUB_SIGNATURE', '');
         $this->content = $request->getContent();
+        $this->config = Collection::make($this->config->get('facebook', []));
     }
 
     /**
@@ -75,12 +77,23 @@ class FacebookDriver extends HttpDriver
      */
     public function matchesRequest()
     {
-        $validSignature = ! $this->config->has('facebook_app_secret') || $this->validateSignature();
+        $validSignature = ! $this->config->has('app_secret') || $this->validateSignature();
         $messages = Collection::make($this->event->get('messaging'))->filter(function ($msg) {
             return isset($msg['message']) && isset($msg['message']['text']);
         });
 
         return ! $messages->isEmpty() && $validSignature;
+    }
+
+    /**
+     * @param Request $request
+     * @return null|Response
+     */
+    public function verifyRequest(Request $request)
+    {
+        if ($request->get('hub_mode') === 'subscribe' && $request->get('hub_verify_token') === $this->config->get('verification')) {
+            return Response::create($request->get('hub_challenge'))->send();
+        }
     }
 
     /**
@@ -144,7 +157,7 @@ class FacebookDriver extends HttpDriver
     protected function validateSignature()
     {
         return hash_equals($this->signature,
-            'sha1='.hash_hmac('sha1', $this->content, $this->config->get('facebook_app_secret')));
+            'sha1='.hash_hmac('sha1', $this->content, $this->config->get('app_secret')));
     }
 
     /**
@@ -157,7 +170,7 @@ class FacebookDriver extends HttpDriver
             'recipient' => [
                 'id' => $matchingMessage->getSender(),
             ],
-            'access_token' => $this->config->get('facebook_token'),
+            'access_token' => $this->config->get('token'),
             'sender_action' => 'typing_on',
         ];
 
@@ -281,7 +294,7 @@ class FacebookDriver extends HttpDriver
             }
         }
 
-        $parameters['access_token'] = $this->config->get('facebook_token');
+        $parameters['access_token'] = $this->config->get('token');
 
         return $parameters;
     }
@@ -300,7 +313,7 @@ class FacebookDriver extends HttpDriver
      */
     public function isConfigured()
     {
-        return ! empty($this->config->get('facebook_token'));
+        return ! empty($this->config->get('token'));
     }
 
     /**
@@ -311,7 +324,7 @@ class FacebookDriver extends HttpDriver
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
-        $profileData = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields=first_name,last_name&access_token='.$this->config->get('facebook_token'));
+        $profileData = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields=first_name,last_name&access_token='.$this->config->get('token'));
 
         $profileData = json_decode($profileData->getContent());
         $firstName = isset($profileData->first_name) ? $profileData->first_name : null;
@@ -331,7 +344,7 @@ class FacebookDriver extends HttpDriver
     public function sendRequest($endpoint, array $parameters, IncomingMessage $matchingMessage)
     {
         $parameters = array_replace_recursive([
-            'access_token' => $this->config->get('facebook_token'),
+            'access_token' => $this->config->get('token'),
         ], $parameters);
 
         return $this->http->post('https://graph.facebook.com/v2.6/'.$endpoint, [], $parameters);
