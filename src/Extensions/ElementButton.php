@@ -145,23 +145,25 @@ class ElementButton
             'type' => $this->type,
         ];
 
-        if ($this->type !== self::TYPE_ACCOUNT_LINK) {
-            $buttonArray['title'] = $this->title;
-        }
+        if ($this->type !== self::TYPE_SHARE) {
+            if ($this->type !== self::TYPE_ACCOUNT_LINK) {
+                $buttonArray['title'] = $this->title;
+            }
 
-        if ($this->type === self::TYPE_POSTBACK) {
-            $buttonArray['payload'] = $this->payload;
-        } else {
-            $buttonArray['url'] = $this->url;
-        }
+            if ($this->type === self::TYPE_POSTBACK) {
+                $buttonArray['payload'] = $this->payload;
+            } else {
+                $buttonArray['url'] = $this->url;
+            }
 
-        if ($this->type === self::TYPE_WEB_URL) {
-            $buttonArray['webview_height_ratio'] = $this->webview_height_ratio;
-            $buttonArray['webview_share_button'] = $this->webview_share_button;
+            if ($this->type === self::TYPE_WEB_URL) {
+                $buttonArray['webview_height_ratio'] = $this->webview_height_ratio;
+                $buttonArray['webview_share_button'] = $this->webview_share_button;
 
-            if ($this->messenger_extensions) {
-                $buttonArray['messenger_extensions'] = $this->messenger_extensions;
-                $buttonArray['fallback_url'] = $this->fallback_url ?: $this->url;
+                if ($this->messenger_extensions) {
+                    $buttonArray['messenger_extensions'] = $this->messenger_extensions;
+                    $buttonArray['fallback_url'] = $this->fallback_url ?: $this->url;
+                }
             }
         }
 
