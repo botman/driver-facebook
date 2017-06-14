@@ -2,6 +2,11 @@
 
 BotMan driver to connect Facebook messenger with [BotMan](https://github.com/botman/botman)
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/botman/driver-facebook.svg?style=flat-square)](https://packagist.org/packages/mpociot/botman)
+[![Build Status](https://travis-ci.org/botman/driver-facebook.svg?branch=master)](https://travis-ci.org/botman/driver-facebook)
+[![codecov](https://codecov.io/gh/botman/driver-facebook/branch/master/graph/badge.svg)](https://codecov.io/gh/botman/driver-facebook)
+
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
