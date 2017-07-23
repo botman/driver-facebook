@@ -9,5 +9,9 @@
         "BotMan\\Drivers\\Facebook\\FacebookImageDriver",
         "BotMan\\Drivers\\Facebook\\FacebookLocationDriver",
         "BotMan\\Drivers\\Facebook\\FacebookVideoDriver"
+    ],
+    "botman/commands": [
+        "BotMan\\Drivers\\Facebook\\Commands\\AddPersistentMenu",
+        "BotMan\\Drivers\\Facebook\\Commands\\AddStartButtonPayload"
     ]
 }
