@@ -2,26 +2,26 @@
 
 namespace Tests\Drivers;
 
+use Mockery as m;
+use BotMan\BotMan\Http\Curl;
+use PHPUnit_Framework_TestCase;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Cache\ArrayCache;
-use BotMan\BotMan\Drivers\Events\GenericEvent;
-use BotMan\BotMan\Http\Curl;
-use BotMan\BotMan\Messages\Attachments\Audio;
-use BotMan\BotMan\Messages\Attachments\File;
-use BotMan\BotMan\Messages\Attachments\Image;
-use BotMan\BotMan\Messages\Incoming\IncomingMessage;
-use BotMan\BotMan\Messages\Outgoing\Actions\Button;
-use BotMan\BotMan\Messages\Outgoing\Question;
-use BotMan\Drivers\Facebook\Events\MessagingCheckoutUpdates;
-use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
-use BotMan\Drivers\Facebook\Events\MessagingOptins;
-use BotMan\Drivers\Facebook\Events\MessagingPostbacks;
-use BotMan\Drivers\Facebook\Events\MessagingReads;
-use BotMan\Drivers\Facebook\Events\MessagingReferrals;
 use BotMan\Drivers\Facebook\FacebookDriver;
-use Mockery as m;
-use PHPUnit_Framework_TestCase;
+use BotMan\BotMan\Messages\Attachments\File;
+use BotMan\BotMan\Messages\Attachments\Audio;
+use BotMan\BotMan\Messages\Attachments\Image;
+use BotMan\BotMan\Messages\Outgoing\Question;
 use Symfony\Component\HttpFoundation\Request;
+use BotMan\BotMan\Drivers\Events\GenericEvent;
+use BotMan\Drivers\Facebook\Events\MessagingReads;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use BotMan\Drivers\Facebook\Events\MessagingOptins;
+use BotMan\BotMan\Messages\Incoming\IncomingMessage;
+use BotMan\Drivers\Facebook\Events\MessagingPostbacks;
+use BotMan\Drivers\Facebook\Events\MessagingReferrals;
+use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
+use BotMan\Drivers\Facebook\Events\MessagingCheckoutUpdates;
 
 class FacebookDriverTest extends PHPUnit_Framework_TestCase
 {
@@ -43,8 +43,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         if (is_null($config)) {
             $config = [
                 'facebook' => [
-                    'token' => 'Foo'
-                ]
+                    'token' => 'Foo',
+                ],
             ];
         }
         $request = $this->getRequest($responseData);
@@ -75,7 +75,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
                 'app_secret' => 'Bar',
-            ]
+            ],
         ];
         $request = '{}';
         $driver = $this->getDriver($request, $config);
@@ -87,7 +87,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
                 'app_secret' => 'Bar',
-            ]
+            ],
         ];
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi"}}]}]}';
         $driver = $this->getDriver($request, $config, $signature);
@@ -99,7 +99,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
                 'app_secret' => 'Bar',
-            ]
+            ],
         ];
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi"}}]}]}';
         $driver = $this->getDriver($request, $config, $signature);
@@ -130,7 +130,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $config = [
             'facebook' => [
                 'token' => 'Foo',
-            ]
+            ],
         ];
 
         $driver = new FacebookDriver($request, $config, $html);
@@ -469,13 +469,11 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('getContent')->andReturn('');
         $htmlInterface = m::mock(Curl::class);
 
-
-
         $config = [
             'facebook' => [
                 'token' => 'Foo',
                 'app_secret' => 'Bar',
-            ]
+            ],
         ];
         $driver = new FacebookDriver($request, $config, $htmlInterface);
 
@@ -485,7 +483,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => null,
                 'app_secret' => 'Bar',
-            ]
+            ],
         ];
         $driver = new FacebookDriver($request, $config, $htmlInterface);
 

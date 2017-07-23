@@ -6,8 +6,8 @@ use Mockery as m;
 use BotMan\BotMan\Http\Curl;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\Drivers\Facebook\FacebookVideoDriver;
+use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
 class FacebookVideoDriverTest extends PHPUnit_Framework_TestCase
 {
