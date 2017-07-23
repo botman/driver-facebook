@@ -5,11 +5,9 @@ namespace Tests\Drivers;
 use Mockery as m;
 use BotMan\BotMan\Http\Curl;
 use PHPUnit_Framework_TestCase;
-use BotMan\BotMan\BotManFactory;
-use BotMan\BotMan\Cache\ArrayCache;
 use Symfony\Component\HttpFoundation\Request;
-use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\Drivers\Facebook\FacebookImageDriver;
+use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
 class FacebookImageDriverTest extends PHPUnit_Framework_TestCase
 {

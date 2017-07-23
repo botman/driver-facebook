@@ -2,8 +2,8 @@
 
 namespace BotMan\Drivers\Facebook\Commands;
 
-use Illuminate\Console\Command;
 use BotMan\BotMan\Http\Curl;
+use Illuminate\Console\Command;
 
 class AddPersistentMenu extends Command
 {
@@ -46,7 +46,7 @@ class AddPersistentMenu extends Command
     {
         $payload = config('services.botman.facebook.persistent_menu');
 
-        if (!$payload) {
+        if (! $payload) {
             $this->error('You need to add a Facebook menu payload data to your BotMan config in services.php.');
             exit;
         }

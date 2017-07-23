@@ -2,9 +2,8 @@
 
 namespace BotMan\Drivers\Facebook\Commands;
 
-
-use Illuminate\Console\Command;
 use Botman\BotMan\Http\Curl;
+use Illuminate\Console\Command;
 
 class AddStartButtonPayload extends Command
 {
@@ -56,8 +55,8 @@ class AddStartButtonPayload extends Command
             'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='.config('services.botman.facebook.token'),
             [],
             [
-                "get_started" => [
-                    "payload" => $payload,
+                'get_started' => [
+                    'payload' => $payload,
                 ],
             ]
         );
