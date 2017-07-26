@@ -710,14 +710,14 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_calls_postback_event()
+    public function it_shows_that_postback_is_no_event_anymore()
     {
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"postback":{"payload":"MY_PAYLOAD"}}]}]}';
         $driver = $this->getDriver($request);
-
         $event = $driver->hasMatchingEvent();
-        $this->assertInstanceOf(MessagingPostbacks::class, $event);
-        $this->assertSame('messaging_postbacks', $event->getName());
+        $this->assertFalse($event);
+        $this->assertEquals(1, count($driver->getMessages()));
+        $this->assertEquals('MY_PAYLOAD', $driver->getMessages()[0]->getText());
     }
 
     /** @test */
