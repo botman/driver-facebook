@@ -79,7 +79,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $validSignature = ! $this->config->has('app_secret') || $this->validateSignature();
         $messages = Collection::make($this->event->get('messaging'))->filter(function ($msg) {
-            return (isset($msg['message']) && isset($msg['message']['text'])) || (isset($msg['postback']) && isset($msg['postback']['payload']));
+            return isset($msg['message']['text']) || isset($msg['postback']['payload']);
         });
 
         return ! $messages->isEmpty() && $validSignature;
@@ -211,10 +211,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $messages = Collection::make($this->event->get('messaging'));
         $messages = $messages->transform(function ($msg) {
-            if (isset($msg['message']) && isset($msg['message']['text'])) {
+            if (isset($msg['message']['text'])) {
                 return new IncomingMessage($msg['message']['text'], $msg['sender']['id'], $msg['recipient']['id'],
                     $msg);
-            } elseif (isset($msg['postback']) && isset($msg['postback']['payload'])) {
+            } elseif (isset($msg['postback']['payload'])) {
                 return new IncomingMessage($msg['postback']['payload'], $msg['sender']['id'], $msg['recipient']['id'],
                     $msg);
             }
