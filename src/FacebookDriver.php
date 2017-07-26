@@ -7,20 +7,20 @@ use Illuminate\Support\Collection;
 use BotMan\BotMan\Drivers\HttpDriver;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Attachments\File;
-use BotMan\BotMan\Interfaces\VerifiesService;
+use Symfony\Component\HttpFoundation\Request;
 use BotMan\BotMan\Messages\Attachments\Audio;
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Attachments\Video;
 use BotMan\BotMan\Messages\Outgoing\Question;
-use Symfony\Component\HttpFoundation\Request;
-use BotMan\BotMan\Drivers\Events\GenericEvent;
+use BotMan\BotMan\Interfaces\VerifiesService;
 use Symfony\Component\HttpFoundation\Response;
-use BotMan\BotMan\Interfaces\DriverEventInterface;
-use BotMan\Drivers\Facebook\Events\MessagingReads;
+use BotMan\BotMan\Drivers\Events\GenericEvent;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use BotMan\Drivers\Facebook\Events\MessagingOptins;
+use BotMan\BotMan\Interfaces\DriverEventInterface;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use BotMan\Drivers\Facebook\Events\MessagingReads;
+use BotMan\Drivers\Facebook\Events\MessagingOptins;
 use BotMan\Drivers\Facebook\Extensions\ListTemplate;
 use BotMan\Drivers\Facebook\Events\MessagingReferrals;
 use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
@@ -79,9 +79,8 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $validSignature = ! $this->config->has('app_secret') || $this->validateSignature();
         $messages = Collection::make($this->event->get('messaging'))->filter(function ($msg) {
-            return isset($msg['message']) && isset($msg['message']['text']);
+            return (isset($msg['message']) && isset($msg['message']['text'])) || (isset($msg['postback']) && isset($msg['postback']['payload']));
         });
-
         return ! $messages->isEmpty() && $validSignature;
     }
 
@@ -102,7 +101,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     public function hasMatchingEvent()
     {
         $event = Collection::make($this->event->get('messaging'))->filter(function ($msg) {
-            return Collection::make($msg)->except(['sender', 'recipient', 'timestamp', 'message'])->isEmpty() === false;
+            return Collection::make($msg)->except(['sender', 'recipient', 'timestamp', 'message', 'postback'])->isEmpty() === false;
         })->transform(function ($msg) {
             return Collection::make($msg)->toArray();
         })->first();
@@ -122,32 +121,29 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     protected function getEventFromEventData(array $eventData)
     {
-        $name = Collection::make($eventData)->except(['sender', 'recipient', 'timestamp', 'message'])->keys()->first();
+        $name = Collection::make($eventData)->except(['sender', 'recipient', 'timestamp', 'message', 'postback'])->keys()->first();
         switch ($name) {
-            case 'postback':
-                return new Events\MessagingPostbacks($eventData);
-            break;
             case 'referral':
                 return new MessagingReferrals($eventData);
-            break;
+                break;
             case 'optin':
                 return new MessagingOptins($eventData);
-            break;
+                break;
             case 'delivery':
                 return new MessagingDeliveries($eventData);
-            break;
+                break;
             case 'read':
                 return new MessagingReads($eventData);
-            break;
+                break;
             case 'checkout_update':
                 return new Events\MessagingCheckoutUpdates($eventData);
-            break;
+                break;
             default:
                 $event = new GenericEvent($eventData);
                 $event->setName($name);
 
                 return $event;
-            break;
+                break;
         }
     }
 
@@ -186,6 +182,8 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         $payload = $message->getPayload();
         if (isset($payload['message']['quick_reply'])) {
             return Answer::create($message->getText())->setMessage($message)->setInteractiveReply(true)->setValue($payload['message']['quick_reply']['payload']);
+        } elseif(isset($payload['postback']['payload'])) {
+            return Answer::create($payload['postback']['title'])->setMessage($message)->setInteractiveReply(true)->setValue($payload['postback']['payload']);
         }
 
         return Answer::create($message->getText())->setMessage($message);
@@ -202,6 +200,8 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         $messages = $messages->transform(function ($msg) {
             if (isset($msg['message']) && isset($msg['message']['text'])) {
                 return new IncomingMessage($msg['message']['text'], $msg['sender']['id'], $msg['recipient']['id'], $msg);
+            } elseif (isset($msg['postback']) && isset($msg['postback']['payload'])) {
+                return new IncomingMessage($msg['postback']['payload'], $msg['sender']['id'], $msg['recipient']['id'], $msg);
             }
 
             return new IncomingMessage('', '', '');
