@@ -18,7 +18,6 @@ use BotMan\Drivers\Facebook\Events\MessagingReads;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\Drivers\Facebook\Events\MessagingOptins;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
-use BotMan\Drivers\Facebook\Events\MessagingPostbacks;
 use BotMan\Drivers\Facebook\Events\MessagingReferrals;
 use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
 use BotMan\Drivers\Facebook\Events\MessagingCheckoutUpdates;
