@@ -133,6 +133,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $event = $driver->hasMatchingEvent();
         $this->assertFalse($event);
     }
+
     /** @test */
     public function it_can_originate_messages()
     {
