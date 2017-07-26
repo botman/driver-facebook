@@ -107,13 +107,13 @@ class FacebookDriver extends HttpDriver implements VerifiesService
                     'recipient',
                     'timestamp',
                     'message',
-                    'postback'
+                    'postback',
                 ])->isEmpty() === false;
         })->transform(function ($msg) {
             return Collection::make($msg)->toArray();
         })->first();
 
-        if ( ! is_null($event)) {
+        if (! is_null($event)) {
             $this->driverEvent = $this->getEventFromEventData($event);
 
             return $this->driverEvent;
@@ -133,7 +133,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             'recipient',
             'timestamp',
             'message',
-            'postback'
+            'postback',
         ])->keys()->first();
         switch ($name) {
             case 'referral':
