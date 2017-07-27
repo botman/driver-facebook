@@ -55,6 +55,8 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     protected $driverEvent;
 
     protected $facebookProfileEndpoint = 'https://graph.facebook.com/v2.6/';
+    /** @var bool If the incoming request is a FB postback */
+    protected $isPostback = false;
 
     const DRIVER_NAME = 'Facebook';
 
@@ -215,6 +217,8 @@ class FacebookDriver extends HttpDriver implements VerifiesService
                 return new IncomingMessage($msg['message']['text'], $msg['sender']['id'], $msg['recipient']['id'],
                     $msg);
             } elseif (isset($msg['postback']['payload'])) {
+                $this->isPostback = true;
+
                 return new IncomingMessage($msg['postback']['payload'], $msg['sender']['id'], $msg['recipient']['id'],
                     $msg);
             }
@@ -236,6 +240,16 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         // Facebook bot replies don't get returned
         return false;
+    }
+
+    /**
+     * Tells if the current request is a callback.
+     *
+     * @return bool
+     */
+    public function isPostback()
+    {
+        return $this->isPostback;
     }
 
     /**
