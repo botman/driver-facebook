@@ -7,7 +7,6 @@ use BotMan\Drivers\Facebook\FacebookUser;
 
 class FacebookUserTest extends PHPUnit_Framework_TestCase
 {
-
     public function createTestUser()
     {
         $user = new FacebookUser(
