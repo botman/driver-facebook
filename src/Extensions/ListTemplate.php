@@ -3,8 +3,9 @@
 namespace BotMan\Drivers\Facebook\Extensions;
 
 use JsonSerializable;
+use BotMan\BotMan\Interfaces\WebAccess;
 
-class ListTemplate implements JsonSerializable
+class ListTemplate implements JsonSerializable, WebAccess
 {
     /** @var array */
     protected $elements = [];
@@ -96,5 +97,20 @@ class ListTemplate implements JsonSerializable
     public function jsonSerialize()
     {
         return $this->toArray();
+    }
+
+    /**
+     * Get the instance as a web accessible array.
+     * This will be used within the WebDriver.
+     *
+     * @return array
+     */
+    public function toWebDriver()
+    {
+        return [
+            'type' => 'list',
+            'elements' => $this->elements,
+            'globalButtons' => [$this->globalButton]
+        ];
     }
 }

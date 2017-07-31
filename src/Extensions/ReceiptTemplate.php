@@ -3,8 +3,9 @@
 namespace BotMan\Drivers\Facebook\Extensions;
 
 use JsonSerializable;
+use BotMan\BotMan\Interfaces\WebAccess;
 
-class ReceiptTemplate implements JsonSerializable
+class ReceiptTemplate implements JsonSerializable, WebAccess
 {
     /** @var string */
     protected $recipient_name;
@@ -230,5 +231,29 @@ class ReceiptTemplate implements JsonSerializable
     public function jsonSerialize()
     {
         return $this->toArray();
+    }
+
+    /**
+     * Get the instance as a web accessible array.
+     * This will be used within the WebDriver.
+     *
+     * @return array
+     */
+    public function toWebDriver()
+    {
+        return [
+            'type' => 'receipt',
+            'recipient_name' => $this->recipient_name,
+            'merchant_name' => $this->merchant_name,
+            'order_number' => $this->order_number,
+            'currency' => $this->currency,
+            'payment_method' => $this->payment_method,
+            'order_url' => $this->order_url,
+            'timestamp' => $this->timestamp,
+            'elements' => $this->elements,
+            'address' => $this->address,
+            'summary' => $this->summary,
+            'adjustments' => $this->adjustments,
+        ];
     }
 }
