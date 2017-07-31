@@ -23,7 +23,7 @@ class FacebookUserTest extends PHPUnit_Framework_TestCase
                 'source' => 'ADS',
                 'type' => 'OPEN_THREAD',
                 'ad_id' => '6045246247433',
-            ]
+            ],
         ];
 
         $user = new FacebookUser(
