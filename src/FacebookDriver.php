@@ -2,7 +2,6 @@
 
 namespace BotMan\Drivers\Facebook;
 
-use BotMan\BotMan\Users\User;
 use Illuminate\Support\Collection;
 use BotMan\BotMan\Drivers\HttpDriver;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -350,17 +349,17 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * Retrieve User information.
      *
      * @param IncomingMessage $matchingMessage
-     * @return \BotMan\BotMan\Users\User
+     * @return FacebookUser
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
-        $profileData = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields=first_name,last_name&access_token='.$this->config->get('token'));
+        $userInfo = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields=first_name,last_name,profile_pic,locale,timezone,gender,is_payment_enabled,last_ad_referral&access_token='.$this->config->get('token'));
 
-        $profileData = json_decode($profileData->getContent());
-        $firstName = isset($profileData->first_name) ? $profileData->first_name : null;
-        $lastName = isset($profileData->last_name) ? $profileData->last_name : null;
+        $userInfo = json_decode($userInfo->getContent(), true);
+        $firstName = $userInfo['first_name'] ?? null;
+        $lastName = $userInfo['last_name'] ?? null;
 
-        return new User($matchingMessage->getSender(), $firstName, $lastName);
+        return new FacebookUser($matchingMessage->getSender(), $firstName, $lastName, null, $userInfo);
     }
 
     /**
