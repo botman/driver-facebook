@@ -17,7 +17,7 @@ class FacebookUser extends User
     protected $locale;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $timezone;
 
@@ -27,7 +27,7 @@ class FacebookUser extends User
     protected $gender;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $is_payment_enabled;
 
@@ -79,7 +79,7 @@ class FacebookUser extends User
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getTimezone()
     {
@@ -95,7 +95,7 @@ class FacebookUser extends User
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsPaymentEnabled()
     {

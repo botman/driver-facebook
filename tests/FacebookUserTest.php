@@ -2,14 +2,8 @@
 
 namespace Tests\Drivers;
 
-use BotMan\Drivers\Facebook\FacebookUser;
-use Mockery as m;
-use BotMan\BotMan\Http\Curl;
 use PHPUnit_Framework_TestCase;
-use React\Promise\TestCase;
-use Symfony\Component\HttpFoundation\Request;
-use BotMan\Drivers\Facebook\FacebookVideoDriver;
-use BotMan\BotMan\Messages\Incoming\IncomingMessage;
+use BotMan\Drivers\Facebook\FacebookUser;
 
 class FacebookUserTest extends PHPUnit_Framework_TestCase
 {
@@ -29,7 +23,7 @@ class FacebookUserTest extends PHPUnit_Framework_TestCase
             [
                 'source' => 'ADS',
                 'type' => 'OPEN_THREAD',
-                'ad_id' => '6045246247433'
+                'ad_id' => '6045246247433',
             ]
         );
 
@@ -96,10 +90,10 @@ class FacebookUserTest extends PHPUnit_Framework_TestCase
     {
         $user = $this->createTestUser();
 
-        $this->assertEquals( [
+        $this->assertEquals([
             'source' => 'ADS',
             'type' => 'OPEN_THREAD',
-            'ad_id' => '6045246247433'
+            'ad_id' => '6045246247433',
         ], $user->getLastAdReferral());
     }
 }
