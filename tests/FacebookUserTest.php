@@ -9,21 +9,29 @@ class FacebookUserTest extends PHPUnit_Framework_TestCase
 {
     public function createTestUser()
     {
+        $userInfo = [
+            'id' => '1234',
+            'first_name' => 'Christine',
+            'last_name' => 'Manning',
+            'username' => null,
+            'profile_pic' => 'http://profilepic.com',
+            'locale' => 'en_US',
+            'timezone' => -2,
+            'gender' => 'female',
+            'is_payment_enabled' => true,
+            'last_ad_referral' => [
+                'source' => 'ADS',
+                'type' => 'OPEN_THREAD',
+                'ad_id' => '6045246247433',
+            ]
+        ];
+
         $user = new FacebookUser(
             '1234',
             'Christine',
             'Manning',
             null,
-            'http://profilepic.com',
-            'en_US',
-            -2,
-            'female',
-            true,
-            [
-                'source' => 'ADS',
-                'type' => 'OPEN_THREAD',
-                'ad_id' => '6045246247433',
-            ]
+            $userInfo
         );
 
         return $user;

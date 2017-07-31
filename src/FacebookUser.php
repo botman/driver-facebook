@@ -7,58 +7,21 @@ use BotMan\BotMan\Users\User;
 class FacebookUser extends User
 {
     /**
-     * @var string
-     */
-    protected $profile_pic;
-
-    /**
-     * @var string
-     */
-    protected $locale;
-
-    /**
-     * @var int
-     */
-    protected $timezone;
-
-    /**
-     * @var string
-     */
-    protected $gender;
-
-    /**
-     * @var bool
-     */
-    protected $is_payment_enabled;
-
-    /**
      * @var array
      */
-    protected $last_ad_referral;
+    protected $user_info;
 
     public function __construct(
         $id = null,
         $first_name = null,
         $last_name = null,
         $username = null,
-        $profile_pic = null,
-        $locale = null,
-        $timezone = null,
-        $gender = null,
-        $is_payment_enabled = null,
-        $last_ad_referral = null,
         array $user_info = []
     ) {
         $this->id = $id;
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->username = $username;
-        $this->profile_pic = $profile_pic;
-        $this->locale = $locale;
-        $this->timezone = $timezone;
-        $this->gender = $gender;
-        $this->is_payment_enabled = $is_payment_enabled;
-        $this->last_ad_referral = $last_ad_referral;
         $this->user_info = (array) $user_info;
     }
 
@@ -67,7 +30,7 @@ class FacebookUser extends User
      */
     public function getProfilePic()
     {
-        return $this->profile_pic;
+        return $this->user_info['profile_pic'] ?? null;
     }
 
     /**
@@ -75,7 +38,7 @@ class FacebookUser extends User
      */
     public function getLocale()
     {
-        return $this->locale;
+        return $this->user_info['locale'] ?? null;
     }
 
     /**
@@ -83,7 +46,7 @@ class FacebookUser extends User
      */
     public function getTimezone()
     {
-        return $this->timezone;
+        return $this->user_info['timezone'] ?? null;
     }
 
     /**
@@ -91,7 +54,7 @@ class FacebookUser extends User
      */
     public function getGender()
     {
-        return $this->gender;
+        return $this->user_info['gender'] ?? null;
     }
 
     /**
@@ -99,7 +62,7 @@ class FacebookUser extends User
      */
     public function getIsPaymentEnabled()
     {
-        return $this->is_payment_enabled;
+        return $this->user_info['is_payment_enabled'] ?? null;
     }
 
     /**
@@ -107,6 +70,6 @@ class FacebookUser extends User
      */
     public function getLastAdReferral()
     {
-        return $this->last_ad_referral;
+        return $this->user_info['last_ad_referral'] ?? null;
     }
 }

@@ -358,15 +358,8 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         $userInfo = json_decode($userInfo->getContent(), true);
         $firstName = $userInfo['first_name'] ?? null;
         $lastName = $userInfo['last_name'] ?? null;
-        $profilePic = $userInfo['profile_pic'] ?? null;
-        $locale = $userInfo['locale'] ?? null;
-        $timezone = $userInfo['timezone'] ?? null;
-        $gender = $userInfo['gender'] ?? null;
-        $isPaymentEnabled = $userInfo['is_payment_enabled'] ?? null;
-        $lastAdReferral = $userInfo['last_ad_referral'] ?? null;
 
-        return new FacebookUser($matchingMessage->getSender(), $firstName, $lastName, null, $profilePic, $locale,
-            $timezone, $gender, $isPaymentEnabled, $lastAdReferral);
+        return new FacebookUser($matchingMessage->getSender(), $firstName, $lastName, null, $userInfo);
     }
 
     /**
