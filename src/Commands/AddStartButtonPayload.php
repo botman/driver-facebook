@@ -44,15 +44,15 @@ class AddStartButtonPayload extends Command
      */
     public function handle()
     {
-        $payload = config('services.botman.facebook.start_button_payload');
+        $payload = config('botman.facebook.start_button_payload');
 
         if (! $payload) {
-            $this->error('You need to add a Facebook payload data to your BotMan config in services.php.');
+            $this->error('You need to add a Facebook payload data to your BotMan Facebook config in facebook.php.');
             exit;
         }
 
         $response = $this->http->post(
-            'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='.config('services.botman.facebook.token'),
+            'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='.config('botman.facebook.token'),
             [],
             [
                 'get_started' => [
