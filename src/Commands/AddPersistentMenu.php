@@ -44,14 +44,14 @@ class AddPersistentMenu extends Command
      */
     public function handle()
     {
-        $payload = config('services.botman.facebook.persistent_menu');
+        $payload = config('botman.facebook.persistent_menu');
 
         if (! $payload) {
-            $this->error('You need to add a Facebook menu payload data to your BotMan config in services.php.');
+            $this->error('You need to add a Facebook menu payload data to your BotMan Facebook config in facebook.php.');
             exit;
         }
 
-        $response = $this->http->post('https://graph.facebook.com/v2.6/me/messenger_profile?access_token='.config('services.botman.facebook.token'),
+        $response = $this->http->post('https://graph.facebook.com/v2.6/me/messenger_profile?access_token='.config('botman.facebook.token'),
             [], $payload);
 
         $responseObject = json_decode($response->getContent());
