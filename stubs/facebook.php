@@ -44,5 +44,5 @@ return [
     */
     'whitelisted_domains' => [
         'https://petersfancyapparel.com',
-    ]
+    ],
 ];
