@@ -51,7 +51,7 @@ return [
             [
                 'locale' => 'en_US',
                 'text' => 'Timeless apparel for the masses.',
-            ]
-        ]
-    ]
+            ],
+        ],
+    ],
 ];
