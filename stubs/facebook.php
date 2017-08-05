@@ -43,6 +43,6 @@ return [
     |
     */
     'whitelisted_domains' => [
-        "https://petersfancyapparel.com"
+        "https://petersfancyapparel.com",
     ]
 ];
