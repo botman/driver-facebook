@@ -14,6 +14,7 @@ use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use Symfony\Component\HttpFoundation\Request;
 use BotMan\BotMan\Drivers\Events\GenericEvent;
+use Symfony\Component\HttpFoundation\Response;
 use BotMan\Drivers\Facebook\Events\MessagingReads;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\Drivers\Facebook\Events\MessagingOptins;
@@ -21,7 +22,6 @@ use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\Drivers\Facebook\Events\MessagingReferrals;
 use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
 use BotMan\Drivers\Facebook\Events\MessagingCheckoutUpdates;
-use Symfony\Component\HttpFoundation\Response;
 
 class FacebookDriverTest extends PHPUnit_Framework_TestCase
 {
@@ -153,8 +153,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
     {
         $botman = BotManFactory::create([], new ArrayCache());
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('post')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')
             ->once()
             ->with('https://graph.facebook.com/v2.6/me/messages', [], [
                 'recipient' => [
@@ -175,7 +175,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $driver = new FacebookDriver($request, $config, $html);
+        $driver = new FacebookDriver($request, $config, $htmlInterface);
 
         $user_id = '1234567890';
         $botman->say('Test', $user_id, $driver);
@@ -204,14 +204,13 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $facebookResponse = '{"first_name":"John","last_name":"Doe","profile_pic":"https://facebook.com/profilepic","locale":"en_US","timezone":2,"gender":"male","is_payment_enabled":true}';
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('get')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('get')
             ->once()
             ->with('https://graph.facebook.com/v2.6/1433960459967306?fields=first_name,last_name,profile_pic,locale,timezone,gender,is_payment_enabled,last_ad_referral&access_token=Foo'
             )->andReturn(new Response($facebookResponse));
 
-
-        $driver = $this->getDriver($request, null, '', $html);
+        $driver = $this->getDriver($request, null, '', $htmlInterface);
         $message = $driver->getMessages()[0];
         $user = $driver->getUser($message);
 
@@ -286,8 +285,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('post')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')
             ->once()
             ->with('https://graph.facebook.com/v2.6/me/messages', [], [
                 'recipient' => [
@@ -306,7 +305,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
             ],
-        ], $html);
+        ], $htmlInterface);
 
         $message = new IncomingMessage('', '1234567890', '');
         $driver->sendPayload($driver->buildServicePayload('Test', $message));
@@ -336,8 +335,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('post')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')
             ->once()
             ->with('https://graph.facebook.com/v2.6/me/messages', [], [
                 'recipient' => [
@@ -357,7 +356,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
             ],
-        ], $html);
+        ], $htmlInterface);
 
         $message = new IncomingMessage('', '1234567890', '');
         $driver->sendPayload($driver->buildServicePayload('Test', $message, [
@@ -432,8 +431,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             ->addButton(Button::create('Great')->value('great'))
             ->addButton(Button::create('Good')->value('good'));
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('post')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')
             ->once()
             ->with('https://graph.facebook.com/v2.6/me/messages', [], [
                 'recipient' => [
@@ -466,7 +465,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
             ],
-        ], $html);
+        ], $htmlInterface);
 
         $message = new IncomingMessage('', '1234567890', '');
         $driver->sendPayload($driver->buildServicePayload($question, $message));
@@ -479,8 +478,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             ->addButton(Button::create('Great')->value('great')->additionalParameters(['foo' => 'bar']))
             ->addButton(Button::create('Good')->value('good'));
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('post')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')
             ->once()
             ->with('https://graph.facebook.com/v2.6/me/messages', [], [
                 'recipient' => [
@@ -514,7 +513,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
             ],
-        ], $html);
+        ], $htmlInterface);
 
         $message = new IncomingMessage('', '1234567890', '');
         $driver->sendPayload($driver->buildServicePayload($question, $message));
@@ -576,8 +575,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('post')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')
             ->once()
             ->with('https://graph.facebook.com/v2.6/me/messages', [], [
                 'recipient' => [
@@ -596,7 +595,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
             ],
-        ], $html);
+        ], $htmlInterface);
 
         $message = new IncomingMessage('', '1234567890', '');
         $driver->sendPayload($driver->buildServicePayload(\BotMan\BotMan\Messages\Outgoing\OutgoingMessage::create('Test'), $message));
@@ -626,8 +625,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('post')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')
             ->once()
             ->with('https://graph.facebook.com/v2.6/me/messages', [], [
                 'recipient' => [
@@ -651,7 +650,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
             ],
-        ], $html);
+        ], $htmlInterface);
 
         $message = new IncomingMessage('', '1234567890', '');
         $driver->sendPayload($driver->buildServicePayload(\BotMan\BotMan\Messages\Outgoing\OutgoingMessage::create('Test', Image::url('http://image.url//foo.png')), $message));
@@ -681,8 +680,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('post')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')
             ->once()
             ->with('https://graph.facebook.com/v2.6/me/messages', [], [
                 'recipient' => [
@@ -706,7 +705,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
             ],
-        ], $html);
+        ], $htmlInterface);
 
         $message = new IncomingMessage('', '1234567890', '');
         $driver->sendPayload($driver->buildServicePayload(\BotMan\BotMan\Messages\Outgoing\OutgoingMessage::create('Test', Audio::url('http://image.url//foo.mp3')), $message));
@@ -736,8 +735,8 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $html = m::mock(Curl::class);
-        $html->shouldReceive('post')
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')
             ->once()
             ->with('https://graph.facebook.com/v2.6/me/messages', [], [
                 'recipient' => [
@@ -761,7 +760,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
             'facebook' => [
                 'token' => 'Foo',
             ],
-        ], $html);
+        ], $htmlInterface);
 
         $message = new IncomingMessage('', '1234567890', '');
         $driver->sendPayload($driver->buildServicePayload(\BotMan\BotMan\Messages\Outgoing\OutgoingMessage::create('Test', File::url('http://image.url//foo.pdf')), $message));
