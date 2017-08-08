@@ -398,7 +398,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * @return mixed
      * @throws FacebookException
      */
-    protected function throwExceptionIfResponseNotOk(Response $facebookResponse): void
+    protected function throwExceptionIfResponseNotOk(Response $facebookResponse)
     {
         if ($facebookResponse->getStatusCode() !== 200) {
             $responseData = json_decode($facebookResponse->getContent(), true);
