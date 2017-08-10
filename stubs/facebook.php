@@ -77,7 +77,7 @@ return [
             ],
         ],
     ],
-      
+
     /*
     |--------------------------------------------------------------------------
     | Facebook Domain Whitelist
@@ -90,4 +90,3 @@ return [
         'https://petersfancyapparel.com',
     ],
 ];
-
