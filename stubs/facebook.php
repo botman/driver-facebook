@@ -77,4 +77,17 @@ return [
             ],
         ],
     ],
+      
+    /*
+    |--------------------------------------------------------------------------
+    | Facebook Domain Whitelist
+    |--------------------------------------------------------------------------
+    |
+    | In order to use domains you need to whitelist them
+    |
+    */
+    'whitelisted_domains' => [
+        'https://petersfancyapparel.com',
+    ],
 ];
+
