@@ -36,6 +36,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Facebook Start Button Payload
+    |--------------------------------------------------------------------------
+    |
+    | The payload which is sent when the Get Started Button is clicked.
+    |
+    */
+    'start_button_payload' => 'GET_STARTED',
+
+    /*
+    |--------------------------------------------------------------------------
     | Facebook Greeting Text
     |--------------------------------------------------------------------------
     |
@@ -53,5 +63,51 @@ return [
                 'text' => 'Timeless apparel for the masses.',
             ],
         ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Facebook Persistent Menu
+    |--------------------------------------------------------------------------
+    |
+    | Example items for your persistent Facebook menu.
+    |
+    */
+    'persistent_menu' => [
+        [
+            'locale' => 'default',
+            'composer_input_disabled' => 'true',
+            'call_to_actions' => [
+                [
+                    'title' => 'My Account',
+                    'type' => 'nested',
+                    'call_to_actions' => [
+                        [
+                            'title' => 'Pay Bill',
+                            'type' => 'postback',
+                            'payload' => 'PAYBILL_PAYLOAD',
+                        ],
+                    ],
+                ],
+                [
+                    'type' => 'web_url',
+                    'title' => 'Latest News',
+                    'url' => 'http://botman.io',
+                    'webview_height_ratio' => 'full',
+                ],
+            ],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Facebook Domain Whitelist
+    |--------------------------------------------------------------------------
+    |
+    | In order to use domains you need to whitelist them
+    |
+    */
+    'whitelisted_domains' => [
+        'https://petersfancyapparel.com',
     ],
 ];
