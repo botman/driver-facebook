@@ -26,6 +26,7 @@ use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
 use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
 use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 use BotMan\Drivers\Facebook\Extensions\ReceiptTemplate;
+use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 
 class FacebookDriver extends HttpDriver implements VerifiesService
 {
@@ -334,7 +335,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     public function sendPayload($payload)
     {
-        return $this->http->post('https://graph.facebook.com/v2.6/me/messages', [], $payload);
+        $response = $this->http->post('https://graph.facebook.com/v2.6/me/messages', [], $payload);
+        $this->throwExceptionIfResponseNotOk($response);
+
+        return $response;
     }
 
     /**
@@ -353,9 +357,11 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
-        $userInfo = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields=first_name,last_name,profile_pic,locale,timezone,gender,is_payment_enabled,last_ad_referral&access_token='.$this->config->get('token'));
+        $userInfoData = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields=first_name,last_name,profile_pic,locale,timezone,gender,is_payment_enabled,last_ad_referral&access_token='.$this->config->get('token'));
 
-        $userInfo = json_decode($userInfo->getContent(), true);
+        $this->throwExceptionIfResponseNotOk($userInfoData);
+        $userInfo = json_decode($userInfoData->getContent(), true);
+
         $firstName = $userInfo['first_name'] ?? null;
         $lastName = $userInfo['last_name'] ?? null;
 
@@ -385,5 +391,18 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * @param Response $facebookResponse
+     * @return mixed
+     * @throws FacebookException
+     */
+    protected function throwExceptionIfResponseNotOk(Response $facebookResponse)
+    {
+        if ($facebookResponse->getStatusCode() !== 200) {
+            $responseData = json_decode($facebookResponse->getContent(), true);
+            throw new FacebookException('Error sending payload: '.$responseData['error']['message']);
+        }
     }
 }
