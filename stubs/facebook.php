@@ -46,6 +46,27 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Facebook Greeting Text
+    |--------------------------------------------------------------------------
+    |
+    | Your Facebook Greeting Text which will be shown on your message start screen.
+    |
+    */
+    'greeting_text' => [
+        'greeting' => [
+            [
+                'locale' => 'default',
+                'text' => 'Hello!',
+            ],
+            [
+                'locale' => 'en_US',
+                'text' => 'Timeless apparel for the masses.',
+            ],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Facebook Persistent Menu
     |--------------------------------------------------------------------------
     |
