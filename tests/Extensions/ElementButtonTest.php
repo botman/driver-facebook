@@ -102,7 +102,7 @@ class ElementButtonTest extends PHPUnit_Framework_TestCase
         $button = new ElementButton('click me');
         $button->disableShare();
 
-        $this->assertSame('hide', Arr::get($button->toArray(), 'webview_share_button'));
+        $this->assertSame('HIDE', Arr::get($button->toArray(), 'webview_share_button'));
     }
 
     /**
