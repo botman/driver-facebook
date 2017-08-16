@@ -23,7 +23,7 @@ class ElementButton
     protected $webview_height_ratio = self::RATIO_FULL;
 
     /** @var string */
-    protected $webview_share_button = '';
+    protected $webview_share_button = 'SHOW';
 
     /** @var bool */
     protected $messenger_extensions = false;
@@ -119,7 +119,7 @@ class ElementButton
      */
     public function disableShare()
     {
-        $this->webview_share_button = 'hide';
+        $this->webview_share_button = 'HIDE';
 
         return $this;
     }
