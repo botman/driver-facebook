@@ -3,7 +3,7 @@
 namespace Tests\Drivers;
 
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\FacebookUser;
+use BotMan\Drivers\Facebook\Extensions\User;
 
 class FacebookUserTest extends PHPUnit_Framework_TestCase
 {
@@ -26,7 +26,7 @@ class FacebookUserTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $user = new FacebookUser(
+        $user = new User(
             '1234',
             'Christine',
             'Manning',

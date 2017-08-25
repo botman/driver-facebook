@@ -1,10 +1,11 @@
 <?php
 
-namespace BotMan\Drivers\Facebook;
+namespace BotMan\Drivers\Facebook\Extensions;
 
-use BotMan\BotMan\Users\User;
+use BotMan\BotMan\Interfaces\UserInterface;
+use BotMan\BotMan\Users\User as BotManUser;
 
-class FacebookUser extends User
+class User extends BotManUser implements UserInterface
 {
     /**
      * @var array
