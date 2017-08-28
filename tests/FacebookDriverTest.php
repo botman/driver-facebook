@@ -5,8 +5,6 @@ namespace Tests\Drivers;
 use Mockery as m;
 use BotMan\BotMan\Http\Curl;
 use PHPUnit_Framework_TestCase;
-use BotMan\BotMan\BotManFactory;
-use BotMan\BotMan\Cache\ArrayCache;
 use BotMan\Drivers\Facebook\FacebookDriver;
 use BotMan\BotMan\Messages\Attachments\File;
 use BotMan\BotMan\Messages\Attachments\Audio;
