@@ -2,7 +2,7 @@
 
 namespace BotMan\Drivers\Facebook\Commands;
 
-use Botman\BotMan\Http\Curl;
+use BotMan\BotMan\Http\Curl;
 use Illuminate\Console\Command;
 
 class AddGreetingText extends Command
