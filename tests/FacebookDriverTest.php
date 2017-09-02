@@ -5,8 +5,6 @@ namespace Tests\Drivers;
 use Mockery as m;
 use BotMan\BotMan\Http\Curl;
 use PHPUnit_Framework_TestCase;
-use BotMan\BotMan\BotManFactory;
-use BotMan\BotMan\Cache\ArrayCache;
 use BotMan\Drivers\Facebook\FacebookDriver;
 use BotMan\BotMan\Messages\Attachments\File;
 use BotMan\BotMan\Messages\Attachments\Audio;
@@ -147,39 +145,6 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $driver = $this->getDriver($request);
         $event = $driver->hasMatchingEvent();
         $this->assertFalse($event);
-    }
-
-    /** @test */
-    public function it_can_originate_messages()
-    {
-        $botman = BotManFactory::create([], new ArrayCache());
-
-        $htmlInterface = m::mock(Curl::class);
-        $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
-                'recipient' => [
-                    'id' => '1234567890',
-                ],
-                'message' => [
-                    'text' => 'Test',
-                ],
-                'access_token' => 'Foo',
-            ])->andReturn(new Response());
-
-        $request = m::mock(\Symfony\Component\HttpFoundation\Request::class.'[getContent]');
-        $request->shouldReceive('getContent')->andReturn('');
-
-        $config = [
-            'facebook' => [
-                'token' => 'Foo',
-            ],
-        ];
-
-        $driver = new FacebookDriver($request, $config, $htmlInterface);
-
-        $user_id = '1234567890';
-        $botman->say('Test', $user_id, $driver);
-
-        $this->assertInstanceOf(FacebookDriver::class, $botman->getDriver());
     }
 
     /** @test */

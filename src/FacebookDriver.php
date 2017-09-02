@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use BotMan\BotMan\Drivers\HttpDriver;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Attachments\File;
+use BotMan\Drivers\Facebook\Extensions\User;
 use BotMan\BotMan\Interfaces\VerifiesService;
 use BotMan\BotMan\Messages\Attachments\Audio;
 use BotMan\BotMan\Messages\Attachments\Image;
@@ -353,7 +354,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * Retrieve User information.
      *
      * @param IncomingMessage $matchingMessage
-     * @return FacebookUser
+     * @return User
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
@@ -365,7 +366,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         $firstName = $userInfo['first_name'] ?? null;
         $lastName = $userInfo['last_name'] ?? null;
 
-        return new FacebookUser($matchingMessage->getSender(), $firstName, $lastName, null, $userInfo);
+        return new User($matchingMessage->getSender(), $firstName, $lastName, null, $userInfo);
     }
 
     /**
