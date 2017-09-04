@@ -187,7 +187,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             'sender_action' => 'typing_on',
         ];
 
-        return $this->http->post('https://graph.facebook.com/v2.6/me/messages', [], $parameters);
+        return $this->http->post($this->facebookProfileEndpoint.'me/messages', [], $parameters);
     }
 
     /**
@@ -336,7 +336,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     public function sendPayload($payload)
     {
-        $response = $this->http->post('https://graph.facebook.com/v2.6/me/messages', [], $payload);
+        $response = $this->http->post($this->facebookProfileEndpoint.'me/messages', [], $payload);
         $this->throwExceptionIfResponseNotOk($response);
 
         return $response;
@@ -383,7 +383,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             'access_token' => $this->config->get('token'),
         ], $parameters);
 
-        return $this->http->post('https://graph.facebook.com/v2.6/'.$endpoint, [], $parameters);
+        return $this->http->post($this->facebookProfileEndpoint.$endpoint, [], $parameters);
     }
 
     /**
