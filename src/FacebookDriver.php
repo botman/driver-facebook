@@ -38,6 +38,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     protected $content;
 
     /** @var array */
+    protected $messages = [];
+
+    /** @var array */
     protected $templates = [
         ButtonTemplate::class,
         GenericTemplate::class,
@@ -213,6 +216,18 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     public function getMessages()
     {
+        if (empty($this->messages)) {
+            $this->loadMessages();
+        }
+
+        return $this->messages;
+    }
+
+    /**
+     * Load Facebook messages.
+     */
+    protected function loadMessages()
+    {
         $messages = Collection::make($this->event->get('messaging'));
         $messages = $messages->transform(function ($msg) {
             if (isset($msg['message']['text'])) {
@@ -229,10 +244,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         })->toArray();
 
         if (count($messages) === 0) {
-            return [new IncomingMessage('', '', '')];
+            $messages = [new IncomingMessage('', '', '')];
         }
 
-        return $messages;
+        $this->messages = $messages;
     }
 
     /**

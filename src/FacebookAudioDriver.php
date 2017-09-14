@@ -38,6 +38,18 @@ class FacebookAudioDriver extends FacebookDriver
      */
     public function getMessages()
     {
+        if (empty($this->messages)) {
+            $this->loadMessages();
+        }
+
+        return $this->messages;
+    }
+
+    /**
+     * Load Facebook messages.
+     */
+    protected function loadMessages()
+    {
         $messages = Collection::make($this->event->get('messaging'))->filter(function ($msg) {
             return isset($msg['message']) && isset($msg['message']['attachments']) && isset($msg['message']['attachments']);
         })->transform(function ($msg) {
@@ -48,10 +60,10 @@ class FacebookAudioDriver extends FacebookDriver
         })->toArray();
 
         if (count($messages) === 0) {
-            return [new IncomingMessage('', '', '')];
+            $messages = [new IncomingMessage('', '', '')];
         }
 
-        return $messages;
+        $this->messages = $messages;
     }
 
     /**
