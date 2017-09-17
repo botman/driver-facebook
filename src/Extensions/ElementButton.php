@@ -146,11 +146,11 @@ class ElementButton
         ];
 
         if ($this->type !== self::TYPE_SHARE) {
-            if ($this->type !== self::TYPE_ACCOUNT_LINK) {
+            if ($this->type !== self::TYPE_ACCOUNT_LINK && $this->type !== self::TYPE_ACCOUNT_UNLINK) {
                 $buttonArray['title'] = $this->title;
             }
 
-            if ($this->type === self::TYPE_POSTBACK) {
+            if ($this->type === self::TYPE_POSTBACK || $this->type === self::TYPE_CALL) {
                 $buttonArray['payload'] = $this->payload;
             } else {
                 $buttonArray['url'] = $this->url;

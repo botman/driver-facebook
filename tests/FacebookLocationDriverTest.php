@@ -138,6 +138,16 @@ class FacebookLocationDriverTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(IncomingMessage::class, $messages[0]);
     }
 
+    /** @test */
+    public function it_returns_the_message_as_reference()
+    {
+        $driver = $this->getDriver($this->getCorrectRequestData());
+
+        $hash = spl_object_hash($driver->getMessages()[0]);
+
+        $this->assertSame($hash, spl_object_hash($driver->getMessages()[0]));
+    }
+
     /**
      * @test
      **/

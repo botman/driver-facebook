@@ -74,6 +74,10 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $driver = $this->getDriver($request);
         $this->assertTrue($driver->matchesRequest());
 
+        $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"is_echo":true,"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi"}}]}]}';
+        $driver = $this->getDriver($request);
+        $this->assertFalse($driver->matchesRequest());
+
         $config = [
             'facebook' => [
                 'token' => 'Foo',
@@ -159,6 +163,17 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $driver = $this->getDriver($request);
 
         $this->assertSame('', $driver->getMessages()[0]->getText());
+    }
+
+    /** @test */
+    public function it_returns_the_message_as_reference()
+    {
+        $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi Julia"}}]}]}';
+        $driver = $this->getDriver($request);
+
+        $hash = spl_object_hash($driver->getMessages()[0]);
+
+        $this->assertSame($hash, spl_object_hash($driver->getMessages()[0]));
     }
 
     /** @test */

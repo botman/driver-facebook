@@ -38,6 +38,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     protected $content;
 
     /** @var array */
+    protected $messages = [];
+
+    /** @var array */
     protected $templates = [
         ButtonTemplate::class,
         GenericTemplate::class,
@@ -83,7 +86,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $validSignature = empty($this->config->get('app_secret')) || $this->validateSignature();
         $messages = Collection::make($this->event->get('messaging'))->filter(function ($msg) {
-            return isset($msg['message']['text']) || isset($msg['postback']['payload']);
+            return (isset($msg['message']['text']) || isset($msg['postback']['payload'])) && ! isset($msg['message']['is_echo']);
         });
 
         return ! $messages->isEmpty() && $validSignature;
@@ -187,7 +190,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             'sender_action' => 'typing_on',
         ];
 
-        return $this->http->post('https://graph.facebook.com/v2.6/me/messages', [], $parameters);
+        return $this->http->post($this->facebookProfileEndpoint.'me/messages', [], $parameters);
     }
 
     /**
@@ -213,6 +216,18 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     public function getMessages()
     {
+        if (empty($this->messages)) {
+            $this->loadMessages();
+        }
+
+        return $this->messages;
+    }
+
+    /**
+     * Load Facebook messages.
+     */
+    protected function loadMessages()
+    {
         $messages = Collection::make($this->event->get('messaging'));
         $messages = $messages->transform(function ($msg) {
             if (isset($msg['message']['text'])) {
@@ -229,10 +244,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         })->toArray();
 
         if (count($messages) === 0) {
-            return [new IncomingMessage('', '', '')];
+            $messages = [new IncomingMessage('', '', '')];
         }
 
-        return $messages;
+        $this->messages = $messages;
     }
 
     /**
@@ -336,7 +351,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     public function sendPayload($payload)
     {
-        $response = $this->http->post('https://graph.facebook.com/v2.6/me/messages', [], $payload);
+        $response = $this->http->post($this->facebookProfileEndpoint.'me/messages', [], $payload);
         $this->throwExceptionIfResponseNotOk($response);
 
         return $response;
@@ -383,7 +398,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             'access_token' => $this->config->get('token'),
         ], $parameters);
 
-        return $this->http->post('https://graph.facebook.com/v2.6/'.$endpoint, [], $parameters);
+        return $this->http->post($this->facebookProfileEndpoint.$endpoint, [], $parameters);
     }
 
     /**
