@@ -137,7 +137,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $message = $driver->getMessages()[0];
 
         $extras = $message->getExtras('nlp');
-        
+
         $this->assertFalse(is_null($extras));
         $this->assertSame('true', $extras['entities']['bye'][0]['value']);
     }

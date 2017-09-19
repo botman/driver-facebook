@@ -236,6 +236,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
                 if (isset($msg['message']['nlp'])) {
                     $message->addExtras('nlp', $msg['message']['nlp']);
                 }
+
                 return $message;
             } elseif (isset($msg['postback']['payload'])) {
                 $this->isPostback = true;
