@@ -125,6 +125,23 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($driver->matchesRequest());
     }
 
+    /** @test * */
+    public function it_adds_nlp_data_to_the_message()
+    {
+        $request = '{}';
+        $driver = $this->getDriver($request);
+        $this->assertFalse($driver->matchesRequest());
+
+        $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1505851195620,"message":{"mid":"mid.$cAABlxfDuVgpkzP8I5Fem7nAgTm_7","seq":159479,"text":"bye, see you tomorrow at 4pm","nlp":{"entities":{"datetime":[{"confidence":0.96819333333333,"values":[{"value":"2017-09-20T16:00:00.000-07:00","grain":"hour","type":"value"}],"value":"2017-09-20T16:00:00.000-07:00","grain":"hour","type":"value"}],"bye":[{"confidence":0.61518204777792,"value":"true"}],"greetings":[{"confidence":0.78910905105147,"value":"true"}]}}}}]}]}';
+        $driver = $this->getDriver($request);
+        $message = $driver->getMessages()[0];
+
+        $extras = $message->getExtras('nlp');
+        
+        $this->assertFalse(is_null($extras));
+        $this->assertSame('true', $extras['entities']['bye'][0]['value']);
+    }
+
     /** @test */
     public function it_returns_the_postback_message()
     {

@@ -231,8 +231,12 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         $messages = Collection::make($this->event->get('messaging'));
         $messages = $messages->transform(function ($msg) {
             if (isset($msg['message']['text'])) {
-                return new IncomingMessage($msg['message']['text'], $msg['sender']['id'], $msg['recipient']['id'],
+                $message = new IncomingMessage($msg['message']['text'], $msg['sender']['id'], $msg['recipient']['id'],
                     $msg);
+                if (isset($msg['message']['nlp'])) {
+                    $message->addExtras('nlp', $msg['message']['nlp']);
+                }
+                return $message;
             } elseif (isset($msg['postback']['payload'])) {
                 $this->isPostback = true;
 
