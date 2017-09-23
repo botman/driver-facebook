@@ -273,16 +273,6 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         return $this->isPostback;
     }
-    
-    /**
-     * Generate Secret Proof for security.
-     * Reffrence: https://developers.facebook.com/docs/graph-api/securing-requests/
-     * @return string
-     */
-    public function secretProof()
-    {
-        return hash_hmac('sha256',$this->config->get('token'), $this->config->get('app_secret'));
-    }
 
     /**
      * Convert a Question object into a valid Facebook
@@ -355,9 +345,12 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             }
         }
         /*
-        * No Need do any config at botman/facebook.php, it wont error if App Secret not enable.
+        * No Need do any config at botman/facebook.php, 
+        * it wont error if App Secret not enable.
+        * Generate Secret Proof for security.
+        * Reffrence: https://developers.facebook.com/docs/graph-api/securing-requests/
         */
-        $parameters['appsecret_proof'] = $this->secretProof();
+        $parameters['appsecret_proof'] = hash_hmac('sha256',$this->config->get('token'), $this->config->get('app_secret'));
         $parameters['access_token'] = $this->config->get('token');
         
         return $parameters;
