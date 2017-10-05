@@ -807,6 +807,17 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_has_message_for_referral_event()
+    {
+        $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"referral":{"ref":"MY_REF","source": "MY_SOURCE","type": "MY_TYPE"}}]}]}';
+        $driver = $this->getDriver($request);
+
+        $message = $driver->getMessages()[0];
+        $this->assertSame('1433960459967306', $message->getSender());
+        $this->assertSame('111899832631525', $message->getRecipient());
+    }
+
+    /** @test */
     public function it_calls_optin_event()
     {
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"optin": {"ref":"optin","user_ref":"1234"}}]}]}';
@@ -815,6 +826,17 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $event = $driver->hasMatchingEvent();
         $this->assertInstanceOf(MessagingOptins::class, $event);
         $this->assertSame('messaging_optins', $event->getName());
+    }
+
+    /** @test */
+    public function it_has_message_for_optin_event()
+    {
+        $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"optin": {"ref":"optin","user_ref":"1234"}}]}]}';
+        $driver = $this->getDriver($request);
+
+        $message = $driver->getMessages()[0];
+        $this->assertSame('1234', $message->getSender());
+        $this->assertSame('111899832631525', $message->getRecipient());
     }
 
     /** @test */

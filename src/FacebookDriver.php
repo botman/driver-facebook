@@ -230,22 +230,21 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $messages = Collection::make($this->event->get('messaging'));
         $messages = $messages->transform(function ($msg) {
+            $message = new IncomingMessage('', $this->getMessageSender($msg), $this->getMessageRecipient($msg), $msg);
             if (isset($msg['message']['text'])) {
-                $message = new IncomingMessage($msg['message']['text'], $msg['sender']['id'], $msg['recipient']['id'],
-                    $msg);
+                $message->setText($msg['message']['text']);
+
                 if (isset($msg['message']['nlp'])) {
                     $message->addExtras('nlp', $msg['message']['nlp']);
                 }
 
-                return $message;
             } elseif (isset($msg['postback']['payload'])) {
                 $this->isPostback = true;
 
-                return new IncomingMessage($msg['postback']['payload'], $msg['sender']['id'], $msg['recipient']['id'],
-                    $msg);
+                $message->setText($msg['postback']['payload']);
             }
 
-            return new IncomingMessage('', '', '');
+            return $message;
         })->toArray();
 
         if (count($messages) === 0) {
@@ -425,5 +424,31 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             $responseData = json_decode($facebookResponse->getContent(), true);
             throw new FacebookException('Error sending payload: '.$responseData['error']['message']);
         }
+    }
+
+    /**
+     * @param $msg
+     * @return string|null
+     */
+    protected function getMessageSender($msg)
+    {
+        if (isset($msg['sender'])) {
+            return $msg['sender']['id'];
+        } elseif(isset($msg['optin'])) {
+            return $msg['optin']['user_ref'];
+        }
+        return null;
+    }
+
+    /**
+     * @param $msg
+     * @return string|null
+     */
+    protected function getMessageRecipient($msg)
+    {
+        if (isset($msg['recipient'])) {
+            return $msg['recipient']['id'];
+        }
+        return null;
     }
 }
