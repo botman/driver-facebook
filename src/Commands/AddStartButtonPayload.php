@@ -12,7 +12,7 @@ class AddStartButtonPayload extends Command
      *
      * @var string
      */
-    protected $signature = 'botman:facebookAddStartButton';
+    protected $signature = 'botman:facebook:AddStartButton';
 
     /**
      * The console command description.

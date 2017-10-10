@@ -12,7 +12,7 @@ class AddPersistentMenu extends Command
      *
      * @var string
      */
-    protected $signature = 'botman:facebookAddMenu';
+    protected $signature = 'botman:facebook:AddMenu';
 
     /**
      * The console command description.
