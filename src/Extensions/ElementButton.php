@@ -28,6 +28,9 @@ class ElementButton
     /** @var bool */
     protected $messenger_extensions = false;
 
+    /** @var  GenericTemplate */
+    protected $shareContents;
+
     const TYPE_ACCOUNT_LINK = 'account_link';
     const TYPE_ACCOUNT_UNLINK = 'account_unlink';
     const TYPE_WEB_URL = 'web_url';
@@ -137,6 +140,19 @@ class ElementButton
     }
 
     /**
+     * Optional. The message that you wish the recipient of the share to see,
+     * if it is different from the one this button is attached to.
+     * The format follows that used in Send API, but must be a generic template with up to one URL button.
+     * @param GenericTemplate $shareContents
+     */
+    public function shareContents($shareContents)
+    {
+        $this->shareContents = $shareContents;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -165,6 +181,8 @@ class ElementButton
                     $buttonArray['fallback_url'] = $this->fallback_url ?: $this->url;
                 }
             }
+        } else {
+            $buttonArray['share_contents'] = $this->removeWebviewShareButton($this->shareContents->toArray());
         }
 
         return $buttonArray;
@@ -176,5 +194,28 @@ class ElementButton
     public function jsonSerialize()
     {
         return $this->toArray();
+    }
+
+    /**
+     * Probably due to a facebook bug, in case of 'share_contents' the buttons need to not have the 'webview_share_button' field.
+     * @param array $shareContents
+     * @return array
+     */
+    protected function removeWebviewShareButton($shareContents)
+    {
+        $elements = $shareContents['attachment']['payload']['elements'] ?? null;
+        if(!is_null($elements)) {
+            foreach ($elements as &$element) {
+                $buttons = $element['buttons'] ?? null;
+                if(!is_null($buttons)) {
+                    foreach ($buttons as &$button) {
+                        unset($button['webview_share_button']);
+                    }
+                    $element['buttons']=$buttons;
+                }
+            }
+        }
+        $shareContents['attachment']['payload']['elements'] = $elements;
+        return $shareContents;
     }
 }
