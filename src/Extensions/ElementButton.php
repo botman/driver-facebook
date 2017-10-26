@@ -216,7 +216,7 @@ class ElementButton
             }
             $shareContents['attachment']['payload']['elements'] = $elements;
         }
-        
+
         return $shareContents;
     }
 }
