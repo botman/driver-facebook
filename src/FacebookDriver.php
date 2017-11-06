@@ -307,14 +307,17 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     public function buildServicePayload($message, $matchingMessage, $additionalParameters = [])
     {
         if ($this->driverEvent) {
-            $recipient = $this->driverEvent->getPayload()['sender']['id'];
+            $payload = $this->driverEvent->getPayload();
+            if (isset($payload['optin'])) {
+                $recipient = ['user_ref' => $payload['optin']['user_ref']];
+            } else {
+                $recipient = ['id' => $payload['sender']['id']];
+            }
         } else {
-            $recipient = $matchingMessage->getSender();
+            $recipient = ['id' => $matchingMessage->getSender()];
         }
         $parameters = array_merge_recursive([
-            'recipient' => [
-                'id' => $recipient,
-            ],
+            'recipient' => $recipient,
             'message' => [
                 'text' => $message,
             ],
