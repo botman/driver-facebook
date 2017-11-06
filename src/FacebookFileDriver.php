@@ -87,4 +87,12 @@ class FacebookFileDriver extends FacebookDriver
     {
         return false;
     }
+
+    /**
+     * @return bool
+    */
+    public function hasMatchingEvent()
+    {
+        return false;
+    }
 }
