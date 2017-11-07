@@ -31,6 +31,8 @@ use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 
 class FacebookDriver extends HttpDriver implements VerifiesService
 {
+    const HANDOVER_INBOX_PAGE_ID = '263902037430900';
+
     /** @var string */
     protected $signature;
 
@@ -450,5 +452,22 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         if (isset($msg['recipient'])) {
             return $msg['recipient']['id'];
         }
+    }
+
+    /**
+     * Pass a conversation to the page inbox.
+     *
+     * @param IncomingMessage $message
+     * @param $bot
+     * @return Response
+     */
+    public function handover(IncomingMessage $message, $bot)
+    {
+        return $this->http->post($this->facebookProfileEndpoint.'me/pass_thread_control?access_token='.$this->config->get('token'), [], [
+            'recipient' => [
+                'id' => $message->getSender()
+            ],
+            'target_app_id' => self::HANDOVER_INBOX_PAGE_ID,
+        ]);
     }
 }
