@@ -31,6 +31,8 @@ use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 
 class FacebookDriver extends HttpDriver implements VerifiesService
 {
+    const HANDOVER_INBOX_PAGE_ID = '263902037430900';
+
     /** @var string */
     protected $signature;
 
@@ -230,17 +232,20 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $messages = Collection::make($this->event->get('messaging'));
         $messages = $messages->transform(function ($msg) {
+            $message = new IncomingMessage('', $this->getMessageSender($msg), $this->getMessageRecipient($msg), $msg);
             if (isset($msg['message']['text'])) {
-                return new IncomingMessage($msg['message']['text'], $msg['sender']['id'], $msg['recipient']['id'],
-                    $msg);
+                $message->setText($msg['message']['text']);
+
+                if (isset($msg['message']['nlp'])) {
+                    $message->addExtras('nlp', $msg['message']['nlp']);
+                }
             } elseif (isset($msg['postback']['payload'])) {
                 $this->isPostback = true;
 
-                return new IncomingMessage($msg['postback']['payload'], $msg['sender']['id'], $msg['recipient']['id'],
-                    $msg);
+                $message->setText($msg['postback']['payload']);
             }
 
-            return new IncomingMessage('', '', '');
+            return $message;
         })->toArray();
 
         if (count($messages) === 0) {
@@ -304,14 +309,17 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     public function buildServicePayload($message, $matchingMessage, $additionalParameters = [])
     {
         if ($this->driverEvent) {
-            $recipient = $this->driverEvent->getPayload()['sender']['id'];
+            $payload = $this->driverEvent->getPayload();
+            if (isset($payload['optin'])) {
+                $recipient = ['user_ref' => $payload['optin']['user_ref']];
+            } else {
+                $recipient = ['id' => $payload['sender']['id']];
+            }
         } else {
-            $recipient = $matchingMessage->getSender();
+            $recipient = ['id' => $matchingMessage->getSender()];
         }
         $parameters = array_merge_recursive([
-            'recipient' => [
-                'id' => $recipient,
-            ],
+            'recipient' => $recipient,
             'message' => [
                 'text' => $message,
             ],
@@ -420,5 +428,46 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             $responseData = json_decode($facebookResponse->getContent(), true);
             throw new FacebookException('Error sending payload: '.$responseData['error']['message']);
         }
+    }
+
+    /**
+     * @param $msg
+     * @return string|null
+     */
+    protected function getMessageSender($msg)
+    {
+        if (isset($msg['sender'])) {
+            return $msg['sender']['id'];
+        } elseif (isset($msg['optin'])) {
+            return $msg['optin']['user_ref'];
+        }
+    }
+
+    /**
+     * @param $msg
+     * @return string|null
+     */
+    protected function getMessageRecipient($msg)
+    {
+        if (isset($msg['recipient'])) {
+            return $msg['recipient']['id'];
+        }
+    }
+
+    /**
+     * Pass a conversation to the page inbox.
+     *
+     * @param IncomingMessage $message
+     * @param $bot
+     * @return Response
+     */
+    public function handover(IncomingMessage $message, $bot)
+    {
+        return $this->http->post($this->facebookProfileEndpoint.'me/pass_thread_control?access_token='.$this->config->get('token'), [], [
+            'recipient' => [
+                'id' => $message->getSender(),
+            ],
+            'target_app_id' => self::HANDOVER_INBOX_PAGE_ID,
+        ]);
     }
 }
