@@ -79,7 +79,6 @@ class MediaUrlElement implements JsonSerializable
             'url' => $this->url,
             'buttons' => $this->buttons,
         ];
-
     }
 
     /**
