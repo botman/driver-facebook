@@ -7,7 +7,7 @@ use BotMan\BotMan\Interfaces\WebAccess;
 
 class MediaTemplate implements JsonSerializable, WebAccess
 {
-    /** @var  string */
+    /** @var string */
     protected $mediaType;
 
     /** @var array */

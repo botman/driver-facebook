@@ -12,7 +12,7 @@ class MediaAttachmentElement implements JsonSerializable
     /** @var string */
     protected $attachment_id;
 
-    /** @var  array */
+    /** @var array */
     protected $buttons;
 
     /**

@@ -2,7 +2,6 @@
 
 namespace BotMan\Drivers\Facebook;
 
-use BotMan\Drivers\Facebook\Extensions\MediaTemplate;
 use Illuminate\Support\Collection;
 use BotMan\BotMan\Drivers\HttpDriver;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -23,6 +22,7 @@ use BotMan\Drivers\Facebook\Events\MessagingOptins;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use BotMan\Drivers\Facebook\Extensions\ListTemplate;
+use BotMan\Drivers\Facebook\Extensions\MediaTemplate;
 use BotMan\Drivers\Facebook\Events\MessagingReferrals;
 use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
 use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
