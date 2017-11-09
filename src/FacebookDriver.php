@@ -2,6 +2,7 @@
 
 namespace BotMan\Drivers\Facebook;
 
+use BotMan\Drivers\Facebook\Extensions\MediaTemplate;
 use Illuminate\Support\Collection;
 use BotMan\BotMan\Drivers\HttpDriver;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -48,6 +49,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         GenericTemplate::class,
         ListTemplate::class,
         ReceiptTemplate::class,
+        MediaTemplate::class,
     ];
 
     private $supportedAttachments = [
@@ -359,6 +361,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     public function sendPayload($payload)
     {
+        \Log::info('FB payload:', $payload);
         $response = $this->http->post($this->facebookProfileEndpoint.'me/messages', [], $payload);
         $this->throwExceptionIfResponseNotOk($response);
 
