@@ -4,7 +4,9 @@ namespace Tests\Extensions;
 
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
+use BotMan\Drivers\Facebook\Extensions\Element;
 use BotMan\Drivers\Facebook\Extensions\ElementButton;
+use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 
 class ElementButtonTest extends PHPUnit_Framework_TestCase
 {
@@ -127,5 +129,23 @@ class ElementButtonTest extends PHPUnit_Framework_TestCase
         $button->heightRatio(ElementButton::RATIO_COMPACT);
 
         $this->assertSame('compact', Arr::get($button->toArray(), 'webview_height_ratio'));
+    }
+
+    /**
+     * @test
+     **/
+    public function it_can_set_share_contents()
+    {
+        $button = new ElementButton('click me');
+        $share = GenericTemplate::create()
+            ->addElement(
+                Element::create('share')
+                    ->addButton(
+                        ElementButton::create('share')->url('https://botman.io')
+                    )
+            );
+        $button->shareContents($share)->type(ElementButton::TYPE_SHARE);
+
+        $this->assertSame($share->toArray(), Arr::get($button->toArray(), 'share_contents'));
     }
 }
