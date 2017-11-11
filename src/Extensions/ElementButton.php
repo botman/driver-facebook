@@ -175,7 +175,7 @@ class ElementButton
 
             if ($this->type === self::TYPE_WEB_URL) {
                 $buttonArray['webview_height_ratio'] = $this->webview_height_ratio;
-                if (!is_null($this->webview_share_button)) {
+                if (! is_null($this->webview_share_button)) {
                     $buttonArray['webview_share_button'] = $this->webview_share_button;
                 }
 
