@@ -2,11 +2,11 @@
 
 namespace Tests\Extensions;
 
-use BotMan\Drivers\Facebook\Extensions\Element;
-use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
+use BotMan\Drivers\Facebook\Extensions\Element;
 use BotMan\Drivers\Facebook\Extensions\ElementButton;
+use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 
 class ElementButtonTest extends PHPUnit_Framework_TestCase
 {
