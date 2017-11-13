@@ -22,6 +22,7 @@ use BotMan\Drivers\Facebook\Events\MessagingOptins;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use BotMan\Drivers\Facebook\Extensions\ListTemplate;
+use BotMan\Drivers\Facebook\Extensions\MediaTemplate;
 use BotMan\Drivers\Facebook\Events\MessagingReferrals;
 use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
 use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
@@ -48,6 +49,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         GenericTemplate::class,
         ListTemplate::class,
         ReceiptTemplate::class,
+        MediaTemplate::class,
     ];
 
     private $supportedAttachments = [
