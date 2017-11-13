@@ -23,10 +23,13 @@ class ElementButton
     protected $webview_height_ratio = self::RATIO_FULL;
 
     /** @var string */
-    protected $webview_share_button = 'SHOW';
+    protected $webview_share_button;
 
     /** @var bool */
     protected $messenger_extensions = false;
+
+    /** @var GenericTemplate */
+    protected $shareContents;
 
     const TYPE_ACCOUNT_LINK = 'account_link';
     const TYPE_ACCOUNT_UNLINK = 'account_unlink';
@@ -137,6 +140,20 @@ class ElementButton
     }
 
     /**
+     * Optional. The message that you wish the recipient of the share to see,
+     * if it is different from the one this button is attached to.
+     * The format follows that used in Send API, but must be a generic template with up to one URL button.
+     * @param GenericTemplate $shareContents
+     * @return $this
+     */
+    public function shareContents($shareContents)
+    {
+        $this->shareContents = $shareContents;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -158,13 +175,17 @@ class ElementButton
 
             if ($this->type === self::TYPE_WEB_URL) {
                 $buttonArray['webview_height_ratio'] = $this->webview_height_ratio;
-                $buttonArray['webview_share_button'] = $this->webview_share_button;
+                if (! is_null($this->webview_share_button)) {
+                    $buttonArray['webview_share_button'] = $this->webview_share_button;
+                }
 
                 if ($this->messenger_extensions) {
                     $buttonArray['messenger_extensions'] = $this->messenger_extensions;
                     $buttonArray['fallback_url'] = $this->fallback_url ?: $this->url;
                 }
             }
+        } elseif ($this->type == self::TYPE_SHARE) {
+            $buttonArray['share_contents'] = $this->shareContents->toArray();
         }
 
         return $buttonArray;
