@@ -148,4 +148,20 @@ class ElementButtonTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame($share->toArray(), Arr::get($button->toArray(), 'share_contents'));
     }
+
+    /**
+     * @test
+     **/
+    public function it_can_share_contents_with_manual_assigned_buttons()
+    {
+        $share = ElementButton::create('Share')
+                    ->type(ElementButton::TYPE_SHARE)
+                    ->url('https://botman.io');
+
+        $payload = [
+            'type' => 'element_share',
+        ];
+
+        $this->assertSame($share->toArray(), $payload);
+    }
 }
