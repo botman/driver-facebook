@@ -336,7 +336,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             $parameters['message'] = $message->toArray();
         } elseif ($message instanceof OutgoingMessage) {
             $attachment = $message->getAttachment();
-            if (in_array(get_class($attachment), $this->supportedAttachments)) {
+            if (!is_null($attachment) && in_array(get_class($attachment), $this->supportedAttachments)) {
                 $attachmentType = strtolower(basename(str_replace('\\', '/', get_class($attachment))));
                 unset($parameters['message']['text']);
                 $parameters['message']['attachment'] = [
