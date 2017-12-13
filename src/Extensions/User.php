@@ -31,7 +31,14 @@ class User extends BotManUser implements UserInterface
      */
     public function getProfilePic()
     {
-        return $this->user_info['profile_pic'] ?? null;
+        if(isset($this->user_info['profile_pic']))
+            return $this->user_info['profile_pic'];
+
+        // Workplace (Facebook for companies) uses picture parameter
+        if (isset($this->user_info['picture']))
+            return $this->user_info['picture']['data']['url'];
+
+        return null;
     }
 
     /**
@@ -47,7 +54,7 @@ class User extends BotManUser implements UserInterface
      */
     public function getTimezone()
     {
-        return $this->user_info['timezone'] ?? null;
+        return isset($this->user_info['timezone']) ? $this->user_info['timezone'] : null;
     }
 
     /**
@@ -55,7 +62,7 @@ class User extends BotManUser implements UserInterface
      */
     public function getGender()
     {
-        return $this->user_info['gender'] ?? null;
+        return isset($this->user_info['gender']) ? $this->user_info['gender'] : null;
     }
 
     /**
@@ -63,7 +70,7 @@ class User extends BotManUser implements UserInterface
      */
     public function getIsPaymentEnabled()
     {
-        return $this->user_info['is_payment_enabled'] ?? null;
+        return isset($this->user_info['is_payment_enabled']) ? $this->user_info['is_payment_enabled'] : null;
     }
 
     /**
@@ -71,6 +78,6 @@ class User extends BotManUser implements UserInterface
      */
     public function getLastAdReferral()
     {
-        return $this->user_info['last_ad_referral'] ?? null;
+        return isset($this->user_info['last_ad_referral']) ? $this->user_info['last_ad_referral'] : null;
     }
 }
