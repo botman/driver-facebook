@@ -20,7 +20,7 @@ class FacebookWorkplaceUserTest extends PHPUnit_Framework_TestCase
                     'height' => 50,
                     'is_silhouette' => true,
                     'url' => 'http://profilepic.com',
-                    'width' => 50
+                    'width' => 50,
                 ]
             ],
             'link' => 'http://workplace-link.facebook.com/app_scoped_user_id/100014245873942/',

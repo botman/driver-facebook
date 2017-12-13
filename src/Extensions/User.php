@@ -31,14 +31,14 @@ class User extends BotManUser implements UserInterface
      */
     public function getProfilePic()
     {
-        if(isset($this->user_info['profile_pic']))
+        if (isset($this->user_info['profile_pic'])) {
             return $this->user_info['profile_pic'];
+        }
 
         // Workplace (Facebook for companies) uses picture parameter
-        if (isset($this->user_info['picture']))
+        if (isset($this->user_info['picture'])) {
             return $this->user_info['picture']['data']['url'];
-
-        return null;
+        }
     }
 
     /**
