@@ -14,16 +14,20 @@ class FacebookWorkplaceUserTest extends PHPUnit_Framework_TestCase
             'first_name' => 'Christine',
             'last_name' => 'Manning',
             'email' => 'christine.manning@example.com',
-            'title' => null,
-            'departure' => 'sales',
-            'employee_number' => 123,
-            'primary_phone' => '004366466121212', 
-            'primary_address' => 'address',
-            'picture' => 'http://profilepic.com',
-            'link' => 'http://workplace-link.facebook.com',
+            'title' => 'Experimenter',
+            'picture' => [
+                'data' => [
+                    'height' => 50,
+                    'is_silhouette' => true,
+                    'url' => 'http://profilepic.com',
+                    'width' => 50
+                ]
+            ],
+            'link' => 'http://workplace-link.facebook.com/app_scoped_user_id/100014245873942/',
             'locale' => 'en_US',
             'name' => 'Christine Manning',
-            'name_format' => 'Christine Manning'
+            'name_format' => '{first} {last}',
+            'updated_time' => '2016-11-24T06:37:15+0000',
         ];
 
         $user = new User(

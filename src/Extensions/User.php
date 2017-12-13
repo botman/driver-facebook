@@ -36,7 +36,7 @@ class User extends BotManUser implements UserInterface
 
         // Workplace (Facebook for companies) uses picture parameter
         if (isset($this->user_info['picture']))
-            return $this->user_info['picture'];
+            return $this->user_info['picture']['data']['url'];
 
         return null;
     }
