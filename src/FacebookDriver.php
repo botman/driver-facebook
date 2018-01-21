@@ -383,7 +383,18 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
-        $userInfoData = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields=first_name,last_name,profile_pic,locale,timezone,gender,is_payment_enabled,last_ad_referral&access_token='.$this->config->get('token'));
+        $messagingDetails = $this->event->get('messaging')[0];
+
+        // field string available at Facebook
+        $fields = 'first_name,last_name,profile_pic,locale,timezone,gender,is_payment_enabled,last_ad_referral';
+
+        // WORKPLACE (Facebook for companies)
+        // if community isset in sender Object, it is a request done by workplace
+        if (isset($messagingDetails['sender']['community'])) {
+            $fields = 'first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time';
+        }
+
+        $userInfoData = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields='.$fields.'&access_token='.$this->config->get('token'));
 
         $this->throwExceptionIfResponseNotOk($userInfoData);
         $userInfo = json_decode($userInfoData->getContent(), true);
