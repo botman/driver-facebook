@@ -235,7 +235,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         $messages = Collection::make($this->event->get('messaging'));
         $messages = $messages->transform(function ($msg) {
             $message = new IncomingMessage('', $this->getMessageSender($msg), $this->getMessageRecipient($msg), $msg);
-            if (isset($msg['message']['text']) && !isset($msg['message']['quick_reply']['payload'])) {
+            if (isset($msg['message']['text']) && ! isset($msg['message']['quick_reply']['payload'])) {
                 $message->setText($msg['message']['text']);
 
                 if (isset($msg['message']['nlp'])) {
