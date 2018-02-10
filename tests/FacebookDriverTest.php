@@ -907,4 +907,12 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $message = new IncomingMessage('', '1234567890', '');
         $driver->markSeen($message);
     }
+
+    public function it_returns_the_quick_reply_postback()
+    {
+        $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"quick_reply":{"payload":"MY_PAYLOAD"},"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Red"}}]}]}';
+
+        $driver = $this->getDriver($request);
+        $this->assertSame('MY_PAYLOAD', $driver->getMessages()[0]->getText());
+    }
 }
