@@ -882,4 +882,29 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(GenericEvent::class, $event);
         $this->assertSame('foo', $event->getName());
     }
+
+    /** @test */
+    public function it_can_reply_mark_seen_sender_action()
+    {
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'recipient' => [
+                    'id' => '1234567890',
+                ],
+                'sender_action' => 'mark_seen',
+                'access_token' => 'Foo',
+            ])->andReturn(new Response());
+
+        $request = m::mock(\Symfony\Component\HttpFoundation\Request::class.'[getContent]');
+        $request->shouldReceive('getContent')->andReturn('[]');
+
+        $driver = new FacebookDriver($request, [
+            'facebook' => [
+                'token' => 'Foo',
+            ],
+        ], $htmlInterface);
+
+        $message = new IncomingMessage('', '1234567890', '');
+        $driver->markSeen($message);
+    }
 }
