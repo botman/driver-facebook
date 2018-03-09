@@ -291,14 +291,20 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $questionData = $question->toArray();
 
-        $replies = Collection::make($question->getButtons())->map(function ($button) {
-            return array_merge([
-                'content_type' => 'text',
-                'title' => $button['text'],
-                'payload' => $button['value'],
-                'image_url' => $button['image_url'],
-            ], $button['additional']);
-        });
+        $replies = Collection::make($question->getButtons())
+            ->map(function ($button) {
+
+                if (isset($button['content_type']) && $button['content_type'] !== 'text') {
+                    return ['content_type' => $button['content_type']];
+                }
+
+                return array_merge([
+                    'content_type' => 'text',
+                    'title' => $button['text'] ?? $button['title'],
+                    'payload' => $button['value'] ?? $button['payload'],
+                    'image_url' => $button['image_url'] ?? $button['image_url'],
+                ], $button['additional'] ?? []);
+            });
 
         return [
             'text' => $questionData['text'],
