@@ -6,7 +6,6 @@ use BotMan\BotMan\Interfaces\QuestionActionInterface;
 
 class QuickReplyButton implements QuestionActionInterface
 {
-
     /** @var string */
     protected $contentType = self::TYPE_TEXT;
 
