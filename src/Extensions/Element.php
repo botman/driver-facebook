@@ -21,6 +21,9 @@ class Element implements JsonSerializable
     /** @var object */
     protected $buttons;
 
+    /** @var object */
+    protected $default_action;
+
     /**
      * @param $title
      * @return static
@@ -111,6 +114,19 @@ class Element implements JsonSerializable
     }
 
     /**
+     * @param ElementButton $defaultAction
+     *
+     * @return $this
+     */
+    public function defaultAction(ElementButton $defaultAction)
+    {
+        $defaultAction->type(ElementButton::TYPE_WEB_URL);
+        $this->default_action = $defaultAction->toArray();
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -120,6 +136,7 @@ class Element implements JsonSerializable
             'image_url' => $this->image_url,
             'item_url' => $this->item_url,
             'subtitle' => $this->subtitle,
+            'default_action' => $this->default_action,
             'buttons' => $this->buttons,
         ];
     }

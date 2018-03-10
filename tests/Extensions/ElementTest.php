@@ -81,4 +81,16 @@ class ElementTest extends PHPUnit_Framework_TestCase
         $this->assertSame('button1', Arr::get($template->toArray(), 'buttons.0.title'));
         $this->assertSame('button2', Arr::get($template->toArray(), 'buttons.1.title'));
     }
+
+    /**
+     * @test
+     **/
+    public function it_can_set_default_action()
+    {
+        $template = new Element('Element with default_action');
+        $template->defaultAction(ElementButton::create(null)->url('https://botman.io'));
+
+        $this->assertSame('web_url', Arr::get($template->toArray(), 'default_action.type'));
+        $this->assertSame('https://botman.io', Arr::get($template->toArray(), 'default_action.url'));
+    }
 }
