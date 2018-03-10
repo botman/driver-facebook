@@ -51,7 +51,7 @@ class WhitelistDomains extends Command
             exit;
         }
 
-        $response = $this->http->post('https://graph.facebook.com/v2.6/me/messenger_profile?access_token='.config('botman.facebook.token'),
+        $response = $this->http->post('https://graph.facebook.com/v2.12/me/messenger_profile?access_token='.config('botman.facebook.token'),
             [], ['whitelisted_domains' => $payload]);
 
         $responseObject = json_decode($response->getContent());
