@@ -184,6 +184,23 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * @param IncomingMessage $matchingMessage
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    public function markSeen(IncomingMessage $matchingMessage)
+    {
+        $parameters = [
+            'recipient' => [
+                'id' => $matchingMessage->getSender(),
+            ],
+            'access_token' => $this->config->get('token'),
+            'sender_action' => 'mark_seen',
+        ];
+
+        return $this->http->post($this->facebookProfileEndpoint.'me/messages', [], $parameters);
+    }
+
+    /**
+     * @param IncomingMessage $matchingMessage
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function types(IncomingMessage $matchingMessage)
     {
         $parameters = [
