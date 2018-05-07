@@ -299,6 +299,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -347,6 +348,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -379,6 +381,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -473,6 +476,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -516,6 +520,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -563,6 +568,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+            'messaging_type' => 'RESPONSE',
             'recipient' => [
                 'id' => '1234567890',
             ],
@@ -654,6 +660,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -703,6 +710,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -757,6 +765,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -811,6 +820,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.6/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],

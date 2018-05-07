@@ -34,6 +34,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 {
     const HANDOVER_INBOX_PAGE_ID = '263902037430900';
 
+    const TYPE_RESPONSE = 'RESPONSE';
+    const TYPE_UPDATE = 'UPDATE';
+    const TYPE_MESSAGE_TAG = 'MESSAGE_TAG';
+
     /** @var string */
     protected $signature;
 
@@ -347,6 +351,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             $recipient = ['id' => $matchingMessage->getSender()];
         }
         $parameters = array_merge_recursive([
+            'messaging_type' => self::TYPE_RESPONSE,
             'recipient' => $recipient,
             'message' => [
                 'text' => $message,
@@ -384,6 +389,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /**
      * @param mixed $payload
      * @return Response
+     * @throws FacebookException
      */
     public function sendPayload($payload)
     {
@@ -406,6 +412,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      *
      * @param IncomingMessage $matchingMessage
      * @return User
+     * @throws FacebookException
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
