@@ -19,6 +19,7 @@ use BotMan\Drivers\Facebook\Events\MessagingOptins;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\Drivers\Facebook\Events\MessagingReferrals;
 use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
+use BotMan\Drivers\Facebook\Extensions\QuickReplyButton;
 use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 use BotMan\Drivers\Facebook\Events\MessagingCheckoutUpdates;
 
@@ -298,6 +299,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -346,6 +348,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -378,6 +381,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -472,6 +476,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -515,6 +520,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -538,6 +544,50 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
                 ],
                 'access_token' => 'Foo',
             ])->andReturn(new Response());
+
+        $request = m::mock(\Symfony\Component\HttpFoundation\Request::class.'[getContent]');
+        $request->shouldReceive('getContent')->andReturn('[]');
+
+        $driver = new FacebookDriver($request, [
+            'facebook' => [
+                'token' => 'Foo',
+            ],
+        ], $htmlInterface);
+
+        $message = new IncomingMessage('', '1234567890', '');
+        $driver->sendPayload($driver->buildServicePayload($question, $message));
+    }
+
+    /** @test */
+    public function it_can_reply_quick_replies_with_special_types()
+    {
+        $question = Question::create('How are you doing?')
+            ->addAction(QuickReplyButton::create()->type('user_email'))
+            ->addAction(QuickReplyButton::create()->type('location'))
+            ->addAction(QuickReplyButton::create()->type('user_phone_number'));
+
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+            'messaging_type' => 'RESPONSE',
+            'recipient' => [
+                'id' => '1234567890',
+            ],
+            'message' => [
+                'text' => 'How are you doing?',
+                'quick_replies' => [
+                    [
+                        'content_type' => 'user_email',
+                    ],
+                    [
+                        'content_type' => 'location',
+                    ],
+                    [
+                        'content_type' => 'user_phone_number',
+                    ],
+                ],
+            ],
+            'access_token' => 'Foo',
+        ])->andReturn(new Response());
 
         $request = m::mock(\Symfony\Component\HttpFoundation\Request::class.'[getContent]');
         $request->shouldReceive('getContent')->andReturn('[]');
@@ -610,6 +660,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -659,6 +710,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -713,6 +765,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -767,6 +820,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $htmlInterface = m::mock(Curl::class);
         $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'messaging_type' => 'RESPONSE',
                 'recipient' => [
                     'id' => '1234567890',
                 ],
@@ -884,6 +938,30 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_reply_mark_seen_sender_action()
+    {
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v2.12/me/messages', [], [
+                'recipient' => [
+                    'id' => '1234567890',
+                ],
+                'sender_action' => 'mark_seen',
+                'access_token' => 'Foo',
+            ])->andReturn(new Response());
+
+        $request = m::mock(\Symfony\Component\HttpFoundation\Request::class.'[getContent]');
+        $request->shouldReceive('getContent')->andReturn('[]');
+
+        $driver = new FacebookDriver($request, [
+            'facebook' => [
+                'token' => 'Foo',
+            ],
+        ], $htmlInterface);
+
+        $message = new IncomingMessage('', '1234567890', '');
+        $driver->markSeen($message);
+    }
+
     public function it_returns_the_quick_reply_postback()
     {
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"quick_reply":{"payload":"MY_PAYLOAD"},"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Red"}}]}]}';

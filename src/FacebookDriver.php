@@ -34,6 +34,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 {
     const HANDOVER_INBOX_PAGE_ID = '263902037430900';
 
+    const TYPE_RESPONSE = 'RESPONSE';
+    const TYPE_UPDATE = 'UPDATE';
+    const TYPE_MESSAGE_TAG = 'MESSAGE_TAG';
+
     /** @var string */
     protected $signature;
 
@@ -184,6 +188,23 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * @param IncomingMessage $matchingMessage
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    public function markSeen(IncomingMessage $matchingMessage)
+    {
+        $parameters = [
+            'recipient' => [
+                'id' => $matchingMessage->getSender(),
+            ],
+            'access_token' => $this->config->get('token'),
+            'sender_action' => 'mark_seen',
+        ];
+
+        return $this->http->post($this->facebookProfileEndpoint.'me/messages', [], $parameters);
+    }
+
+    /**
+     * @param IncomingMessage $matchingMessage
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function types(IncomingMessage $matchingMessage)
     {
         $parameters = [
@@ -291,14 +312,19 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $questionData = $question->toArray();
 
-        $replies = Collection::make($question->getButtons())->map(function ($button) {
-            return array_merge([
-                'content_type' => 'text',
-                'title' => $button['text'],
-                'payload' => $button['value'],
-                'image_url' => $button['image_url'],
-            ], $button['additional']);
-        });
+        $replies = Collection::make($question->getButtons())
+            ->map(function ($button) {
+                if (isset($button['content_type']) && $button['content_type'] !== 'text') {
+                    return ['content_type' => $button['content_type']];
+                }
+
+                return array_merge([
+                    'content_type' => 'text',
+                    'title' => $button['text'] ?? $button['title'],
+                    'payload' => $button['value'] ?? $button['payload'],
+                    'image_url' => $button['image_url'] ?? $button['image_url'],
+                ], $button['additional'] ?? []);
+            });
 
         return [
             'text' => $questionData['text'],
@@ -325,6 +351,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             $recipient = ['id' => $matchingMessage->getSender()];
         }
         $parameters = array_merge_recursive([
+            'messaging_type' => self::TYPE_RESPONSE,
             'recipient' => $recipient,
             'message' => [
                 'text' => $message,
@@ -362,6 +389,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /**
      * @param mixed $payload
      * @return Response
+     * @throws FacebookException
      */
     public function sendPayload($payload)
     {
@@ -384,6 +412,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      *
      * @param IncomingMessage $matchingMessage
      * @return User
+     * @throws FacebookException
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
