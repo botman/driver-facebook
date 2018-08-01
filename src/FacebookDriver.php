@@ -410,12 +410,12 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /**
      * Retrieve specific User field information.
      *
-     * @param Array $fields
+     * @param array $fields
      * @param IncomingMessage $matchingMessage
      * @return User
      * @throws FacebookException
      */
-    public function getUserWithFields(Array $fields, IncomingMessage $matchingMessage)
+    public function getUserWithFields(array $fields, IncomingMessage $matchingMessage)
     {
         $messagingDetails = $this->event->get('messaging')[0];
         // implode field array to create concatinated comma string
