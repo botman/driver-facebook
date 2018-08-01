@@ -222,6 +222,25 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_returns_the_user_first_name()
+    {
+        $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi Julia"}}]}]}';
+
+        $facebookResponse = '{"first_name":"John"}';
+
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('get')->once()->with('https://graph.facebook.com/v3.0/1433960459967306?fields=first_name&access_token=Foo')->andReturn(new Response($facebookResponse));
+
+        $driver = $this->getDriver($request, null, '', $htmlInterface);
+        $message = $driver->getMessages()[0];
+        $user = $driver->getUserWithFields(['first_name'],$message);
+
+        $this->assertSame($user->getId(), '1433960459967306');
+        $this->assertEquals('John', $user->getFirstName());
+        $this->assertEquals(json_decode($facebookResponse, true), $user->getInfo());
+    }
+
+    /** @test */
     public function it_throws_exception_in_get_user()
     {
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi Julia"}}]}]}';
