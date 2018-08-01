@@ -419,7 +419,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         $messagingDetails = $this->event->get('messaging')[0];
 
         // field string available at Facebook
-        $fields = 'first_name,last_name,profile_pic,locale,timezone,gender,is_payment_enabled,last_ad_referral';
+        $fields = 'first_name,last_name,profile_pic';
 
         // WORKPLACE (Facebook for companies)
         // if community isset in sender Object, it is a request done by workplace
