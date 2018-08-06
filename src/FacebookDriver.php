@@ -420,7 +420,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $messagingDetails = $this->event->get('messaging')[0];
         // implode field array to create concatinated comma string
-        $fields = implode (',', $fields);
+        $fields = implode(',', $fields);
         // WORKPLACE (Facebook for companies)
         // if community isset in sender Object, it is a request done by workplace
         if (isset($messagingDetails['sender']['community'])) {
