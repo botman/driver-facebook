@@ -230,7 +230,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $htmlInterface->shouldReceive('get')->once()->with('https://graph.facebook.com/v3.0/1433960459967306?fields=first_name&access_token=Foo')->andReturn(new Response($facebookResponse));
         $driver = $this->getDriver($request, null, '', $htmlInterface);
         $message = $driver->getMessages()[0];
-        $user = $driver->getUserWithFields(['first_name'],$message);
+        $user = $driver->getUserWithFields(['first_name'], $message);
         $this->assertSame($user->getId(), '1433960459967306');
         $this->assertEquals('John', $user->getFirstName());
         $this->assertEquals(json_decode($facebookResponse, true), $user->getInfo());
@@ -922,7 +922,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $file = File::url('http://image.url//foo.pdf');
         $file->addExtras('is_reusable', true);
 
-        $driver->sendPayload($driver->buildServicePayload(\BotMan\BotMan\Messages\Outgoing\OutgoingMessage::create('Test',  $file), $message));
+        $driver->sendPayload($driver->buildServicePayload(\BotMan\BotMan\Messages\Outgoing\OutgoingMessage::create('Test', $file), $message));
     }
 
     /** @test */
