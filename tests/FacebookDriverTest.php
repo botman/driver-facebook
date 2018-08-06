@@ -733,6 +733,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
                     'attachment' => [
                         'type' => 'image',
                         'payload' => [
+                            'is_reusable' => false,
                             'url' => 'http://image.url//foo.png',
                         ],
                     ],
@@ -788,6 +789,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
                     'attachment' => [
                         'type' => 'audio',
                         'payload' => [
+                            'is_reusable' => false,
                             'url' => 'http://image.url//foo.mp3',
                         ],
                     ],
@@ -843,6 +845,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
                     'attachment' => [
                         'type' => 'file',
                         'payload' => [
+                            'is_reusable' => false,
                             'url' => 'http://image.url//foo.pdf',
                         ],
                     ],
@@ -862,6 +865,64 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $message = new IncomingMessage('', '1234567890', '');
         $driver->sendPayload($driver->buildServicePayload(\BotMan\BotMan\Messages\Outgoing\OutgoingMessage::create('Test',
             File::url('http://image.url//foo.pdf')), $message));
+    }
+
+    /** @test */
+    public function it_can_reply_message_objects_with_reusable_file()
+    {
+        $responseData = [
+            'object' => 'page',
+            'event' => [
+                [
+                    'messaging' => [
+                        [
+                            'sender' => [
+                                'id' => '1234567890',
+                            ],
+                            'recipient' => [
+                                'id' => '0987654321',
+                            ],
+                            'message' => [
+                                'text' => 'test',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $htmlInterface = m::mock(Curl::class);
+        $htmlInterface->shouldReceive('post')->once()->with('https://graph.facebook.com/v3.0/me/messages', [], [
+            'messaging_type' => 'RESPONSE',
+            'recipient' => [
+                'id' => '1234567890',
+            ],
+            'message' => [
+                'attachment' => [
+                    'type' => 'file',
+                    'payload' => [
+                        'is_reusable' => true,
+                        'url' => 'http://image.url//foo.pdf',
+                    ],
+                ],
+            ],
+            'access_token' => 'Foo',
+        ])->andReturn(new Response());
+
+        $request = m::mock(\Symfony\Component\HttpFoundation\Request::class.'[getContent]');
+        $request->shouldReceive('getContent')->andReturn(json_encode($responseData));
+
+        $driver = new FacebookDriver($request, [
+            'facebook' => [
+                'token' => 'Foo',
+            ],
+        ], $htmlInterface);
+
+        $message = new IncomingMessage('', '1234567890', '');
+        $file = File::url('http://image.url//foo.pdf');
+        $file->addExtras('is_reusable', true);
+
+        $driver->sendPayload($driver->buildServicePayload(\BotMan\BotMan\Messages\Outgoing\OutgoingMessage::create('Test',  $file), $message));
     }
 
     /** @test */

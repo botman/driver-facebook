@@ -373,6 +373,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
                 $parameters['message']['attachment'] = [
                     'type' => $attachmentType,
                     'payload' => [
+                        'is_reusable' => $attachment->getExtras('is_reusable') ?? false,
                         'url' => $attachment->getUrl(),
                     ],
                 ];
