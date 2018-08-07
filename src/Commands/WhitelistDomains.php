@@ -12,7 +12,7 @@ class WhitelistDomains extends Command
      *
      * @var string
      */
-    protected $signature = 'botman:facebookWhitelistDomains';
+    protected $signature = 'botman:facebook:whitelistDomains';
 
     /**
      * The console command description.

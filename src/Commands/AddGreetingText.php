@@ -12,7 +12,7 @@ class AddGreetingText extends Command
      *
      * @var string
      */
-    protected $signature = 'botman:facebookAddGreetingText';
+    protected $signature = 'botman:facebook:AddGreetingText';
 
     /**
      * The console command description.
