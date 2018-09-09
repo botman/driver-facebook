@@ -126,6 +126,16 @@ class ElementButton
 
         return $this;
     }
+	
+    /**
+     * @return $this
+     */
+    public function removeHeightRatio()
+    {
+        $this->webview_height_ratio = null;
+
+        return $this;
+    }
 
     /**
      * Set ratio to one of RATIO_COMPACT, RATIO_TALL, RATIO_FULL.
@@ -174,7 +184,9 @@ class ElementButton
             }
 
             if ($this->type === self::TYPE_WEB_URL) {
+                if (! is_null($this->webview_height_ratio)) {
                 $buttonArray['webview_height_ratio'] = $this->webview_height_ratio;
+                }
                 if (! is_null($this->webview_share_button)) {
                     $buttonArray['webview_share_button'] = $this->webview_share_button;
                 }
