@@ -4,8 +4,8 @@ namespace Tests\Extensions;
 
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Extensions\OpenGraphTemplate;
 use BotMan\Drivers\Facebook\Extensions\OpenGraphElement;
+use BotMan\Drivers\Facebook\Extensions\OpenGraphTemplate;
 
 class OpenGraphTemplateTest extends PHPUnit_Framework_TestCase
 {

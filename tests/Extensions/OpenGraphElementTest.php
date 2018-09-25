@@ -4,10 +4,10 @@ namespace Tests\Extensions;
 
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Extensions\OpenGraphElement;
 use BotMan\Drivers\Facebook\Extensions\ElementButton;
+use BotMan\Drivers\Facebook\Extensions\OpenGraphElement;
 
-class ElementTest extends PHPUnit_Framework_TestCase
+class OpenGraphElementTest extends PHPUnit_Framework_TestCase
 {
     /** @test */
     public function it_can_be_created()
@@ -44,8 +44,8 @@ class ElementTest extends PHPUnit_Framework_TestCase
     {
         $template = new Element('Here are some buttons');
         $template->addButton(ElementButton::create('button1')
-								->url('https://en.wikipedia.org/wiki/Rickrolling')
-								->removeHeightRatio());
+                                ->url('https://en.wikipedia.org/wiki/Rickrolling')
+                                ->removeHeightRatio());
 
         $this->assertSame('button1', Arr::get($template->toArray(), 'buttons.0.title'));
     }
@@ -57,14 +57,13 @@ class ElementTest extends PHPUnit_Framework_TestCase
     {
         $template = new Element('Here are some buttons');
         $template->addButtons([ElementButton::create('button1')
-								->url('https://en.wikipedia.org/wiki/Rickrolling')
-								->removeHeightRatio(),
-							   ElementButton::create('button2')
-								->url('https://en.wikipedia.org/')
-								->removeHeightRatio()]);
+                                ->url('https://en.wikipedia.org/wiki/Rickrolling')
+                                ->removeHeightRatio(),
+                               ElementButton::create('button2')
+                                ->url('https://en.wikipedia.org/')
+                                ->removeHeightRatio(), ]);
 
         $this->assertSame('button1', Arr::get($template->toArray(), 'buttons.0.title'));
         $this->assertSame('button2', Arr::get($template->toArray(), 'buttons.1.title'));
     }
-
 }

@@ -8,10 +8,10 @@ class OpenGraphElement implements JsonSerializable
 {
     /** @var string */
     protected $url;
-	
+
     /** @var object */
     protected $buttons;
-	
+
     /**
      * @return static
      */
@@ -19,7 +19,7 @@ class OpenGraphElement implements JsonSerializable
     {
         return new static;
     }
-	
+
     /**
      * @param string $url
      * @return $this
@@ -58,7 +58,7 @@ class OpenGraphElement implements JsonSerializable
 
         return $this;
     }
-	
+
     /**
      * @return array
      */
