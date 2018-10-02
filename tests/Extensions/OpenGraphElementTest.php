@@ -12,8 +12,8 @@ class OpenGraphElementTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_be_created()
     {
-        $button = new OpenGraphElement();
-        $this->assertInstanceOf(OpenGraphElement::class, $button);
+        $element = new OpenGraphElement();
+        $this->assertInstanceOf(OpenGraphElement::class, $element);
     }
 
     /**
@@ -32,10 +32,10 @@ class OpenGraphElementTest extends PHPUnit_Framework_TestCase
      **/
     public function it_can_add_a_button()
     {
-        $template = new OpenGraphElement();
-        $template->addButton(ElementButton::create('button1')->url('https://en.wikipedia.org/wiki/Rickrolling')->removeHeightRatio());
+        $element = new OpenGraphElement();
+        $element->addButton(ElementButton::create('button1')->url('https://en.wikipedia.org/wiki/Rickrolling')->removeHeightRatio());
 
-        $this->assertSame('button1', Arr::get($template->toArray(), 'buttons.0.title'));
+        $this->assertSame('button1', Arr::get($element->toArray(), 'buttons.0.title'));
     }
 
     /**
@@ -43,13 +43,13 @@ class OpenGraphElementTest extends PHPUnit_Framework_TestCase
      **/
     public function it_can_add_multiple_buttons()
     {
-        $template = new OpenGraphElement();
-        $template->addButtons([
+        $element = new OpenGraphElement();
+        $element->addButtons([
             ElementButton::create('button1')->url('https://en.wikipedia.org/wiki/Rickrolling')->removeHeightRatio(),
             ElementButton::create('button2')->url('https://en.wikipedia.org/')->removeHeightRatio(),
         ]);
 
-        $this->assertSame('button1', Arr::get($template->toArray(), 'buttons.0.title'));
-        $this->assertSame('button2', Arr::get($template->toArray(), 'buttons.1.title'));
+        $this->assertSame('button1', Arr::get($element->toArray(), 'buttons.0.title'));
+        $this->assertSame('button2', Arr::get($element->toArray(), 'buttons.1.title'));
     }
 }
