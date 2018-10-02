@@ -22,9 +22,23 @@ class OpenGraphTemplateTest extends PHPUnit_Framework_TestCase
     public function it_can_add_an_element()
     {
         $template = new OpenGraphTemplate;
-        $template->element(OpenGraphElement::create('Rick Roll'));
+        $template->addElement(OpenGraphElement::create()->setUrl('https://example.com'));
 
-        $this->assertSame('Rick Roll',
-            Arr::get($template->toArray(), 'attachment.payload.elements.0.title'));
+        $this->assertSame('https://example.com', Arr::get($template->toArray(), 'attachment.payload.elements.0.url'));
+    }
+
+    /**
+     * @test
+     **/
+    public function it_can_add_multiple_elements()
+    {
+        $template = new OpenGraphTemplate;
+        $template->addElements([
+            OpenGraphElement::create()->setUrl('https://example.com'),
+            OpenGraphElement::create()->setUrl('https://example.com'),
+        ]);
+
+        $this->assertSame('https://example.com', Arr::get($template->toArray(), 'attachment.payload.elements.0.url'));
+        $this->assertSame('https://example.com', Arr::get($template->toArray(), 'attachment.payload.elements.1.url'));
     }
 }
