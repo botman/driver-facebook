@@ -2,34 +2,38 @@
 
 namespace BotMan\Drivers\Facebook;
 
-use Illuminate\Support\Collection;
+use BotMan\BotMan\Drivers\Events\GenericEvent;
 use BotMan\BotMan\Drivers\HttpDriver;
-use BotMan\BotMan\Messages\Incoming\Answer;
-use BotMan\BotMan\Messages\Attachments\File;
-use BotMan\Drivers\Facebook\Extensions\User;
+use BotMan\BotMan\Interfaces\DriverEventInterface;
 use BotMan\BotMan\Interfaces\VerifiesService;
 use BotMan\BotMan\Messages\Attachments\Audio;
+use BotMan\BotMan\Messages\Attachments\File;
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Attachments\Video;
-use BotMan\BotMan\Messages\Outgoing\Question;
-use Symfony\Component\HttpFoundation\Request;
-use BotMan\BotMan\Drivers\Events\GenericEvent;
-use Symfony\Component\HttpFoundation\Response;
-use BotMan\BotMan\Interfaces\DriverEventInterface;
-use BotMan\Drivers\Facebook\Events\MessagingReads;
-use Symfony\Component\HttpFoundation\ParameterBag;
-use BotMan\Drivers\Facebook\Events\MessagingOptins;
+use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use BotMan\BotMan\Messages\Outgoing\Question;
+use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
+use BotMan\Drivers\Facebook\Events\MessagingOptins;
+use BotMan\Drivers\Facebook\Events\MessagingReads;
+use BotMan\Drivers\Facebook\Events\MessagingReferrals;
+use BotMan\Drivers\Facebook\Exceptions\FacebookException;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass;
+use BotMan\Drivers\Facebook\Extensions\AirlineCheckInTemplate;
+use BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate;
+use BotMan\Drivers\Facebook\Extensions\AirlineUpdateTemplate;
+use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
+use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 use BotMan\Drivers\Facebook\Extensions\ListTemplate;
 use BotMan\Drivers\Facebook\Extensions\MediaTemplate;
-use BotMan\Drivers\Facebook\Events\MessagingReferrals;
-use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
-use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
-use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
-use BotMan\Drivers\Facebook\Extensions\ReceiptTemplate;
-use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 use BotMan\Drivers\Facebook\Extensions\OpenGraphTemplate;
+use BotMan\Drivers\Facebook\Extensions\ReceiptTemplate;
+use BotMan\Drivers\Facebook\Extensions\User;
+use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class FacebookDriver extends HttpDriver implements VerifiesService
 {
@@ -50,6 +54,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 
     /** @var array */
     protected $templates = [
+        AirlineBoardingPass::class,
+        AirlineCheckInTemplate::class,
+        AirlineItineraryTemplate::class,
+        AirlineUpdateTemplate::class,
         ButtonTemplate::class,
         GenericTemplate::class,
         ListTemplate::class,
