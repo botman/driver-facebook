@@ -2,11 +2,11 @@
 
 namespace Tests\Extensions;
 
+use PHPUnit_Framework_TestCase;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
+use BotMan\Drivers\Facebook\Extensions\AirlineCheckInTemplate;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule;
-use BotMan\Drivers\Facebook\Extensions\AirlineCheckInTemplate;
-use PHPUnit_Framework_TestCase;
 
 class AirlineCheckInTemplateTest extends PHPUnit_Framework_TestCase
 {

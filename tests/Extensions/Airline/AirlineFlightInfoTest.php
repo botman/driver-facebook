@@ -2,10 +2,10 @@
 
 namespace Tests\Extensions\Airline;
 
+use PHPUnit_Framework_TestCase;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule;
-use PHPUnit_Framework_TestCase;
 
 class AirlineFlightInfoTest extends PHPUnit_Framework_TestCase
 {

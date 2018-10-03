@@ -2,23 +2,15 @@
 
 namespace BotMan\Drivers\Facebook\Extensions;
 
-use BotMan\BotMan\Interfaces\WebAccess;
 use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo;
-use BotMan\Drivers\Facebook\Interfaces\Airline;
-use JsonSerializable;
 
-class AirlineUpdateTemplate implements JsonSerializable, WebAccess, Airline
+class AirlineUpdateTemplate extends AbstractAirlineTemplate
 {
     /**
      * @var string
      */
     protected $introMessage;
-
-    /**
-     * @var string
-     */
-    protected $locale;
 
     /**
      * @var string
@@ -51,11 +43,13 @@ class AirlineUpdateTemplate implements JsonSerializable, WebAccess, Airline
         string $pnrNumber,
         AirlineFlightInfo $updateFlightInfo
     ) {
-        if (!\in_array($updateType, self::UPDATE_TYPES, true)) {
+        if (! \in_array($updateType, self::UPDATE_TYPES, true)) {
             throw new FacebookException(
                 sprintf('update_type must be either "%s"', implode(', ', self::UPDATE_TYPES))
             );
         }
+
+        parent::__construct($locale);
 
         $this->updateType = $updateType;
         $this->locale = $locale;
@@ -80,27 +74,19 @@ class AirlineUpdateTemplate implements JsonSerializable, WebAccess, Airline
      */
     public function toArray(): array
     {
-        return [
+        $array = parent::toArray();
+
+        return array_merge_recursive($array, [
             'attachment' => [
-                'type' => 'template',
                 'payload' => [
                     'template_type' => 'airline_update',
                     'intro_message' => $this->introMessage,
                     'update_type' => $this->updateType,
-                    'locale' => $this->locale,
                     'pnr_number' => $this->pnrNumber,
                     'update_flight_info' => $this->updateFlightInfo,
                 ],
             ],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
+        ]);
     }
 
     /**
@@ -111,13 +97,15 @@ class AirlineUpdateTemplate implements JsonSerializable, WebAccess, Airline
      */
     public function toWebDriver(): array
     {
-        return [
+        $webDriver = parent::toWebDriver();
+        $webDriver += [
             'template_type' => 'airline_update',
             'intro_message' => $this->introMessage,
             'update_type' => $this->updateType,
-            'locale' => $this->locale,
             'pnr_number' => $this->pnrNumber,
             'update_flight_info' => $this->updateFlightInfo,
         ];
+
+        return $webDriver;
     }
 }

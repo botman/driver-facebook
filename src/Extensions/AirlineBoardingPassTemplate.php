@@ -2,9 +2,6 @@
 
 namespace BotMan\Drivers\Facebook\Extensions;
 
-use JsonSerializable;
-use BotMan\BotMan\Interfaces\WebAccess;
-
 class AirlineBoardingPassTemplate extends AbstractAirlineTemplate
 {
     /**

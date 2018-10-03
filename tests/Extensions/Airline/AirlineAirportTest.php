@@ -2,9 +2,9 @@
 
 namespace Tests\Extensions\Airline;
 
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
 
 class AirlineAirportTest extends PHPUnit_Framework_TestCase
 {
@@ -15,9 +15,7 @@ class AirlineAirportTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(AirlineAirport::class, $airport);
     }
 
-    /**
- * @test
- **/
+    /** @test**/
     public function it_can_set_a_terminal_and_a_gate()
     {
         $airport = new AirlineAirport('JFK', 'New York');
@@ -26,9 +24,7 @@ class AirlineAirportTest extends PHPUnit_Framework_TestCase
         $this->assertSame('T1', Arr::get($airport->toArray(), 'terminal'));
     }
 
-    /**
-     * @test
-     **/
+    /** @test**/
     public function it_can_set_a_gate()
     {
         $airport = new AirlineAirport('JFK', 'New York');

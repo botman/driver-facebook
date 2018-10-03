@@ -2,9 +2,6 @@
 
 namespace BotMan\Drivers\Facebook\Extensions;
 
-use BotMan\BotMan\Interfaces\WebAccess;
-use JsonSerializable;
-
 class AirlineItineraryTemplate extends AbstractAirlineTemplate
 {
     /**

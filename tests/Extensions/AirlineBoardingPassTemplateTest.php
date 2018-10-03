@@ -2,13 +2,13 @@
 
 namespace Tests\Extensions;
 
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule;
-use BotMan\Drivers\Facebook\Extensions\AirlineBoardingPassTemplate;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass;
+use BotMan\Drivers\Facebook\Extensions\AirlineBoardingPassTemplate;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule;
 
 class AirlineBoardingPassTemplateTest extends PHPUnit_Framework_TestCase
 {
@@ -31,7 +31,7 @@ class AirlineBoardingPassTemplateTest extends PHPUnit_Framework_TestCase
                         AirlineAirport::create('SLC', 'Salt Lake City'),
                         AirlineFlightSchedule::create('2016-01-02T19:45')
                     )
-                )
+                ),
             ]
         );
         $this->assertInstanceOf(AirlineBoardingPassTemplate::class, $boardingPassTemplate);
@@ -56,7 +56,7 @@ class AirlineBoardingPassTemplateTest extends PHPUnit_Framework_TestCase
                         AirlineAirport::create('SLC', 'Salt Lake City'),
                         AirlineFlightSchedule::create('2016-01-02T19:45')
                     )
-                )
+                ),
             ]
         );
         $boardingPassTemplate->themeColor('#FF0000');

@@ -2,9 +2,9 @@
 
 namespace BotMan\Drivers\Facebook\Extensions\Airline;
 
-use BotMan\Drivers\Facebook\Exceptions\FacebookException;
-use BotMan\Drivers\Facebook\Interfaces\Airline;
 use JsonSerializable;
+use BotMan\Drivers\Facebook\Interfaces\Airline;
+use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 
 class AirlineBoardingPass implements JsonSerializable, Airline
 {
@@ -125,12 +125,12 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      * @param string $travelClass
      *
      * @throws \BotMan\Drivers\Facebook\Exceptions\FacebookException
-     *                                                              
+     *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public function travelClass(string $travelClass): self
     {
-        if (!\in_array($travelClass, self::TRAVEL_TYPES, true)) {
+        if (! \in_array($travelClass, self::TRAVEL_TYPES, true)) {
             throw new FacebookException(
                 sprintf('travel_class must be either "%s"', implode(', ', self::TRAVEL_TYPES))
             );
@@ -233,7 +233,6 @@ class AirlineBoardingPass implements JsonSerializable, Airline
 
     /**
      * @param string $code
-     *
      */
     private function setCode(string $code)
     {

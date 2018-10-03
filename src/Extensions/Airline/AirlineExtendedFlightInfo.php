@@ -2,8 +2,7 @@
 
 namespace BotMan\Drivers\Facebook\Extensions\Airline;
 
-use BotMan\Drivers\Facebook\Interfaces\Airline;
-use JsonSerializable;
+use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 
 class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
 {
@@ -35,6 +34,8 @@ class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
      * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport        $arrivalAirport
      * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule $flightSchedule
      * @param string                                                            $travelClass
+     *
+     * @throws \BotMan\Drivers\Facebook\Exceptions\FacebookException
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineExtendedFlightInfo
      */
@@ -68,6 +69,8 @@ class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
      * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport        $arrivalAirport
      * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule $flightSchedule
      * @param string                                                            $travelClass
+     *
+     * @throws \BotMan\Drivers\Facebook\Exceptions\FacebookException
      */
     public function __construct(
         string $connectionId,
@@ -78,9 +81,8 @@ class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
         AirlineFlightSchedule $flightSchedule,
         string $travelClass
     ) {
-
-        if (!\in_array($travelClass, self::TRAVEL_TYPES, true)) {
-            throw new \InvalidArgumentException(
+        if (! \in_array($travelClass, self::TRAVEL_TYPES, true)) {
+            throw new FacebookException(
                 sprintf('travel_class must be either "%s"', implode(', ', self::TRAVEL_TYPES))
             );
         }
