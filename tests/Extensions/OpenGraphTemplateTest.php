@@ -22,7 +22,7 @@ class OpenGraphTemplateTest extends PHPUnit_Framework_TestCase
     public function it_can_add_an_element()
     {
         $template = new OpenGraphTemplate;
-        $template->addElement(OpenGraphElement::create()->setUrl('https://example.com'));
+        $template->addElement(OpenGraphElement::create()->url('https://example.com'));
 
         $this->assertSame('https://example.com', Arr::get($template->toArray(), 'attachment.payload.elements.0.url'));
     }
@@ -34,8 +34,8 @@ class OpenGraphTemplateTest extends PHPUnit_Framework_TestCase
     {
         $template = new OpenGraphTemplate;
         $template->addElements([
-            OpenGraphElement::create()->setUrl('https://example.com'),
-            OpenGraphElement::create()->setUrl('https://example.com'),
+            OpenGraphElement::create()->url('https://example.com'),
+            OpenGraphElement::create()->url('https://example.com'),
         ]);
 
         $this->assertSame('https://example.com', Arr::get($template->toArray(), 'attachment.payload.elements.0.url'));

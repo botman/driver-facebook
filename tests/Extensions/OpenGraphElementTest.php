@@ -22,7 +22,7 @@ class OpenGraphElementTest extends PHPUnit_Framework_TestCase
     public function it_can_set_an_url()
     {
         $element = new OpenGraphElement();
-        $element->setUrl('https://example.com');
+        $element->url('https://example.com');
 
         $this->assertSame('https://example.com', Arr::get($element->toArray(), 'url'));
     }

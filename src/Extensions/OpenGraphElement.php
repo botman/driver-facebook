@@ -29,7 +29,7 @@ class OpenGraphElement implements JsonSerializable
      *
      * @return $this
      */
-    public function setUrl(string $url): self
+    public function url(string $url): self
     {
         $this->url = $url;
 
