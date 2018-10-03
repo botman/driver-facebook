@@ -23,7 +23,7 @@ class AirlineUpdateTemplate extends AbstractAirlineTemplate
     protected $pnrNumber;
 
     /**
-     * @var \BotMan\Drivers\Facebook\Extensions\AirlineFlightInfo
+     * @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo
      */
     protected $updateFlightInfo;
 
