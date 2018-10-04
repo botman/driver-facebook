@@ -30,6 +30,10 @@ use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 use BotMan\Drivers\Facebook\Extensions\ReceiptTemplate;
 use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 use BotMan\Drivers\Facebook\Extensions\OpenGraphTemplate;
+use BotMan\Drivers\Facebook\Extensions\AirlineUpdateTemplate;
+use BotMan\Drivers\Facebook\Extensions\AirlineCheckInTemplate;
+use BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass;
 
 class FacebookDriver extends HttpDriver implements VerifiesService
 {
@@ -50,6 +54,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 
     /** @var array */
     protected $templates = [
+        AirlineBoardingPass::class,
+        AirlineCheckInTemplate::class,
+        AirlineItineraryTemplate::class,
+        AirlineUpdateTemplate::class,
         ButtonTemplate::class,
         GenericTemplate::class,
         ListTemplate::class,
