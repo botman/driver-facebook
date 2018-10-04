@@ -6,29 +6,42 @@ use JsonSerializable;
 
 class Element implements JsonSerializable
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $title;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $image_url;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $item_url;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $subtitle;
 
-    /** @var object */
+    /**
+     * @var object
+     */
     protected $buttons;
 
-    /** @var object */
+    /**
+     * @var object
+     */
     protected $default_action;
 
     /**
-     * @param $title
-     * @return static
+     * @param string $title
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public static function create($title)
+    public static function create(string $title): self
     {
         return new static($title);
     }
@@ -36,16 +49,17 @@ class Element implements JsonSerializable
     /**
      * @param string $title
      */
-    public function __construct($title)
+    public function __construct(string $title)
     {
         $this->title = $title;
     }
 
     /**
      * @param string $title
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public function title($title)
+    public function title(string $title): self
     {
         $this->title = $title;
 
@@ -54,9 +68,10 @@ class Element implements JsonSerializable
 
     /**
      * @param string $subtitle
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public function subtitle($subtitle)
+    public function subtitle(string $subtitle): self
     {
         $this->subtitle = $subtitle;
 
@@ -65,9 +80,10 @@ class Element implements JsonSerializable
 
     /**
      * @param string $image_url
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public function image($image_url)
+    public function image(string $image_url): self
     {
         $this->image_url = $image_url;
 
@@ -76,9 +92,10 @@ class Element implements JsonSerializable
 
     /**
      * @param string $item_url
+     *
      * @return $this
      */
-    public function itemUrl($item_url)
+    public function itemUrl(string $item_url): self
     {
         $this->item_url = $item_url;
 
@@ -86,10 +103,11 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $button
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ElementButton $button
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public function addButton(ElementButton $button)
+    public function addButton(ElementButton $button): self
     {
         $this->buttons[] = $button->toArray();
 
@@ -98,15 +116,14 @@ class Element implements JsonSerializable
 
     /**
      * @param array $buttons
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public function addButtons(array $buttons)
+    public function addButtons(array $buttons): self
     {
-        if (isset($buttons) && is_array($buttons)) {
-            foreach ($buttons as $button) {
-                if ($button instanceof ElementButton) {
-                    $this->buttons[] = $button->toArray();
-                }
+        foreach ($buttons as $button) {
+            if ($button instanceof ElementButton) {
+                $this->buttons[] = $button->toArray();
             }
         }
 
@@ -114,11 +131,11 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $defaultAction
+     * @param \BotMan\Drivers\Facebook\Extensions\ElementButton $defaultAction
      *
-     * @return $this
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public function defaultAction(ElementButton $defaultAction)
+    public function defaultAction(ElementButton $defaultAction): self
     {
         $defaultAction->type(ElementButton::TYPE_WEB_URL);
         $this->default_action = $defaultAction->toArray();
@@ -129,7 +146,7 @@ class Element implements JsonSerializable
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'title' => $this->title,
@@ -144,7 +161,7 @@ class Element implements JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }

@@ -15,13 +15,13 @@ class FacebookLocationDriver extends FacebookDriver
      *
      * @return bool
      */
-    public function matchesRequest()
+    public function matchesRequest(): bool
     {
         $validSignature = ! $this->config->has('facebook_app_secret') || $this->validateSignature();
         $messages = Collection::make($this->event->get('messaging'))->filter(function ($msg) {
-            if (isset($msg['message']) && isset($msg['message']['attachments']) && isset($msg['message']['attachments'])) {
+            if (isset($msg['message']['attachments'])) {
                 return Collection::make($msg['message']['attachments'])->filter(function ($attachment) {
-                    return (isset($attachment['type'])) && $attachment['type'] === 'location';
+                    return isset($attachment['type']) && $attachment['type'] === 'location';
                 })->isEmpty() === false;
             }
 
@@ -32,26 +32,12 @@ class FacebookLocationDriver extends FacebookDriver
     }
 
     /**
-     * Retrieve the chat message.
-     *
-     * @return array
-     */
-    public function getMessages()
-    {
-        if (empty($this->messages)) {
-            $this->loadMessages();
-        }
-
-        return $this->messages;
-    }
-
-    /**
      * Load Facebook messages.
      */
     protected function loadMessages()
     {
         $messages = Collection::make($this->event->get('messaging'))->filter(function ($msg) {
-            return isset($msg['message']) && isset($msg['message']['attachments']) && isset($msg['message']['attachments']);
+            return isset($msg['message']['attachments']);
         })->transform(function ($msg) {
             $message = new IncomingMessage(Location::PATTERN, $msg['sender']['id'], $msg['recipient']['id'], $msg);
             $message->setLocation($this->getLocation($msg));
@@ -59,7 +45,7 @@ class FacebookLocationDriver extends FacebookDriver
             return $message;
         })->toArray();
 
-        if (count($messages) === 0) {
+        if (\count($messages) === 0) {
             $messages = [new IncomingMessage('', '', '')];
         }
 
@@ -70,9 +56,10 @@ class FacebookLocationDriver extends FacebookDriver
      * Retrieve location from an incoming message.
      *
      * @param array $messages
+     *
      * @return \BotMan\BotMan\Messages\Attachments\Location
      */
-    public function getLocation(array $messages)
+    public function getLocation(array $messages): Location
     {
         $data = Collection::make($messages['message']['attachments'])->where('type',
             'location')->pluck('payload')->first();
@@ -83,7 +70,7 @@ class FacebookLocationDriver extends FacebookDriver
     /**
      * @return bool
      */
-    public function isConfigured()
+    public function isConfigured(): bool
     {
         return false;
     }
@@ -91,7 +78,7 @@ class FacebookLocationDriver extends FacebookDriver
     /**
      * @return bool
      */
-    public function hasMatchingEvent()
+    public function hasMatchingEvent(): bool
     {
         return false;
     }

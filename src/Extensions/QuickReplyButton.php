@@ -6,25 +6,34 @@ use BotMan\BotMan\Interfaces\QuestionActionInterface;
 
 class QuickReplyButton implements QuestionActionInterface
 {
-    /** @var string */
-    protected $contentType = self::TYPE_TEXT;
-
-    /** @var string */
-    protected $title;
-
-    /** @var string */
-    protected $payload;
-
-    /** @var string */
-    protected $imageUrl;
-
     const TYPE_TEXT = 'text';
 
     /**
-     * @param string $title
-     * @return static
+     * @var string
      */
-    public static function create($title = '')
+    protected $contentType = self::TYPE_TEXT;
+
+    /**
+     * @var string
+     */
+    protected $title;
+
+    /**
+     * @var string
+     */
+    protected $payload;
+
+    /**
+     * @var string
+     */
+    protected $imageUrl;
+
+    /**
+     * @param string $title
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\QuickReplyButton
+     */
+    public static function create(string $title = ''): self
     {
         return new static($title);
     }
@@ -32,7 +41,7 @@ class QuickReplyButton implements QuestionActionInterface
     /**
      * @param string $title
      */
-    public function __construct($title)
+    public function __construct(string $title)
     {
         $this->title = $title;
     }
@@ -41,9 +50,10 @@ class QuickReplyButton implements QuestionActionInterface
      * Set the button type.
      *
      * @param string $type
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\QuickReplyButton
      */
-    public function type($type)
+    public function type(string $type): self
     {
         $this->contentType = $type;
 
@@ -51,10 +61,11 @@ class QuickReplyButton implements QuestionActionInterface
     }
 
     /**
-     * @param $payload
-     * @return $this
+     * @param string $payload
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\QuickReplyButton
      */
-    public function payload($payload)
+    public function payload(string $payload): self
     {
         $this->payload = $payload;
 
@@ -62,12 +73,11 @@ class QuickReplyButton implements QuestionActionInterface
     }
 
     /**
-     * Set the button URL.
-     *
      * @param string $url
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\QuickReplyButton
      */
-    public function imageUrl($url)
+    public function imageUrl(string $url): self
     {
         $this->imageUrl = $url;
 
@@ -77,11 +87,11 @@ class QuickReplyButton implements QuestionActionInterface
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $buttonArray = [];
 
-        if ($this->contentType === 'text') {
+        if ($this->contentType === self::TYPE_TEXT) {
             $buttonArray = [
                 'content_type' => $this->contentType,
                 'title' => $this->title,
@@ -98,7 +108,7 @@ class QuickReplyButton implements QuestionActionInterface
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }

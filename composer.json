@@ -18,7 +18,8 @@
     ],
     "require": {
         "php": ">=7.0",
-        "botman/botman": "~2.1|~3.0"
+        "botman/botman": "~2.1|~3.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "botman/studio-addons": "~1.0",

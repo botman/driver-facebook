@@ -9,7 +9,7 @@ class MessagingPostbacks extends FacebookEvent
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'messaging_postbacks';
     }

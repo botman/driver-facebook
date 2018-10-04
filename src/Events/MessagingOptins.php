@@ -9,7 +9,7 @@ class MessagingOptins extends FacebookEvent
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'messaging_optins';
     }

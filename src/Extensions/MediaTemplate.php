@@ -7,27 +7,32 @@ use BotMan\BotMan\Interfaces\WebAccess;
 
 class MediaTemplate implements JsonSerializable, WebAccess
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $mediaType;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $elements = [];
 
     /**
-     * @return static
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaTemplate
      */
-    public static function create()
+    public static function create(): self
     {
         return new static();
     }
 
     /**
      * @param $element
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaTemplate
      */
-    public function element($element)
+    public function element($element): self
     {
-        $this->elements = [$element->toArray()];
+        $this->elements[] = $element->toArray();
 
         return $this;
     }
@@ -35,7 +40,7 @@ class MediaTemplate implements JsonSerializable, WebAccess
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'attachment' => [
@@ -51,7 +56,7 @@ class MediaTemplate implements JsonSerializable, WebAccess
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
@@ -62,7 +67,7 @@ class MediaTemplate implements JsonSerializable, WebAccess
      *
      * @return array
      */
-    public function toWebDriver()
+    public function toWebDriver(): array
     {
         return [
             'type' => $this->mediaType,

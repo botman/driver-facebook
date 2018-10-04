@@ -7,28 +7,35 @@ use BotMan\BotMan\Interfaces\WebAccess;
 
 class ListTemplate implements JsonSerializable, WebAccess
 {
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $elements = [];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $globalButton;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $top_element_style = 'large';
 
     /**
-     * @return static
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
-    public static function create()
+    public static function create(): self
     {
         return new static;
     }
 
     /**
-     * @param Element $element
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\Element $element
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
-    public function addElement(Element $element)
+    public function addElement(Element $element): self
     {
         $this->elements[] = $element->toArray();
 
@@ -37,9 +44,10 @@ class ListTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param array $elements
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
-    public function addElements(array $elements)
+    public function addElements(array $elements): self
     {
         foreach ($elements as $element) {
             if ($element instanceof Element) {
@@ -51,10 +59,11 @@ class ListTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ElementButton $button
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ElementButton $button
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
-    public function addGlobalButton(ElementButton $button)
+    public function addGlobalButton(ElementButton $button): self
     {
         $this->globalButton = $button->toArray();
 
@@ -62,9 +71,9 @@ class ListTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @return $this
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
-    public function useCompactView()
+    public function useCompactView(): self
     {
         $this->top_element_style = 'compact';
 
@@ -74,7 +83,7 @@ class ListTemplate implements JsonSerializable, WebAccess
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'attachment' => [
@@ -94,7 +103,7 @@ class ListTemplate implements JsonSerializable, WebAccess
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
@@ -105,7 +114,7 @@ class ListTemplate implements JsonSerializable, WebAccess
      *
      * @return array
      */
-    public function toWebDriver()
+    public function toWebDriver(): array
     {
         return [
             'type' => 'list',

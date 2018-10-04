@@ -63,7 +63,7 @@ class FacebookServiceProvider extends ServiceProvider
     /**
      * @return bool
      */
-    protected function isRunningInBotManStudio()
+    protected function isRunningInBotManStudio(): bool
     {
         return class_exists(StudioServiceProvider::class);
     }

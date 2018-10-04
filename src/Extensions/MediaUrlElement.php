@@ -6,37 +6,47 @@ use JsonSerializable;
 
 class MediaUrlElement implements JsonSerializable
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $media_type;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $url;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $buttons;
 
     /**
-     * @param $mediaType
-     * @return static
+     * @param string $mediaType
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaUrlElement
      */
-    public static function create($mediaType)
+    public static function create(string $mediaType): self
     {
         return new static($mediaType);
     }
 
     /**
-     * @param $mediaType
+     * MediaUrlElement constructor.
+     *
+     * @param string $mediaType
      */
-    public function __construct($mediaType)
+    public function __construct(string $mediaType)
     {
         $this->media_type = $mediaType;
     }
 
     /**
-     * @param $url
-     * @return $this
+     * @param string $url
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaUrlElement
      */
-    public function url($url)
+    public function url(string $url): self
     {
         $this->url = $url;
 
@@ -44,10 +54,11 @@ class MediaUrlElement implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $button
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ElementButton $button
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaUrlElement
      */
-    public function addButton(ElementButton $button)
+    public function addButton(ElementButton $button): self
     {
         $this->buttons[] = $button->toArray();
 
@@ -56,9 +67,10 @@ class MediaUrlElement implements JsonSerializable
 
     /**
      * @param array $buttons
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaUrlElement
      */
-    public function addButtons(array $buttons)
+    public function addButtons(array $buttons): self
     {
         foreach ($buttons as $button) {
             if ($button instanceof ElementButton) {
@@ -72,7 +84,7 @@ class MediaUrlElement implements JsonSerializable
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'media_type' => $this->media_type,
@@ -84,7 +96,7 @@ class MediaUrlElement implements JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }

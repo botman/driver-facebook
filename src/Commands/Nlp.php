@@ -49,14 +49,16 @@ class Nlp extends Command
 
         $responseObject = json_decode($response->getContent());
 
-        if ($response->getStatusCode() == 200) {
+        if ($response->getStatusCode() === 200) {
             if ($this->option('disable')) {
                 $this->info('NLP was disabled.');
             } else {
                 $this->info('NLP was enabled.');
             }
-        } else {
-            $this->error('Something went wrong: '.$responseObject->error->message);
+
+            return;
         }
+
+        $this->error('Something went wrong: '.$responseObject->error->message);
     }
 }

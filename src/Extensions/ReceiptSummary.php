@@ -6,31 +6,40 @@ use JsonSerializable;
 
 class ReceiptSummary implements JsonSerializable
 {
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $subtotal;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $shipping_cost;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $total_tax;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $total_cost;
 
     /**
-     * @return static
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
-    public static function create()
+    public static function create(): self
     {
         return new static;
     }
 
     /**
-     * @param string $subtotal
-     * @return $this
+     * @param float $subtotal
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
-    public function subtotal($subtotal)
+    public function subtotal(float $subtotal): self
     {
         $this->subtotal = $subtotal;
 
@@ -38,10 +47,11 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param string $shippingCost
-     * @return $this
+     * @param float $shippingCost
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
-    public function shippingCost($shippingCost)
+    public function shippingCost(float $shippingCost): self
     {
         $this->shipping_cost = $shippingCost;
 
@@ -49,10 +59,11 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param $totalTax
-     * @return $this
+     * @param float $totalTax
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
-    public function totalTax($totalTax)
+    public function totalTax(float $totalTax): self
     {
         $this->total_tax = $totalTax;
 
@@ -60,10 +71,11 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param $totalCost
-     * @return $this
+     * @param float $totalCost
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
-    public function totalCost($totalCost)
+    public function totalCost(float $totalCost): self
     {
         $this->total_cost = $totalCost;
 
@@ -73,7 +85,7 @@ class ReceiptSummary implements JsonSerializable
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'subtotal' => $this->subtotal,
@@ -86,7 +98,7 @@ class ReceiptSummary implements JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
