@@ -4,14 +4,10 @@ namespace BotMan\Drivers\Facebook\Extensions;
 
 class AirlineBoardingPassTemplate extends AbstractAirlineTemplate
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $introMessage;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $boardingPass;
 
     /**
@@ -42,7 +38,7 @@ class AirlineBoardingPassTemplate extends AbstractAirlineTemplate
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = parent::toArray();
 
@@ -63,7 +59,7 @@ class AirlineBoardingPassTemplate extends AbstractAirlineTemplate
      *
      * @return array
      */
-    public function toWebDriver(): array
+    public function toWebDriver()
     {
         $webDriver = parent::toWebDriver();
         $webDriver += [

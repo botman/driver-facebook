@@ -7,24 +7,16 @@ use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo;
 
 class AirlineUpdateTemplate extends AbstractAirlineTemplate
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $introMessage;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $updateType;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $pnrNumber;
 
-    /**
-     * @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo
-     */
+    /** @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo */
     protected $updateFlightInfo;
 
     /**
@@ -62,7 +54,7 @@ class AirlineUpdateTemplate extends AbstractAirlineTemplate
      *
      * @return \BotMan\Drivers\Facebook\Extensions\AirlineUpdateTemplate
      */
-    public function introMessage(string $introMessage): self
+    public function introMessage(string $introMessage)
     {
         $this->introMessage = $introMessage;
 
@@ -72,7 +64,7 @@ class AirlineUpdateTemplate extends AbstractAirlineTemplate
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = parent::toArray();
 
@@ -95,7 +87,7 @@ class AirlineUpdateTemplate extends AbstractAirlineTemplate
      *
      * @return array
      */
-    public function toWebDriver(): array
+    public function toWebDriver()
     {
         $webDriver = parent::toWebDriver();
         $webDriver += [

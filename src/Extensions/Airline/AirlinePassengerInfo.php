@@ -6,19 +6,13 @@ use JsonSerializable;
 
 class AirlinePassengerInfo implements JsonSerializable
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $passengerId;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $ticketNumber;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $name;
 
     /**
@@ -27,7 +21,7 @@ class AirlinePassengerInfo implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerInfo
      */
-    public static function create(string $passengerId, string $name): self
+    public static function create(string $passengerId, string $name)
     {
         return new static($passengerId, $name);
     }
@@ -49,7 +43,7 @@ class AirlinePassengerInfo implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerInfo
      */
-    public function ticketNumber(string $ticketNumber): self
+    public function ticketNumber(string $ticketNumber)
     {
         $this->ticketNumber = $ticketNumber;
 
@@ -59,7 +53,7 @@ class AirlinePassengerInfo implements JsonSerializable
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = [
             'passenger_id' => $this->passengerId,
@@ -73,7 +67,7 @@ class AirlinePassengerInfo implements JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

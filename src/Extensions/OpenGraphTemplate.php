@@ -7,14 +7,10 @@ use BotMan\BotMan\Interfaces\WebAccess;
 
 class OpenGraphTemplate implements JsonSerializable, WebAccess
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $mediaType;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $elements = [];
 
     /**
@@ -30,7 +26,7 @@ class OpenGraphTemplate implements JsonSerializable, WebAccess
      *
      * @return $this
      */
-    public function addElement(OpenGraphElement $element): self
+    public function addElement(OpenGraphElement $element)
     {
         $this->elements[] = $element->toArray();
 
@@ -42,7 +38,7 @@ class OpenGraphTemplate implements JsonSerializable, WebAccess
      *
      * @return $this
      */
-    public function addElements(array $elements): self
+    public function addElements(array $elements)
     {
         foreach ($elements as $element) {
             if ($element instanceof OpenGraphElement) {
@@ -56,7 +52,7 @@ class OpenGraphTemplate implements JsonSerializable, WebAccess
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         return [
             'attachment' => [
@@ -72,7 +68,7 @@ class OpenGraphTemplate implements JsonSerializable, WebAccess
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }
@@ -83,7 +79,7 @@ class OpenGraphTemplate implements JsonSerializable, WebAccess
      *
      * @return array
      */
-    public function toWebDriver(): array
+    public function toWebDriver()
     {
         return [
             'type' => $this->mediaType,

@@ -46,9 +46,6 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /** @var string */
     protected $signature;
 
-    /** @var string */
-    protected $content;
-
     /** @var array */
     protected $messages = [];
 
@@ -66,6 +63,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         OpenGraphTemplate::class,
     ];
 
+    /** @var array */
     private $supportedAttachments = [
         Video::class,
         Audio::class,
@@ -76,6 +74,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /** @var DriverEventInterface */
     protected $driverEvent;
 
+    /** @var string */
     protected $facebookProfileEndpoint = 'https://graph.facebook.com/v3.0/';
 
     /** @var bool If the incoming request is a FB postback */
@@ -138,7 +137,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             return Collection::make($msg)->toArray();
         })->first();
 
-        if (! is_null($event)) {
+        if ($event !== null) {
             $this->driverEvent = $this->getEventFromEventData($event);
 
             return $this->driverEvent;
@@ -196,6 +195,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 
     /**
      * @param IncomingMessage $matchingMessage
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function markSeen(IncomingMessage $matchingMessage)
@@ -213,6 +213,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 
     /**
      * @param IncomingMessage $matchingMessage
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function types(IncomingMessage $matchingMessage)
@@ -230,6 +231,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 
     /**
      * @param  IncomingMessage $message
+     *
      * @return Answer
      */
     public function getConversationAnswer(IncomingMessage $message)
@@ -237,7 +239,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         $payload = $message->getPayload();
         if (isset($payload['message']['quick_reply'])) {
             return Answer::create($payload['message']['text'])->setMessage($message)->setInteractiveReply(true)->setValue($payload['message']['quick_reply']['payload']);
-        } elseif (isset($payload['postback']['payload'])) {
+        }
+
+        if (isset($payload['postback']['payload'])) {
             return Answer::create($payload['postback']['title'])->setMessage($message)->setInteractiveReply(true)->setValue($payload['postback']['payload']);
         }
 
@@ -285,7 +289,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             return $message;
         })->toArray();
 
-        if (count($messages) === 0) {
+        if (\count($messages) === 0) {
             $messages = [new IncomingMessage('', '', '')];
         }
 
@@ -316,6 +320,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * quick reply response object.
      *
      * @param Question $question
+     *
      * @return array
      */
     private function convertQuestion(Question $question)
@@ -346,13 +351,14 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * @param string|Question|IncomingMessage $message
      * @param IncomingMessage $matchingMessage
      * @param array $additionalParameters
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @return array
      */
     public function buildServicePayload($message, $matchingMessage, $additionalParameters = [])
     {
         if ($this->driverEvent) {
             $payload = $this->driverEvent->getPayload();
-            if (isset($payload['optin']) && isset($payload['optin']['user_ref'])) {
+            if (isset($payload['optin']['user_ref'])) {
                 $recipient = ['user_ref' => $payload['optin']['user_ref']];
             } else {
                 $recipient = ['id' => $payload['sender']['id']];
@@ -373,12 +379,12 @@ class FacebookDriver extends HttpDriver implements VerifiesService
          */
         if ($message instanceof Question) {
             $parameters['message'] = $this->convertQuestion($message);
-        } elseif (is_object($message) && in_array(get_class($message), $this->templates)) {
+        } elseif (\is_object($message) && \in_array(\get_class($message), $this->templates, true)) {
             $parameters['message'] = $message->toArray();
         } elseif ($message instanceof OutgoingMessage) {
             $attachment = $message->getAttachment();
-            if (! is_null($attachment) && in_array(get_class($attachment), $this->supportedAttachments)) {
-                $attachmentType = strtolower(basename(str_replace('\\', '/', get_class($attachment))));
+            if ($attachment !== null && \in_array(\get_class($attachment), $this->supportedAttachments, true)) {
+                $attachmentType = strtolower(basename(str_replace('\\', '/', \get_class($attachment))));
                 unset($parameters['message']['text']);
                 $parameters['message']['attachment'] = [
                     'type' => $attachmentType,
@@ -399,8 +405,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 
     /**
      * @param mixed $payload
-     * @return Response
-     * @throws FacebookException
+     *
+     * @throws \BotMan\Drivers\Facebook\Exceptions\FacebookException
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function sendPayload($payload)
     {
@@ -423,13 +431,15 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      *
      * @param array $fields
      * @param IncomingMessage $matchingMessage
-     * @return User
+     *
      * @throws FacebookException
+     *
+     * @return User
      */
     public function getUserWithFields(array $fields, IncomingMessage $matchingMessage)
     {
         $messagingDetails = $this->event->get('messaging')[0];
-        // implode field array to create concatinated comma string
+        // implode field array to create concatenated comma string
         $fields = implode(',', $fields);
         // WORKPLACE (Facebook for companies)
         // if community isset in sender Object, it is a request done by workplace
@@ -449,8 +459,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * Retrieve User information.
      *
      * @param IncomingMessage $matchingMessage
-     * @return User
+     *
      * @throws FacebookException
+     *
+     * @return User
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
@@ -482,6 +494,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * @param string $endpoint
      * @param array $parameters
      * @param IncomingMessage $matchingMessage
+     *
      * @return Response
      */
     public function sendRequest($endpoint, array $parameters, IncomingMessage $matchingMessage)
@@ -503,8 +516,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 
     /**
      * @param Response $facebookResponse
-     * @return mixed
+     *
      * @throws FacebookException
+     *
+     * @return mixed
      */
     protected function throwExceptionIfResponseNotOk(Response $facebookResponse)
     {
@@ -522,7 +537,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         if (isset($msg['sender'])) {
             return $msg['sender']['id'];
-        } elseif (isset($msg['optin'])) {
+        }
+
+        if (isset($msg['optin'])) {
             return $msg['optin']['user_ref'];
         }
     }
@@ -543,6 +560,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      *
      * @param IncomingMessage $message
      * @param $bot
+     *
      * @return Response
      */
     public function handover(IncomingMessage $message, $bot)

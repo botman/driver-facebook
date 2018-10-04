@@ -50,9 +50,10 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param $name
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
-    public function recipientName($name)
+    public function recipientName(string $name)
     {
         $this->recipient_name = $name;
 
@@ -61,9 +62,10 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param $name
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
-    public function merchantName($name)
+    public function merchantName(string $name)
     {
         $this->merchant_name = $name;
 
@@ -72,9 +74,10 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param $orderNumber
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
-    public function orderNumber($orderNumber)
+    public function orderNumber(string $orderNumber)
     {
         $this->order_number = $orderNumber;
 
@@ -83,9 +86,10 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param $currency
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
-    public function currency($currency)
+    public function currency(string $currency)
     {
         $this->currency = $currency;
 
@@ -94,9 +98,10 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param $paymentMethod
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
-    public function paymentMethod($paymentMethod)
+    public function paymentMethod(string $paymentMethod)
     {
         $this->payment_method = $paymentMethod;
 
@@ -105,9 +110,10 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param $orderUrl
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
-    public function orderUrl($orderUrl)
+    public function orderUrl(string $orderUrl)
     {
         $this->order_url = $orderUrl;
 
@@ -116,9 +122,10 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param $timestamp
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
-    public function timestamp($timestamp)
+    public function timestamp(string $timestamp)
     {
         $this->timestamp = $timestamp;
 
@@ -126,8 +133,9 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ReceiptElement $element
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ReceiptElement $element
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
     public function addElement(ReceiptElement $element)
     {
@@ -138,7 +146,8 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param array $elements
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
     public function addElements(array $elements)
     {
@@ -152,8 +161,9 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ReceiptAddress $address
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ReceiptAddress $address
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
     public function addAddress(ReceiptAddress $address)
     {
@@ -163,8 +173,9 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ReceiptSummary $summary
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ReceiptSummary $summary
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
     public function addSummary(ReceiptSummary $summary)
     {
@@ -174,7 +185,8 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ReceiptAdjustment $adjustment
+     * @param \BotMan\Drivers\Facebook\Extensions\ReceiptAdjustment $adjustment
+     *
      * @return $this
      */
     public function addAdjustment(ReceiptAdjustment $adjustment)
@@ -186,7 +198,8 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param array $adjustments
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptTemplate
      */
     public function addAdjustments(array $adjustments)
     {

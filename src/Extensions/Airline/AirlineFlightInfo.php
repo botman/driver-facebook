@@ -17,7 +17,7 @@ class AirlineFlightInfo extends AbstractAirlineFlightInfo
         AirlineAirport $departureAirport,
         AirlineAirport $arrivalAirport,
         AirlineFlightSchedule $flightSchedule
-    ): self {
+    ) {
         return new self($flightNumber, $departureAirport, $arrivalAirport, $flightSchedule);
     }
 }

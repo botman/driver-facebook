@@ -4,54 +4,34 @@ namespace BotMan\Drivers\Facebook\Extensions;
 
 class AirlineItineraryTemplate extends AbstractAirlineTemplate
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $introMessage;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $pnrNumber;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $passengerInfo;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $flightInfo;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $passengerSegmentInfo;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $priceInfo = [];
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $basePrice;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $tax;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $totalPrice;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $currency;
 
     /**
@@ -75,7 +55,7 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
         array $passengerSegmentInfo,
         string $totalPrice,
         string $currency
-    ): self {
+    ) {
         return new static(
             $introMessage,
             $locale,
@@ -128,7 +108,7 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
      *
      * @return \BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate
      */
-    public function addPriceInfo(string $title, string $amount, string $currency = null): self
+    public function addPriceInfo(string $title, string $amount, string $currency = null)
     {
         $priceInfo = [
             'title' => $title,
@@ -146,7 +126,7 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
      *
      * @return \BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate
      */
-    public function basePrice(string $basePrice): self
+    public function basePrice(string $basePrice)
     {
         $this->basePrice = $basePrice;
 
@@ -158,7 +138,7 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
      *
      * @return \BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate
      */
-    public function tax(string $tax): self
+    public function tax(string $tax)
     {
         $this->tax = $tax;
 
@@ -168,7 +148,7 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = parent::toArray();
 
@@ -197,7 +177,7 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
      *
      * @return array
      */
-    public function toWebDriver(): array
+    public function toWebDriver()
     {
         $webDriver = parent::toWebDriver();
         $webDriver += [

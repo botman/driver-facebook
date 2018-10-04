@@ -14,22 +14,29 @@ class ButtonTemplate implements JsonSerializable, WebAccess
     protected $buttons = [];
 
     /**
-     * @param $text
-     * @return static
+     * @param string $text
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ButtonTemplate
      */
-    public static function create($text)
+    public static function create(string $text)
     {
         return new static($text);
     }
 
-    public function __construct($text)
+    /**
+     * ButtonTemplate constructor.
+     *
+     * @param string $text
+     */
+    public function __construct(string $text)
     {
         $this->text = $text;
     }
 
     /**
-     * @param ElementButton $button
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ElementButton $button
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ButtonTemplate
      */
     public function addButton(ElementButton $button)
     {
@@ -40,7 +47,8 @@ class ButtonTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param array $buttons
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ButtonTemplate
      */
     public function addButtons(array $buttons)
     {

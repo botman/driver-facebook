@@ -8,69 +8,43 @@ use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 
 class AirlineBoardingPass implements JsonSerializable, Airline
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $passengerName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $pnrNumber;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $travelClass;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $seat;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $auxiliaryFields = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $secondaryFields = [];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $logoImageUrl;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $headerImageUrl;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $headerTextField;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $qrCode;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $barcodeImageUrl;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $aboveBarcodeImageUrl;
 
-    /**
-     * @var AirlineFlightInfo;
-     */
+    /** @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo */
     protected $flightInfo;
 
     /**
@@ -90,7 +64,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
         string $code,
         string $aboveBarcodeImageUrl,
         AirlineFlightInfo $flightInfo
-    ): self {
+    ) {
         return new static($passengerName, $pnrNumber, $logoImageUrl, $code, $aboveBarcodeImageUrl, $flightInfo);
     }
 
@@ -128,7 +102,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
-    public function travelClass(string $travelClass): self
+    public function travelClass(string $travelClass)
     {
         if (! \in_array($travelClass, self::TRAVEL_TYPES, true)) {
             throw new FacebookException(
@@ -146,7 +120,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
-    public function seat(string $seat): self
+    public function seat(string $seat)
     {
         $this->seat = $seat;
 
@@ -159,7 +133,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
-    public function addAuxiliaryField(string $label, string $value): self
+    public function addAuxiliaryField(string $label, string $value)
     {
         $this->auxiliaryFields[] = $this->setLabelValue($label, $value);
 
@@ -171,7 +145,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
-    public function addAuxiliaryFields(array $auxiliaryFields): self
+    public function addAuxiliaryFields(array $auxiliaryFields)
     {
         foreach ($auxiliaryFields as $label => $value) {
             $this->auxiliaryFields[] = $this->setLabelValue($label, $value);
@@ -186,7 +160,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
-    public function addSecondaryField(string $label, string $value): self
+    public function addSecondaryField(string $label, string $value)
     {
         $this->secondaryFields[] = $this->setLabelValue($label, $value);
 
@@ -198,7 +172,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
-    public function addSecondaryFields(array $secondaryFields): self
+    public function addSecondaryFields(array $secondaryFields)
     {
         foreach ($secondaryFields as $label => $value) {
             $this->secondaryFields[] = $this->setLabelValue($label, $value);
@@ -212,7 +186,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
-    public function headerImageUrl(string $headerImageUrl): self
+    public function headerImageUrl(string $headerImageUrl)
     {
         $this->headerImageUrl = $headerImageUrl;
 
@@ -224,7 +198,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
-    public function headerTextField(string $headerTextField): self
+    public function headerTextField(string $headerTextField)
     {
         $this->headerTextField = $headerTextField;
 
@@ -250,7 +224,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
      *
      * @return array
      */
-    private function setLabelValue(string $label, string $value): array
+    private function setLabelValue(string $label, string $value)
     {
         return [
             'label' => $label,
@@ -261,7 +235,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = [
             'passenger_name' => $this->passengerName,
@@ -285,7 +259,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

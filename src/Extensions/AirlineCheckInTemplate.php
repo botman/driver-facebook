@@ -4,24 +4,16 @@ namespace BotMan\Drivers\Facebook\Extensions;
 
 class AirlineCheckInTemplate extends AbstractAirlineTemplate
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $introMessage;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $pnrNumber;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $flightInfo;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $checkinUrl;
 
     /**
@@ -70,7 +62,7 @@ class AirlineCheckInTemplate extends AbstractAirlineTemplate
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = parent::toArray();
 
@@ -93,7 +85,7 @@ class AirlineCheckInTemplate extends AbstractAirlineTemplate
      *
      * @return array
      */
-    public function toWebDriver(): array
+    public function toWebDriver()
     {
         $webDriver = parent::toWebDriver();
         $webDriver += [

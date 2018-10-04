@@ -6,14 +6,10 @@ use JsonSerializable;
 
 class OpenGraphElement implements JsonSerializable
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $url;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $buttons;
 
     /**
@@ -29,7 +25,7 @@ class OpenGraphElement implements JsonSerializable
      *
      * @return $this
      */
-    public function url(string $url): self
+    public function url(string $url)
     {
         $this->url = $url;
 
@@ -41,7 +37,7 @@ class OpenGraphElement implements JsonSerializable
      *
      * @return $this
      */
-    public function addButton(ElementButton $button): self
+    public function addButton(ElementButton $button)
     {
         $this->buttons[] = $button->toArray();
 
@@ -53,7 +49,7 @@ class OpenGraphElement implements JsonSerializable
      *
      * @return $this
      */
-    public function addButtons(array $buttons): self
+    public function addButtons(array $buttons)
     {
         foreach ($buttons as $button) {
             if ($button instanceof ElementButton) {
@@ -67,7 +63,7 @@ class OpenGraphElement implements JsonSerializable
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         return [
             'url' => $this->url,
@@ -78,7 +74,7 @@ class OpenGraphElement implements JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

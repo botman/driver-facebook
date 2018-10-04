@@ -23,7 +23,7 @@ class GenericTemplate implements JsonSerializable, WebAccess
     protected $imageAspectRatio = self::RATIO_HORIZONTAL;
 
     /**
-     * @return static
+     * @return \BotMan\Drivers\Facebook\Extensions\GenericTemplate
      */
     public static function create()
     {
@@ -31,8 +31,9 @@ class GenericTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param Element $element
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\Element $element
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\GenericTemplate
      */
     public function addElement(Element $element)
     {
@@ -43,7 +44,8 @@ class GenericTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param array $elements
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\GenericTemplate
      */
     public function addElements(array $elements)
     {
@@ -58,11 +60,12 @@ class GenericTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param string $ratio
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\GenericTemplate
      */
-    public function addImageAspectRatio($ratio)
+    public function addImageAspectRatio(string $ratio)
     {
-        if (in_array($ratio, self::$allowedRatios)) {
+        if (\ in_array($ratio, self::$allowedRatios, true)) {
             $this->imageAspectRatio = $ratio;
         }
 

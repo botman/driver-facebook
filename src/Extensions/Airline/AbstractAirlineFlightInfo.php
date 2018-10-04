@@ -7,24 +7,16 @@ use BotMan\Drivers\Facebook\Interfaces\Airline;
 
 abstract class AbstractAirlineFlightInfo implements JsonSerializable, Airline
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $flightNumber;
 
-    /**
-     * @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport
-     */
+    /** @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport */
     protected $departureAirport;
 
-    /**
-     * @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport
-     */
+    /** @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport */
     protected $arrivalAirport;
 
-    /**
-     * @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule
-     */
+    /** @var \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule */
     protected $flightSchedule;
 
     /**
@@ -50,7 +42,7 @@ abstract class AbstractAirlineFlightInfo implements JsonSerializable, Airline
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         return [
             'flight_number' => $this->flightNumber,
@@ -63,7 +55,7 @@ abstract class AbstractAirlineFlightInfo implements JsonSerializable, Airline
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

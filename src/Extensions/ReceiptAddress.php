@@ -25,7 +25,7 @@ class ReceiptAddress implements JsonSerializable
     protected $country;
 
     /**
-     * @return static
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptAddress
      */
     public static function create()
     {
@@ -34,9 +34,10 @@ class ReceiptAddress implements JsonSerializable
 
     /**
      * @param string $street
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptAddress
      */
-    public function street1($street)
+    public function street1(string $street)
     {
         $this->street_1 = $street;
 
@@ -45,9 +46,10 @@ class ReceiptAddress implements JsonSerializable
 
     /**
      * @param string $street
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptAddress
      */
-    public function street2($street)
+    public function street2(string $street)
     {
         $this->street_2 = $street;
 
@@ -55,10 +57,11 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param $city
-     * @return $this
+     * @param string $city
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptAddress
      */
-    public function city($city)
+    public function city(string $city)
     {
         $this->city = $city;
 
@@ -66,10 +69,11 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param $postalCode
-     * @return $this
+     * @param string $postalCode
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptAddress
      */
-    public function postalCode($postalCode)
+    public function postalCode(string $postalCode)
     {
         $this->postal_code = $postalCode;
 
@@ -77,10 +81,11 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param $state
-     * @return $this
+     * @param string $state
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptAddress
      */
-    public function state($state)
+    public function state(string $state)
     {
         $this->state = $state;
 
@@ -88,10 +93,11 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param string $country
+     * @param $country
+     *
      * @return $this
      */
-    public function country($country)
+    public function country(string $country)
     {
         $this->country = $country;
 

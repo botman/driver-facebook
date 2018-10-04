@@ -25,10 +25,11 @@ class ReceiptElement implements JsonSerializable
     protected $image_url;
 
     /**
-     * @param $title
-     * @return static
+     * @param string $title
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptElement
      */
-    public static function create($title)
+    public static function create(string $title)
     {
         return new static($title);
     }
@@ -36,16 +37,17 @@ class ReceiptElement implements JsonSerializable
     /**
      * @param string $title
      */
-    public function __construct($title)
+    public function __construct(string $title)
     {
         $this->title = $title;
     }
 
     /**
      * @param string $subtitle
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptElement
      */
-    public function subtitle($subtitle)
+    public function subtitle(string $subtitle)
     {
         $this->subtitle = $subtitle;
 
@@ -53,10 +55,11 @@ class ReceiptElement implements JsonSerializable
     }
 
     /**
-     * @param $quantity
-     * @return $this
+     * @param int $quantity
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptElement
      */
-    public function quantity($quantity)
+    public function quantity(int $quantity)
     {
         $this->quantity = $quantity;
 
@@ -64,10 +67,11 @@ class ReceiptElement implements JsonSerializable
     }
 
     /**
-     * @param $price
-     * @return $this
+     * @param float $price
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptElement
      */
-    public function price($price)
+    public function price(float $price)
     {
         $this->price = $price;
 
@@ -75,10 +79,11 @@ class ReceiptElement implements JsonSerializable
     }
 
     /**
-     * @param $currency
-     * @return $this
+     * @param string $currency
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptElement
      */
-    public function currency($currency)
+    public function currency(string $currency)
     {
         $this->currency = $currency;
 
@@ -87,9 +92,10 @@ class ReceiptElement implements JsonSerializable
 
     /**
      * @param string $image_url
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptElement
      */
-    public function image($image_url)
+    public function image(string $image_url)
     {
         $this->image_url = $image_url;
 

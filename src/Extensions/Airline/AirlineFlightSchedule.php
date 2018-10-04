@@ -6,19 +6,13 @@ use JsonSerializable;
 
 class AirlineFlightSchedule implements JsonSerializable
 {
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $boardingTime;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $departureTime;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $arrivalTime;
 
     /**
@@ -26,7 +20,7 @@ class AirlineFlightSchedule implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule
      */
-    public static function create(string $departureTime): self
+    public static function create(string $departureTime)
     {
         return new self($departureTime);
     }
@@ -46,7 +40,7 @@ class AirlineFlightSchedule implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule
      */
-    public function boardingTime(string $boardingTime): self
+    public function boardingTime(string $boardingTime)
     {
         $this->boardingTime = $boardingTime;
 
@@ -58,7 +52,7 @@ class AirlineFlightSchedule implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule
      */
-    public function arrivalTime(string $arrivalTime): self
+    public function arrivalTime(string $arrivalTime)
     {
         $this->arrivalTime = $arrivalTime;
 
@@ -68,7 +62,7 @@ class AirlineFlightSchedule implements JsonSerializable
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = [
             'boarding_time' => $this->boardingTime,
@@ -82,7 +76,7 @@ class AirlineFlightSchedule implements JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

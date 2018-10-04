@@ -6,24 +6,16 @@ use JsonSerializable;
 
 class AirlineAirport implements JsonSerializable
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $airportCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $city;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $terminal;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $gate;
 
     /**
@@ -32,7 +24,7 @@ class AirlineAirport implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport
      */
-    public static function create(string $airportCode, string $city): self
+    public static function create(string $airportCode, string $city)
     {
         return new static($airportCode, $city);
     }
@@ -54,7 +46,7 @@ class AirlineAirport implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport
      */
-    public function terminal(string $terminal): self
+    public function terminal(string $terminal)
     {
         $this->terminal = $terminal;
 
@@ -66,7 +58,7 @@ class AirlineAirport implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport
      */
-    public function gate(string $gate): self
+    public function gate(string $gate)
     {
         $this->gate = $gate;
 
@@ -76,7 +68,7 @@ class AirlineAirport implements JsonSerializable
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = [
             'airport_code' => $this->airportCode,
@@ -91,7 +83,7 @@ class AirlineAirport implements JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

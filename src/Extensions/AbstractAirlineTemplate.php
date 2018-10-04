@@ -8,14 +8,10 @@ use BotMan\Drivers\Facebook\Interfaces\Airline;
 
 abstract class AbstractAirlineTemplate implements JsonSerializable, WebAccess, Airline
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $locale;
 
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $themeColor;
 
     /**
@@ -33,7 +29,7 @@ abstract class AbstractAirlineTemplate implements JsonSerializable, WebAccess, A
      *
      * @return \BotMan\Drivers\Facebook\Extensions\AbstractAirlineTemplate
      */
-    public function themeColor(string $themeColor): self
+    public function themeColor(string $themeColor)
     {
         $this->themeColor = $themeColor;
 
@@ -43,7 +39,7 @@ abstract class AbstractAirlineTemplate implements JsonSerializable, WebAccess, A
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         return [
             'attachment' => [
@@ -59,7 +55,7 @@ abstract class AbstractAirlineTemplate implements JsonSerializable, WebAccess, A
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }
@@ -70,7 +66,7 @@ abstract class AbstractAirlineTemplate implements JsonSerializable, WebAccess, A
      *
      * @return array
      */
-    public function toWebDriver(): array
+    public function toWebDriver()
     {
         return [
             'locale' => $this->locale,

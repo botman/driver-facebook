@@ -14,7 +14,7 @@ class MediaTemplate implements JsonSerializable, WebAccess
     protected $elements = [];
 
     /**
-     * @return static
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaTemplate
      */
     public static function create()
     {
@@ -23,11 +23,12 @@ class MediaTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param $element
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaTemplate
      */
     public function element($element)
     {
-        $this->elements = [$element->toArray()];
+        $this->elements[] = $element->toArray();
 
         return $this;
     }

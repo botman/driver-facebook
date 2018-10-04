@@ -16,27 +16,31 @@ class MediaUrlElement implements JsonSerializable
     protected $buttons;
 
     /**
-     * @param $mediaType
-     * @return static
+     * @param string $mediaType
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaUrlElement
      */
-    public static function create($mediaType)
+    public static function create(string $mediaType)
     {
         return new static($mediaType);
     }
 
     /**
-     * @param $mediaType
+     * MediaUrlElement constructor.
+     *
+     * @param string $mediaType
      */
-    public function __construct($mediaType)
+    public function __construct(string $mediaType)
     {
         $this->media_type = $mediaType;
     }
 
     /**
-     * @param $url
-     * @return $this
+     * @param string $url
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaUrlElement
      */
-    public function url($url)
+    public function url(string $url)
     {
         $this->url = $url;
 
@@ -44,8 +48,9 @@ class MediaUrlElement implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $button
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ElementButton $button
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaUrlElement
      */
     public function addButton(ElementButton $button)
     {
@@ -56,7 +61,8 @@ class MediaUrlElement implements JsonSerializable
 
     /**
      * @param array $buttons
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\MediaUrlElement
      */
     public function addButtons(array $buttons)
     {
