@@ -2,6 +2,7 @@
 
 namespace BotMan\Drivers\Facebook;
 
+use BotMan\Drivers\Facebook\Extensions\QuickReplyTemplate;
 use Illuminate\Support\Collection;
 use BotMan\BotMan\Drivers\HttpDriver;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -64,6 +65,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         ReceiptTemplate::class,
         MediaTemplate::class,
         OpenGraphTemplate::class,
+        QuickReplyTemplate::class,
     ];
 
     private $supportedAttachments = [
