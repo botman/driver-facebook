@@ -2,7 +2,6 @@
 
 namespace Tests\Drivers;
 
-use BotMan\Drivers\Facebook\Events\MessagingAccountLinking;
 use Mockery as m;
 use BotMan\BotMan\Http\Curl;
 use PHPUnit_Framework_TestCase;
@@ -22,6 +21,7 @@ use BotMan\Drivers\Facebook\Events\MessagingReferrals;
 use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
 use BotMan\Drivers\Facebook\Extensions\QuickReplyButton;
 use BotMan\Drivers\Facebook\Exceptions\FacebookException;
+use BotMan\Drivers\Facebook\Events\MessagingAccountLinking;
 use BotMan\Drivers\Facebook\Events\MessagingCheckoutUpdates;
 
 class FacebookDriverTest extends PHPUnit_Framework_TestCase
