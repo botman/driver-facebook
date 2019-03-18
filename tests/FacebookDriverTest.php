@@ -2,6 +2,7 @@
 
 namespace Tests\Drivers;
 
+use BotMan\Drivers\Facebook\Events\MessagingAccountLinking;
 use Mockery as m;
 use BotMan\BotMan\Http\Curl;
 use PHPUnit_Framework_TestCase;
@@ -989,6 +990,17 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $event = $driver->hasMatchingEvent();
         $this->assertInstanceOf(MessagingReads::class, $event);
         $this->assertSame('messaging_reads', $event->getName());
+    }
+
+    /** @test */
+    public function it_calls_account_linking_event()
+    {
+        $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"USER_ID"},"recipient":{"id":"PAGE_ID"},"timestamp":1458668856463,"account_linking":{"status":"linked","authorization_code":"authorization code"}}]}]}';
+        $driver = $this->getDriver($request);
+
+        $event = $driver->hasMatchingEvent();
+        $this->assertInstanceOf(MessagingAccountLinking::class, $event);
+        $this->assertSame('messaging_account_linking', $event->getName());
     }
 
     /** @test */
