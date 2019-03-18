@@ -2,7 +2,7 @@
 
 namespace BotMan\Drivers\Facebook\Events;
 
-class MessagingAccountLinking extends FacebookEvent
+class MessagingAcountLinking extends FacebookEvent
 {
     /**
      * Return the event name to match.
