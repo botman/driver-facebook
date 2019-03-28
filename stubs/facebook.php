@@ -117,8 +117,7 @@ return [
     | Facebook Messenger Codes
     |--------------------------------------------------------------------------
     |
-    | This is to generate codes to be scanned to instantly link the user 
-    | to your bot
+    | This is to generate codes to be scanned to instantly link the user to your bot
     | 
     */
     'messenger_code' => [

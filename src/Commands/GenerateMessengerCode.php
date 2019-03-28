@@ -23,7 +23,7 @@ class GenerateMessengerCode extends Command
 
     /**
      * @var Curl
-    */
+     */
     private $http;
 
     /**
@@ -58,8 +58,8 @@ class GenerateMessengerCode extends Command
         $responseObject = json_decode($response->getContent());
 
         if ($response->getStatusCode() == 200) {
-             $this->info('This is your code url');
-             $this->info($responseObject->uri);
+            $this->info('This is your code url');
+            $this->info($responseObject->uri);
         } else {
             $this->error('Something went wrong: '.$responseObject->error->message);
         }
