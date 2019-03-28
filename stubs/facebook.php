@@ -111,4 +111,18 @@ return [
     'whitelisted_domains' => [
         'https://petersfancyapparel.com',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Facebook Messenger Codes
+    |--------------------------------------------------------------------------
+    |
+    | This is to generate codes to be scanned to instantly link the user 
+    | to your bot
+    | 
+    */
+    'messenger_code' => [
+        'type' => 'standard',
+        'image_size' => '1000',
+    ],
 ];
