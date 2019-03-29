@@ -117,9 +117,9 @@ return [
     | Facebook Messenger Codes
     |--------------------------------------------------------------------------
     |
-    | This is to create code to be scanned to instantly 
+    | This is to create code to be scanned to instantly
     | link the user to your bot
-    | 
+    |
     */
     'messenger_code' => [
         'type' => 'standard',
