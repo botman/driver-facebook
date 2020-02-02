@@ -70,6 +70,16 @@ class GenericTemplate implements JsonSerializable, WebAccess
     }
 
     /**
+     * @param string $ratio
+     * @return $this
+     */
+    public function addSharable($sharable)
+    {
+        $this->sharable = $sharable;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -79,6 +89,7 @@ class GenericTemplate implements JsonSerializable, WebAccess
                 'type' => 'template',
                 'payload' => [
                     'template_type' => 'generic',
+                    'sharable' => $this->sharable,
                     'image_aspect_ratio' => $this->imageAspectRatio,
                     'elements' => $this->elements,
                 ],
