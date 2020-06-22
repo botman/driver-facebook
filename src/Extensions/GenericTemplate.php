@@ -2,8 +2,8 @@
 
 namespace BotMan\Drivers\Facebook\Extensions;
 
-use JsonSerializable;
 use BotMan\BotMan\Interfaces\WebAccess;
+use JsonSerializable;
 
 class GenericTemplate implements JsonSerializable, WebAccess
 {
@@ -18,6 +18,7 @@ class GenericTemplate implements JsonSerializable, WebAccess
 
     /** @var array */
     protected $elements = [];
+    protected $quick_replies = [];
 
     /** @var string */
     protected $imageAspectRatio = self::RATIO_HORIZONTAL;
@@ -57,6 +58,32 @@ class GenericTemplate implements JsonSerializable, WebAccess
     }
 
     /**
+     * @param QuickReplyButton $button
+     * @return $this
+     */
+    public function addQuickReply(QuickReplyButton $button)
+    {
+        $this->quick_replies[] = $button->toArray();
+
+        return $this;
+    }
+
+    /**
+     * @param array $buttons
+     * @return $this
+     */
+    public function addQuickReplies(array $buttons)
+    {
+        foreach ($buttons as $button) {
+            if ($button instanceof QuickReplyButton) {
+                $this->quick_replies[] = $button->toArray();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @param string $ratio
      * @return $this
      */
@@ -83,6 +110,7 @@ class GenericTemplate implements JsonSerializable, WebAccess
                     'elements' => $this->elements,
                 ],
             ],
+            'quick_replies' => $this->quick_replies,
         ];
     }
 
