@@ -2,15 +2,15 @@
 
 namespace Tests\Extensions;
 
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineExtendedFlightInfo;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerInfo;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerSegmentInfo;
+use BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate;
+use BotMan\Drivers\Facebook\Interfaces\Airline;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Interfaces\Airline;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
-use BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerInfo;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineExtendedFlightInfo;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerSegmentInfo;
 
 class AirlineItineraryTemplateTest extends PHPUnit_Framework_TestCase
 {

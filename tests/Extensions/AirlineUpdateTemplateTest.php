@@ -2,13 +2,13 @@
 
 namespace Tests\Extensions;
 
-use Illuminate\Support\Arr;
-use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Interfaces\Airline;
-use BotMan\Drivers\Facebook\Extensions\AirlineUpdateTemplate;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo;
 use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule;
+use BotMan\Drivers\Facebook\Extensions\AirlineUpdateTemplate;
+use BotMan\Drivers\Facebook\Interfaces\Airline;
+use Illuminate\Support\Arr;
+use PHPUnit_Framework_TestCase;
 
 class AirlineUpdateTemplateTest extends PHPUnit_Framework_TestCase
 {

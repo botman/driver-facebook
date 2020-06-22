@@ -2,9 +2,9 @@
 
 namespace Tests\Extensions;
 
+use BotMan\Drivers\Facebook\Extensions\ReceiptSummary;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Extensions\ReceiptSummary;
 
 class ReceiptSummaryTest extends PHPUnit_Framework_TestCase
 {

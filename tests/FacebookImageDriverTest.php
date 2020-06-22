@@ -2,12 +2,12 @@
 
 namespace Tests\Drivers;
 
-use Mockery as m;
 use BotMan\BotMan\Http\Curl;
+use BotMan\BotMan\Messages\Incoming\IncomingMessage;
+use BotMan\Drivers\Facebook\FacebookImageDriver;
+use Mockery as m;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use BotMan\Drivers\Facebook\FacebookImageDriver;
-use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
 class FacebookImageDriverTest extends PHPUnit_Framework_TestCase
 {
@@ -163,12 +163,12 @@ class FacebookImageDriverTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('http://facebookimage.com/image.png', $images[0]->getUrl());
         $this->assertEquals([
-                'url' => 'http://facebookimage.com/image.png',
+            'url' => 'http://facebookimage.com/image.png',
         ], $images[0]->getPayload());
 
         $this->assertEquals('http://facebookimage.com/imageX.png', $images[1]->getUrl());
         $this->assertEquals([
-                'url' => 'http://facebookimage.com/imageX.png',
+            'url' => 'http://facebookimage.com/imageX.png',
         ], $images[1]->getPayload());
     }
 }

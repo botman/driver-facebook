@@ -2,8 +2,8 @@
 
 namespace BotMan\Drivers\Facebook\Extensions\Airline;
 
-use JsonSerializable;
 use BotMan\Drivers\Facebook\Interfaces\Airline;
+use JsonSerializable;
 
 abstract class AbstractAirlineFlightInfo implements JsonSerializable, Airline
 {

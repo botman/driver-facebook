@@ -2,10 +2,10 @@
 
 namespace Tests\Extensions;
 
+use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
+use BotMan\Drivers\Facebook\Extensions\ElementButton;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Extensions\ElementButton;
-use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
 
 class ButtonTemplateTest extends PHPUnit_Framework_TestCase
 {

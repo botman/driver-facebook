@@ -2,10 +2,10 @@
 
 namespace Tests\Extensions;
 
+use BotMan\Drivers\Facebook\Extensions\MediaAttachmentElement;
+use BotMan\Drivers\Facebook\Extensions\MediaTemplate;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Extensions\MediaTemplate;
-use BotMan\Drivers\Facebook\Extensions\MediaAttachmentElement;
 
 class MediaTemplateTest extends PHPUnit_Framework_TestCase
 {

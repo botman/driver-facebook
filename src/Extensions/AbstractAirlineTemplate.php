@@ -2,9 +2,9 @@
 
 namespace BotMan\Drivers\Facebook\Extensions;
 
-use JsonSerializable;
 use BotMan\BotMan\Interfaces\WebAccess;
 use BotMan\Drivers\Facebook\Interfaces\Airline;
+use JsonSerializable;
 
 abstract class AbstractAirlineTemplate implements JsonSerializable, WebAccess, Airline
 {
