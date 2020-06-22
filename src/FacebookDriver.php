@@ -89,7 +89,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     public function buildPayload(Request $request)
     {
         $this->payload = new ParameterBag((array) json_decode($request->getContent(), true));
-        $this->event = Collection::make((array) $this->payload->get('entry')[0]);
+        $this->event = Collection::make((array) $this->payload->get('entry', [null])[0]);
         $this->signature = $request->headers->get('X_HUB_SIGNATURE', '');
         $this->content = $request->getContent();
         $this->config = Collection::make($this->config->get('facebook', []));
