@@ -2,10 +2,10 @@
 
 namespace Tests\Extensions;
 
-use Illuminate\Support\Arr;
-use PHPUnit_Framework_TestCase;
 use BotMan\Drivers\Facebook\Extensions\OpenGraphElement;
 use BotMan\Drivers\Facebook\Extensions\OpenGraphTemplate;
+use Illuminate\Support\Arr;
+use PHPUnit_Framework_TestCase;
 
 class OpenGraphTemplateTest extends PHPUnit_Framework_TestCase
 {

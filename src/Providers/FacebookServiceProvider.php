@@ -2,20 +2,20 @@
 
 namespace BotMan\Drivers\Facebook\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use BotMan\BotMan\Drivers\DriverManager;
-use BotMan\Drivers\Facebook\Commands\Nlp;
-use BotMan\Drivers\Facebook\FacebookDriver;
-use BotMan\Drivers\Facebook\FacebookFileDriver;
-use BotMan\Drivers\Facebook\FacebookAudioDriver;
-use BotMan\Drivers\Facebook\FacebookImageDriver;
-use BotMan\Drivers\Facebook\FacebookVideoDriver;
-use BotMan\Studio\Providers\StudioServiceProvider;
-use BotMan\Drivers\Facebook\FacebookLocationDriver;
 use BotMan\Drivers\Facebook\Commands\AddGreetingText;
-use BotMan\Drivers\Facebook\Commands\WhitelistDomains;
 use BotMan\Drivers\Facebook\Commands\AddPersistentMenu;
 use BotMan\Drivers\Facebook\Commands\AddStartButtonPayload;
+use BotMan\Drivers\Facebook\Commands\Nlp;
+use BotMan\Drivers\Facebook\Commands\WhitelistDomains;
+use BotMan\Drivers\Facebook\FacebookAudioDriver;
+use BotMan\Drivers\Facebook\FacebookDriver;
+use BotMan\Drivers\Facebook\FacebookFileDriver;
+use BotMan\Drivers\Facebook\FacebookImageDriver;
+use BotMan\Drivers\Facebook\FacebookLocationDriver;
+use BotMan\Drivers\Facebook\FacebookVideoDriver;
+use BotMan\Studio\Providers\StudioServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 class FacebookServiceProvider extends ServiceProvider
 {

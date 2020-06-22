@@ -2,9 +2,9 @@
 
 namespace Tests\Extensions;
 
+use BotMan\Drivers\Facebook\Extensions\ReceiptAdjustment;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Extensions\ReceiptAdjustment;
 
 class ReceiptAdjustmentTest extends PHPUnit_Framework_TestCase
 {

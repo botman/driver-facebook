@@ -2,12 +2,12 @@
 
 namespace Tests\Drivers;
 
-use Mockery as m;
 use BotMan\BotMan\Http\Curl;
+use BotMan\BotMan\Messages\Incoming\IncomingMessage;
+use BotMan\Drivers\Facebook\FacebookFileDriver;
+use Mockery as m;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use BotMan\Drivers\Facebook\FacebookFileDriver;
-use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
 class FacebookFileDriverTest extends PHPUnit_Framework_TestCase
 {
@@ -155,7 +155,7 @@ class FacebookFileDriverTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($files));
         $this->assertEquals('http://facebookfile.com/file.pdf', $files[0]->getUrl());
         $this->assertEquals([
-                    'url' => 'http://facebookfile.com/file.pdf',
-            ], $files[0]->getPayload());
+            'url' => 'http://facebookfile.com/file.pdf',
+        ], $files[0]->getPayload());
     }
 }

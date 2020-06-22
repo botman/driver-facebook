@@ -2,9 +2,9 @@
 
 namespace BotMan\Drivers\Facebook;
 
-use Illuminate\Support\Collection;
 use BotMan\BotMan\Messages\Attachments\Audio;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
+use Illuminate\Support\Collection;
 
 class FacebookAudioDriver extends FacebookDriver
 {
