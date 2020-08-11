@@ -2,9 +2,9 @@
 
 namespace BotMan\Drivers\Facebook\Extensions\Airline;
 
-use JsonSerializable;
-use BotMan\Drivers\Facebook\Interfaces\Airline;
 use BotMan\Drivers\Facebook\Exceptions\FacebookException;
+use BotMan\Drivers\Facebook\Interfaces\Airline;
+use JsonSerializable;
 
 class AirlineBoardingPass implements JsonSerializable, Airline
 {

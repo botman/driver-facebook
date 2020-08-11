@@ -2,13 +2,13 @@
 
 namespace Tests\Extensions;
 
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule;
+use BotMan\Drivers\Facebook\Extensions\AirlineBoardingPassTemplate;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass;
-use BotMan\Drivers\Facebook\Extensions\AirlineBoardingPassTemplate;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule;
 
 class AirlineBoardingPassTemplateTest extends PHPUnit_Framework_TestCase
 {

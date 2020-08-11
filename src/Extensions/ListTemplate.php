@@ -2,8 +2,8 @@
 
 namespace BotMan\Drivers\Facebook\Extensions;
 
-use JsonSerializable;
 use BotMan\BotMan\Interfaces\WebAccess;
+use JsonSerializable;
 
 class ListTemplate implements JsonSerializable, WebAccess
 {

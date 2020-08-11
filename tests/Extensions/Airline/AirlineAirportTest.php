@@ -2,9 +2,9 @@
 
 namespace Tests\Extensions\Airline;
 
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
 use Illuminate\Support\Arr;
 use PHPUnit_Framework_TestCase;
-use BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport;
 
 class AirlineAirportTest extends PHPUnit_Framework_TestCase
 {
