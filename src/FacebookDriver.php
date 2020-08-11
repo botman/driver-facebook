@@ -133,6 +133,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
                     'timestamp',
                     'message',
                     'postback',
+                    'prior_message',
                 ])->isEmpty() === false;
         })->transform(function ($msg) {
             return Collection::make($msg)->toArray();
@@ -159,6 +160,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             'timestamp',
             'message',
             'postback',
+            'prior_message',
         ])->keys()->first();
         switch ($name) {
             case 'referral':
