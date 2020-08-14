@@ -379,7 +379,8 @@ class FacebookDriver extends HttpDriver implements VerifiesService
         if ($message instanceof Question) {
             $parameters['message'] = $this->convertQuestion($message);
         } elseif (is_object($message) && in_array(get_class($message), $this->templates)) {
-            $parameters['message'] = $message->toArray();
+            unset($parameters['message']['text']);
+            $parameters['message'] = array_merge_recursive($parameters['message'],$message->toArray());
         } elseif ($message instanceof OutgoingMessage) {
             $attachment = $message->getAttachment();
             if (! is_null($attachment) && in_array(get_class($attachment), $this->supportedAttachments)) {
