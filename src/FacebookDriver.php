@@ -2,6 +2,7 @@
 
 namespace BotMan\Drivers\Facebook;
 
+use BotMan\Drivers\Facebook\Events\Standby;
 use BotMan\BotMan\Drivers\Events\GenericEvent;
 use BotMan\BotMan\Drivers\HttpDriver;
 use BotMan\BotMan\Interfaces\DriverEventInterface;
@@ -141,6 +142,11 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 
         if (! is_null($event)) {
             $this->driverEvent = $this->getEventFromEventData($event);
+
+            return $this->driverEvent;
+        }else if(!empty($standby = Collection::make($this->event->get('standby'))->first())){//new webhook event standby
+
+            $this->driverEvent = new Standby($standby);
 
             return $this->driverEvent;
         }
