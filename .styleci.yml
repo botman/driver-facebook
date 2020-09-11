@@ -1,4 +1,4 @@
 preset: laravel
 
 enabled:
-- unalign_double_arrow
+  - unalign_double_arrow
