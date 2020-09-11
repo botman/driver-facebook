@@ -12,7 +12,7 @@ class AddStartButtonPayload extends Command
      *
      * @var string
      */
-    protected $signature = 'botman:facebookAddStartButton';
+    protected $signature = 'botman:facebook:AddStartButton';
 
     /**
      * The console command description.
@@ -52,7 +52,7 @@ class AddStartButtonPayload extends Command
         }
 
         $response = $this->http->post(
-            'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='.config('botman.facebook.token'),
+            'https://graph.facebook.com/v3.0/me/messenger_profile?access_token='.config('botman.facebook.token'),
             [],
             [
                 'get_started' => [

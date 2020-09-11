@@ -12,7 +12,7 @@ class AddPersistentMenu extends Command
      *
      * @var string
      */
-    protected $signature = 'botman:facebookAddMenu';
+    protected $signature = 'botman:facebook:AddMenu';
 
     /**
      * The console command description.
@@ -51,7 +51,7 @@ class AddPersistentMenu extends Command
             exit;
         }
 
-        $response = $this->http->post('https://graph.facebook.com/v2.6/me/messenger_profile?access_token='.config('botman.facebook.token'),
+        $response = $this->http->post('https://graph.facebook.com/v3.0/me/messenger_profile?access_token='.config('botman.facebook.token'),
             [], $payload);
 
         $responseObject = json_decode($response->getContent());

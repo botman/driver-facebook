@@ -2,13 +2,13 @@
 
 namespace Tests\Extensions;
 
-use Illuminate\Support\Arr;
-use PHPUnit_Framework_TestCase;
 use BotMan\Drivers\Facebook\Extensions\ReceiptAddress;
+use BotMan\Drivers\Facebook\Extensions\ReceiptAdjustment;
 use BotMan\Drivers\Facebook\Extensions\ReceiptElement;
 use BotMan\Drivers\Facebook\Extensions\ReceiptSummary;
 use BotMan\Drivers\Facebook\Extensions\ReceiptTemplate;
-use BotMan\Drivers\Facebook\Extensions\ReceiptAdjustment;
+use Illuminate\Support\Arr;
+use PHPUnit_Framework_TestCase;
 
 class ReceiptTemplateTest extends PHPUnit_Framework_TestCase
 {

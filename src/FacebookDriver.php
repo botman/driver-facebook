@@ -2,37 +2,46 @@
 
 namespace BotMan\Drivers\Facebook;
 
-use Illuminate\Support\Collection;
+use BotMan\BotMan\Drivers\Events\GenericEvent;
 use BotMan\BotMan\Drivers\HttpDriver;
-use BotMan\BotMan\Messages\Incoming\Answer;
-use BotMan\BotMan\Messages\Attachments\File;
-use BotMan\Drivers\Facebook\Extensions\User;
+use BotMan\BotMan\Interfaces\DriverEventInterface;
 use BotMan\BotMan\Interfaces\VerifiesService;
 use BotMan\BotMan\Messages\Attachments\Audio;
+use BotMan\BotMan\Messages\Attachments\File;
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Attachments\Video;
-use BotMan\BotMan\Messages\Outgoing\Question;
-use Symfony\Component\HttpFoundation\Request;
-use BotMan\BotMan\Drivers\Events\GenericEvent;
-use Symfony\Component\HttpFoundation\Response;
-use BotMan\BotMan\Interfaces\DriverEventInterface;
-use BotMan\Drivers\Facebook\Events\MessagingReads;
-use Symfony\Component\HttpFoundation\ParameterBag;
-use BotMan\Drivers\Facebook\Events\MessagingOptins;
+use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use BotMan\BotMan\Messages\Outgoing\Question;
+use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
+use BotMan\Drivers\Facebook\Events\MessagingOptins;
+use BotMan\Drivers\Facebook\Events\MessagingReads;
+use BotMan\Drivers\Facebook\Events\MessagingReferrals;
+use BotMan\Drivers\Facebook\Exceptions\FacebookException;
+use BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass;
+use BotMan\Drivers\Facebook\Extensions\AirlineCheckInTemplate;
+use BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate;
+use BotMan\Drivers\Facebook\Extensions\AirlineUpdateTemplate;
+use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
+use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
 use BotMan\Drivers\Facebook\Extensions\ListTemplate;
 use BotMan\Drivers\Facebook\Extensions\MediaTemplate;
-use BotMan\Drivers\Facebook\Events\MessagingReferrals;
-use BotMan\Drivers\Facebook\Extensions\ButtonTemplate;
-use BotMan\Drivers\Facebook\Events\MessagingDeliveries;
-use BotMan\Drivers\Facebook\Extensions\GenericTemplate;
+use BotMan\Drivers\Facebook\Extensions\OpenGraphTemplate;
 use BotMan\Drivers\Facebook\Extensions\ReceiptTemplate;
-use BotMan\Drivers\Facebook\Exceptions\FacebookException;
+use BotMan\Drivers\Facebook\Extensions\User;
+use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class FacebookDriver extends HttpDriver implements VerifiesService
 {
     const HANDOVER_INBOX_PAGE_ID = '263902037430900';
+
+    const TYPE_RESPONSE = 'RESPONSE';
+    const TYPE_UPDATE = 'UPDATE';
+    const TYPE_MESSAGE_TAG = 'MESSAGE_TAG';
 
     /** @var string */
     protected $signature;
@@ -45,11 +54,16 @@ class FacebookDriver extends HttpDriver implements VerifiesService
 
     /** @var array */
     protected $templates = [
+        AirlineBoardingPass::class,
+        AirlineCheckInTemplate::class,
+        AirlineItineraryTemplate::class,
+        AirlineUpdateTemplate::class,
         ButtonTemplate::class,
         GenericTemplate::class,
         ListTemplate::class,
         ReceiptTemplate::class,
         MediaTemplate::class,
+        OpenGraphTemplate::class,
     ];
 
     private $supportedAttachments = [
@@ -62,7 +76,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /** @var DriverEventInterface */
     protected $driverEvent;
 
-    protected $facebookProfileEndpoint = 'https://graph.facebook.com/v2.6/';
+    protected $facebookProfileEndpoint = 'https://graph.facebook.com/v3.0/';
 
     /** @var bool If the incoming request is a FB postback */
     protected $isPostback = false;
@@ -75,7 +89,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     public function buildPayload(Request $request)
     {
         $this->payload = new ParameterBag((array) json_decode($request->getContent(), true));
-        $this->event = Collection::make((array) $this->payload->get('entry')[0]);
+        $this->event = Collection::make((array) $this->payload->get('entry', [null])[0]);
         $this->signature = $request->headers->get('X_HUB_SIGNATURE', '');
         $this->content = $request->getContent();
         $this->config = Collection::make($this->config->get('facebook', []));
@@ -114,12 +128,12 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $event = Collection::make($this->event->get('messaging'))->filter(function ($msg) {
             return Collection::make($msg)->except([
-                    'sender',
-                    'recipient',
-                    'timestamp',
-                    'message',
-                    'postback',
-                ])->isEmpty() === false;
+                'sender',
+                'recipient',
+                'timestamp',
+                'message',
+                'postback',
+            ])->isEmpty() === false;
         })->transform(function ($msg) {
             return Collection::make($msg)->toArray();
         })->first();
@@ -158,6 +172,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
                 break;
             case 'read':
                 return new MessagingReads($eventData);
+                break;
+            case 'account_linking':
+                return new Events\MessagingAccountLinking($eventData);
                 break;
             case 'checkout_update':
                 return new Events\MessagingCheckoutUpdates($eventData);
@@ -222,7 +239,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     {
         $payload = $message->getPayload();
         if (isset($payload['message']['quick_reply'])) {
-            return Answer::create($message->getText())->setMessage($message)->setInteractiveReply(true)->setValue($payload['message']['quick_reply']['payload']);
+            return Answer::create($payload['message']['text'])->setMessage($message)->setInteractiveReply(true)->setValue($payload['message']['quick_reply']['payload']);
         } elseif (isset($payload['postback']['payload'])) {
             return Answer::create($payload['postback']['title'])->setMessage($message)->setInteractiveReply(true)->setValue($payload['postback']['payload']);
         }
@@ -347,6 +364,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
             $recipient = ['id' => $matchingMessage->getSender()];
         }
         $parameters = array_merge_recursive([
+            'messaging_type' => self::TYPE_RESPONSE,
             'recipient' => $recipient,
             'message' => [
                 'text' => $message,
@@ -368,6 +386,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
                 $parameters['message']['attachment'] = [
                     'type' => $attachmentType,
                     'payload' => [
+                        'is_reusable' => $attachment->getExtras('is_reusable') ?? false,
                         'url' => $attachment->getUrl(),
                     ],
                 ];
@@ -384,6 +403,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /**
      * @param mixed $payload
      * @return Response
+     * @throws FacebookException
      */
     public function sendPayload($payload)
     {
@@ -402,17 +422,45 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
+     * Retrieve specific User field information.
+     *
+     * @param array $fields
+     * @param IncomingMessage $matchingMessage
+     * @return User
+     * @throws FacebookException
+     */
+    public function getUserWithFields(array $fields, IncomingMessage $matchingMessage)
+    {
+        $messagingDetails = $this->event->get('messaging')[0];
+        // implode field array to create concatinated comma string
+        $fields = implode(',', $fields);
+        // WORKPLACE (Facebook for companies)
+        // if community isset in sender Object, it is a request done by workplace
+        if (isset($messagingDetails['sender']['community'])) {
+            $fields = 'first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time';
+        }
+        $userInfoData = $this->http->get($this->facebookProfileEndpoint.$matchingMessage->getSender().'?fields='.$fields.'&access_token='.$this->config->get('token'));
+        $this->throwExceptionIfResponseNotOk($userInfoData);
+        $userInfo = json_decode($userInfoData->getContent(), true);
+        $firstName = $userInfo['first_name'] ?? null;
+        $lastName = $userInfo['last_name'] ?? null;
+
+        return new User($matchingMessage->getSender(), $firstName, $lastName, null, $userInfo);
+    }
+
+    /**
      * Retrieve User information.
      *
      * @param IncomingMessage $matchingMessage
      * @return User
+     * @throws FacebookException
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
         $messagingDetails = $this->event->get('messaging')[0];
 
         // field string available at Facebook
-        $fields = 'first_name,last_name,profile_pic,locale,timezone,gender,is_payment_enabled,last_ad_referral';
+        $fields = 'name,first_name,last_name,profile_pic';
 
         // WORKPLACE (Facebook for companies)
         // if community isset in sender Object, it is a request done by workplace

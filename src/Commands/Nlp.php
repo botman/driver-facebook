@@ -12,7 +12,7 @@ class Nlp extends Command
      *
      * @var string
      */
-    protected $signature = 'botman:facebookNlp {--disable}';
+    protected $signature = 'botman:facebook:nlp {--disable}';
 
     /**
      * The console command description.

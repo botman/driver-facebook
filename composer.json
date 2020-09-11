@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": ">=7.0",
-        "botman/botman": "~2.1"
+        "botman/botman": "~2.1|~3.0"
     },
     "require-dev": {
         "botman/studio-addons": "^1.0",
@@ -42,6 +42,9 @@
         "cs": "php-cs-fixer fix"
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        },
         "laravel": {
             "providers": [
                 "BotMan\\Drivers\\Facebook\\Providers\\FacebookServiceProvider"

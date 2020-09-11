@@ -2,12 +2,12 @@
 
 namespace BotMan\BotMan\tests\Drivers;
 
-use Mockery as m;
 use BotMan\BotMan\Http\Curl;
+use BotMan\BotMan\Messages\Incoming\IncomingMessage;
+use BotMan\Drivers\Facebook\FacebookAudioDriver;
+use Mockery as m;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use BotMan\Drivers\Facebook\FacebookAudioDriver;
-use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
 class FacebookAudioDriverTest extends PHPUnit_Framework_TestCase
 {
@@ -155,7 +155,7 @@ class FacebookAudioDriverTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($audiUrls));
         $this->assertEquals('http://facebookimage.com/audio.mp3', $audiUrls[0]->getUrl());
         $this->assertEquals([
-                    'url' => 'http://facebookimage.com/audio.mp3',
-            ], $audiUrls[0]->getPayload());
+            'url' => 'http://facebookimage.com/audio.mp3',
+        ], $audiUrls[0]->getPayload());
     }
 }
