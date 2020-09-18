@@ -1,5 +1,5 @@
 {
-    "name": "botman/driver-facebook",
+    "name": "alexowson/botman-driver-facebook",
     "license": "MIT",
     "description": "Facebook Messenger driver for BotMan",
     "keywords": [
