@@ -142,9 +142,9 @@ class ReceiptTemplateTest extends PHPUnit_Framework_TestCase
     public function it_cant_add_a_summary()
     {
         $template = new ReceiptTemplate;
-        $template->addSummary(ReceiptSummary::create()->totalCost(99));
+        $template->addSummary(ReceiptSummary::create()->totalCost(99.00));
 
-        $this->assertSame(99, Arr::get($template->toArray(), 'attachment.payload.summary.total_cost'));
+        $this->assertSame(99., Arr::get($template->toArray(), 'attachment.payload.summary.total_cost'));
     }
 
     /**

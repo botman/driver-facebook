@@ -6,24 +6,16 @@ use BotMan\Drivers\Facebook\Exceptions\FacebookException;
 
 class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $connectionId;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $segmentId;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $aircraftType;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $travelClass;
 
     /**
@@ -47,7 +39,7 @@ class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
         AirlineAirport $arrivalAirport,
         AirlineFlightSchedule $flightSchedule,
         string $travelClass
-    ): self {
+    ) {
         return new static(
             $connectionId,
             $segmentId,
@@ -99,7 +91,7 @@ class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineExtendedFlightInfo
      */
-    public function aircraftType(string $aircraftType): self
+    public function aircraftType(string $aircraftType)
     {
         $this->aircraftType = $aircraftType;
 
@@ -109,7 +101,7 @@ class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = parent::toArray();
         $array += [

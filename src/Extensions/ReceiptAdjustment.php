@@ -13,28 +13,31 @@ class ReceiptAdjustment implements JsonSerializable
     protected $amount;
 
     /**
-     * @param $name
-     * @return static
+     * @param string $name
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptAdjustment
      */
-    public static function create($name)
+    public static function create(string $name)
     {
         return new static($name);
     }
 
     /**
      * ReceiptAdjustment constructor.
-     * @param $name
+     *
+     * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
 
     /**
-     * @param string $amount
-     * @return $this
+     * @param float $amount
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptAdjustment
      */
-    public function amount($amount)
+    public function amount(float $amount)
     {
         $this->amount = $amount;
 

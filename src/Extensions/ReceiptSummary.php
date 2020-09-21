@@ -19,7 +19,7 @@ class ReceiptSummary implements JsonSerializable
     protected $total_cost;
 
     /**
-     * @return static
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
     public static function create()
     {
@@ -27,10 +27,11 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param string $subtotal
-     * @return $this
+     * @param float $subtotal
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
-    public function subtotal($subtotal)
+    public function subtotal(float $subtotal)
     {
         $this->subtotal = $subtotal;
 
@@ -38,10 +39,11 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param string $shippingCost
-     * @return $this
+     * @param float $shippingCost
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
-    public function shippingCost($shippingCost)
+    public function shippingCost(float $shippingCost)
     {
         $this->shipping_cost = $shippingCost;
 
@@ -49,10 +51,11 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param $totalTax
-     * @return $this
+     * @param float $totalTax
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
-    public function totalTax($totalTax)
+    public function totalTax(float $totalTax)
     {
         $this->total_tax = $totalTax;
 
@@ -60,10 +63,11 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param $totalCost
-     * @return $this
+     * @param float $totalCost
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ReceiptSummary
      */
-    public function totalCost($totalCost)
+    public function totalCost(float $totalCost)
     {
         $this->total_cost = $totalCost;
 

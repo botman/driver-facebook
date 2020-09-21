@@ -21,9 +21,7 @@ class AddStartButtonPayload extends Command
      */
     protected $description = 'Add a Facebook Get Started button with a payload';
 
-    /**
-     * @var Curl
-     */
+    /** @var Curl */
     private $http;
 
     /**
@@ -63,10 +61,12 @@ class AddStartButtonPayload extends Command
 
         $responseObject = json_decode($response->getContent());
 
-        if ($response->getStatusCode() == 200) {
+        if ($response->getStatusCode() === 200) {
             $this->info('Get Started payload was set to: '.$payload);
-        } else {
-            $this->error('Something went wrong: '.$responseObject->error->message);
+
+            return;
         }
+
+        $this->error('Something went wrong: '.$responseObject->error->message);
     }
 }

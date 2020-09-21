@@ -4,6 +4,18 @@ namespace BotMan\Drivers\Facebook\Extensions;
 
 class ElementButton
 {
+    const TYPE_ACCOUNT_LINK = 'account_link';
+    const TYPE_ACCOUNT_UNLINK = 'account_unlink';
+    const TYPE_WEB_URL = 'web_url';
+    const TYPE_PAYMENT = 'payment';
+    const TYPE_POSTBACK = 'postback';
+    const TYPE_SHARE = 'element_share';
+    const TYPE_CALL = 'phone_number';
+
+    const RATIO_COMPACT = 'compact';
+    const RATIO_TALL = 'tall';
+    const RATIO_FULL = 'full';
+
     /** @var string */
     protected $title;
 
@@ -31,41 +43,32 @@ class ElementButton
     /** @var GenericTemplate */
     protected $shareContents;
 
-    const TYPE_ACCOUNT_LINK = 'account_link';
-    const TYPE_ACCOUNT_UNLINK = 'account_unlink';
-    const TYPE_WEB_URL = 'web_url';
-    const TYPE_PAYMENT = 'payment';
-    const TYPE_POSTBACK = 'postback';
-    const TYPE_SHARE = 'element_share';
-    const TYPE_CALL = 'phone_number';
-
-    const RATIO_COMPACT = 'compact';
-    const RATIO_TALL = 'tall';
-    const RATIO_FULL = 'full';
-
     /**
-     * @param string $title
-     * @return static
+     * @param null|string $title
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
-    public static function create($title)
+    public static function create($title = null)
     {
         return new static($title);
     }
 
     /**
-     * @param string $title
+     * @param null|string $title
      */
-    public function __construct($title)
+    public function __construct($title = null)
     {
         $this->title = $title;
     }
 
     /**
      * Set the button URL.
+     *
      * @param string $url
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
-    public function url($url)
+    public function url(string $url)
     {
         $this->url = $url;
 
@@ -74,10 +77,12 @@ class ElementButton
 
     /**
      * Set the button type.
+     *
      * @param string $type
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
-    public function type($type)
+    public function type(string $type)
     {
         $this->type = $type;
 
@@ -85,10 +90,11 @@ class ElementButton
     }
 
     /**
-     * @param $payload
-     * @return $this
+     * @param string $payload
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
-    public function payload($payload)
+    public function payload(string $payload)
     {
         $this->payload = $payload;
 
@@ -97,9 +103,10 @@ class ElementButton
 
     /**
      * @param string $fallback_url
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
-    public function fallbackUrl($fallback_url)
+    public function fallbackUrl(string $fallback_url)
     {
         $this->fallback_url = $fallback_url;
 
@@ -108,7 +115,8 @@ class ElementButton
 
     /**
      * enable messenger extensions.
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
     public function enableExtensions()
     {
@@ -118,7 +126,7 @@ class ElementButton
     }
 
     /**
-     * @return $this
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
     public function disableShare()
     {
@@ -128,7 +136,7 @@ class ElementButton
     }
 
     /**
-     * @return $this
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
     public function removeHeightRatio()
     {
@@ -139,10 +147,12 @@ class ElementButton
 
     /**
      * Set ratio to one of RATIO_COMPACT, RATIO_TALL, RATIO_FULL.
+     *
      * @param string $ratio
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
-    public function heightRatio($ratio = self::RATIO_FULL)
+    public function heightRatio(string $ratio = self::RATIO_FULL)
     {
         $this->webview_height_ratio = $ratio;
 
@@ -153,10 +163,12 @@ class ElementButton
      * Optional. The message that you wish the recipient of the share to see,
      * if it is different from the one this button is attached to.
      * The format follows that used in Send API, but must be a generic template with up to one URL button.
+     *
      * @param GenericTemplate $shareContents
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ElementButton
      */
-    public function shareContents($shareContents)
+    public function shareContents(GenericTemplate $shareContents)
     {
         $this->shareContents = $shareContents;
 
@@ -184,10 +196,10 @@ class ElementButton
             }
 
             if ($this->type === self::TYPE_WEB_URL) {
-                if (! is_null($this->webview_height_ratio)) {
+                if ($this->webview_height_ratio !== null) {
                     $buttonArray['webview_height_ratio'] = $this->webview_height_ratio;
                 }
-                if (! is_null($this->webview_share_button)) {
+                if ($this->webview_share_button !== null) {
                     $buttonArray['webview_share_button'] = $this->webview_share_button;
                 }
 
@@ -196,7 +208,7 @@ class ElementButton
                     $buttonArray['fallback_url'] = $this->fallback_url ?: $this->url;
                 }
             }
-        } elseif ($this->type == self::TYPE_SHARE && ! is_null($this->shareContents)) {
+        } elseif ($this->type === self::TYPE_SHARE && $this->shareContents !== null) {
             $buttonArray['share_contents'] = $this->shareContents->toArray();
         }
 

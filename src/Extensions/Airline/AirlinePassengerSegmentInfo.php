@@ -6,29 +6,19 @@ use JsonSerializable;
 
 class AirlinePassengerSegmentInfo implements JsonSerializable
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $segmentId;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $passengerId;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $seat;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $seatType;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $productInfo = [];
 
     /**
@@ -39,7 +29,7 @@ class AirlinePassengerSegmentInfo implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerSegmentInfo
      */
-    public static function create(string $segmentId, string $passengerId, string $seat, string $seatType): self
+    public static function create(string $segmentId, string $passengerId, string $seat, string $seatType)
     {
         return new static($segmentId, $passengerId, $seat, $seatType);
     }
@@ -66,7 +56,7 @@ class AirlinePassengerSegmentInfo implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerSegmentInfo
      */
-    public function addProductInfo(string $title, string $value): self
+    public function addProductInfo(string $title, string $value)
     {
         $this->productInfo[] = [
             'title' => $title,
@@ -81,7 +71,7 @@ class AirlinePassengerSegmentInfo implements JsonSerializable
      *
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerSegmentInfo
      */
-    public function addProductsInfo(array $productsInfo): self
+    public function addProductsInfo(array $productsInfo)
     {
         foreach ($productsInfo as $title => $value) {
             $this->productInfo[] = [
@@ -96,7 +86,7 @@ class AirlinePassengerSegmentInfo implements JsonSerializable
     /**
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $array = [
             'segment_id' => $this->segmentId,
@@ -112,7 +102,7 @@ class AirlinePassengerSegmentInfo implements JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

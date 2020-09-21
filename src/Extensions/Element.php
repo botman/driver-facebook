@@ -25,10 +25,11 @@ class Element implements JsonSerializable
     protected $default_action;
 
     /**
-     * @param $title
-     * @return static
+     * @param string $title
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public static function create($title)
+    public static function create(string $title)
     {
         return new static($title);
     }
@@ -36,16 +37,17 @@ class Element implements JsonSerializable
     /**
      * @param string $title
      */
-    public function __construct($title)
+    public function __construct(string $title)
     {
         $this->title = $title;
     }
 
     /**
      * @param string $title
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public function title($title)
+    public function title(string $title)
     {
         $this->title = $title;
 
@@ -54,9 +56,10 @@ class Element implements JsonSerializable
 
     /**
      * @param string $subtitle
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public function subtitle($subtitle)
+    public function subtitle(string $subtitle)
     {
         $this->subtitle = $subtitle;
 
@@ -65,9 +68,10 @@ class Element implements JsonSerializable
 
     /**
      * @param string $image_url
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
-    public function image($image_url)
+    public function image(string $image_url)
     {
         $this->image_url = $image_url;
 
@@ -76,9 +80,10 @@ class Element implements JsonSerializable
 
     /**
      * @param string $item_url
+     *
      * @return $this
      */
-    public function itemUrl($item_url)
+    public function itemUrl(string $item_url)
     {
         $this->item_url = $item_url;
 
@@ -86,8 +91,9 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $button
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ElementButton $button
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
     public function addButton(ElementButton $button)
     {
@@ -98,15 +104,14 @@ class Element implements JsonSerializable
 
     /**
      * @param array $buttons
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
     public function addButtons(array $buttons)
     {
-        if (isset($buttons) && is_array($buttons)) {
-            foreach ($buttons as $button) {
-                if ($button instanceof ElementButton) {
-                    $this->buttons[] = $button->toArray();
-                }
+        foreach ($buttons as $button) {
+            if ($button instanceof ElementButton) {
+                $this->buttons[] = $button->toArray();
             }
         }
 
@@ -114,9 +119,9 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $defaultAction
+     * @param \BotMan\Drivers\Facebook\Extensions\ElementButton $defaultAction
      *
-     * @return $this
+     * @return \BotMan\Drivers\Facebook\Extensions\Element
      */
     public function defaultAction(ElementButton $defaultAction)
     {

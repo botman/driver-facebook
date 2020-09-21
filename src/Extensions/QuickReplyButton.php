@@ -6,6 +6,8 @@ use BotMan\BotMan\Interfaces\QuestionActionInterface;
 
 class QuickReplyButton implements QuestionActionInterface
 {
+    const TYPE_TEXT = 'text';
+
     /** @var string */
     protected $contentType = self::TYPE_TEXT;
 
@@ -18,13 +20,12 @@ class QuickReplyButton implements QuestionActionInterface
     /** @var string */
     protected $imageUrl;
 
-    const TYPE_TEXT = 'text';
-
     /**
      * @param string $title
-     * @return static
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\QuickReplyButton
      */
-    public static function create($title = '')
+    public static function create(string $title = '')
     {
         return new static($title);
     }
@@ -32,7 +33,7 @@ class QuickReplyButton implements QuestionActionInterface
     /**
      * @param string $title
      */
-    public function __construct($title)
+    public function __construct(string $title)
     {
         $this->title = $title;
     }
@@ -41,9 +42,10 @@ class QuickReplyButton implements QuestionActionInterface
      * Set the button type.
      *
      * @param string $type
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\QuickReplyButton
      */
-    public function type($type)
+    public function type(string $type)
     {
         $this->contentType = $type;
 
@@ -51,10 +53,11 @@ class QuickReplyButton implements QuestionActionInterface
     }
 
     /**
-     * @param $payload
-     * @return $this
+     * @param string $payload
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\QuickReplyButton
      */
-    public function payload($payload)
+    public function payload(string $payload)
     {
         $this->payload = $payload;
 
@@ -62,12 +65,11 @@ class QuickReplyButton implements QuestionActionInterface
     }
 
     /**
-     * Set the button URL.
-     *
      * @param string $url
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\QuickReplyButton
      */
-    public function imageUrl($url)
+    public function imageUrl(string $url)
     {
         $this->imageUrl = $url;
 
@@ -81,7 +83,7 @@ class QuickReplyButton implements QuestionActionInterface
     {
         $buttonArray = [];
 
-        if ($this->contentType === 'text') {
+        if ($this->contentType === self::TYPE_TEXT) {
             $buttonArray = [
                 'content_type' => $this->contentType,
                 'title' => $this->title,

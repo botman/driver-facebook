@@ -17,7 +17,7 @@ class ListTemplate implements JsonSerializable, WebAccess
     protected $top_element_style = 'large';
 
     /**
-     * @return static
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
     public static function create()
     {
@@ -25,8 +25,9 @@ class ListTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param Element $element
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\Element $element
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
     public function addElement(Element $element)
     {
@@ -37,7 +38,8 @@ class ListTemplate implements JsonSerializable, WebAccess
 
     /**
      * @param array $elements
-     * @return $this
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
     public function addElements(array $elements)
     {
@@ -51,8 +53,9 @@ class ListTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ElementButton $button
-     * @return $this
+     * @param \BotMan\Drivers\Facebook\Extensions\ElementButton $button
+     *
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
     public function addGlobalButton(ElementButton $button)
     {
@@ -62,7 +65,7 @@ class ListTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @return $this
+     * @return \BotMan\Drivers\Facebook\Extensions\ListTemplate
      */
     public function useCompactView()
     {

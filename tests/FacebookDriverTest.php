@@ -41,7 +41,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
     private function getDriver($responseData, array $config = null, $signature = '', $htmlInterface = null)
     {
-        if (is_null($config)) {
+        if ($config === null) {
             $config = [
                 'facebook' => [
                     'token' => 'Foo',
@@ -140,7 +140,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
 
         $extras = $message->getExtras('nlp');
 
-        $this->assertFalse(is_null($extras));
+        $this->assertNotNull($extras);
         $this->assertSame('true', $extras['entities']['bye'][0]['value']);
     }
 
