@@ -12,6 +12,7 @@
     ],
     "botman/commands": [
         "BotMan\\Drivers\\Facebook\\Commands\\AddPersistentMenu",
+        "BotMan\\Drivers\\Facebook\\Commands\\RemovePersistentMenu",
         "BotMan\\Drivers\\Facebook\\Commands\\AddStartButtonPayload",
         "BotMan\\Drivers\\Facebook\\Commands\\AddGreetingText",
         "BotMan\\Drivers\\Facebook\\Commands\\WhitelistDomains",
