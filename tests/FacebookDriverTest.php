@@ -200,10 +200,10 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
     {
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi Julia"}}]}]}';
 
-        $facebookResponse = '{"first_name":"John","last_name":"Doe","profile_pic":"https://facebook.com/profilepic","locale":"en_US","timezone":2,"gender":"male","is_payment_enabled":true}';
+        $facebookResponse = '{"first_name":"John","last_name":"Doe","locale":"en_US","timezone":2,"gender":"male","is_payment_enabled":true}';
 
         $htmlInterface = m::mock(Curl::class);
-        $htmlInterface->shouldReceive('get')->once()->with('https://graph.facebook.com/v3.0/1433960459967306?fields=name,first_name,last_name,profile_pic&access_token=Foo')->andReturn(new Response($facebookResponse));
+        $htmlInterface->shouldReceive('get')->once()->with('https://graph.facebook.com/v3.0/1433960459967306?fields=name,first_name,last_name&access_token=Foo')->andReturn(new Response($facebookResponse));
 
         $driver = $this->getDriver($request, null, '', $htmlInterface);
         $message = $driver->getMessages()[0];
@@ -213,7 +213,6 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('John', $user->getFirstName());
         $this->assertEquals('Doe', $user->getLastName());
         $this->assertNull($user->getUsername());
-        $this->assertEquals('https://facebook.com/profilepic', $user->getProfilePic());
         $this->assertEquals('en_US', $user->getLocale());
         $this->assertEquals('2', $user->getTimezone());
         $this->assertEquals('male', $user->getGender());
@@ -243,7 +242,7 @@ class FacebookDriverTest extends PHPUnit_Framework_TestCase
         $request = '{"object":"page","entry":[{"id":"111899832631525","time":1480279487271,"messaging":[{"sender":{"id":"1433960459967306"},"recipient":{"id":"111899832631525"},"timestamp":1480279487147,"message":{"mid":"mid.1480279487147:4388d3b344","seq":36,"text":"Hi Julia"}}]}]}';
 
         $htmlInterface = m::mock(Curl::class);
-        $htmlInterface->shouldReceive('get')->once()->with('https://graph.facebook.com/v3.0/1433960459967306?fields=name,first_name,last_name,profile_pic&access_token=Foo')->andReturn(new Response('{}'));
+        $htmlInterface->shouldReceive('get')->once()->with('https://graph.facebook.com/v3.0/1433960459967306?fields=name,first_name,last_name&access_token=Foo')->andReturn(new Response('{}'));
 
         $driver = $this->getDriver($request, null, '', $htmlInterface);
         $driver->getMessages()[0];
