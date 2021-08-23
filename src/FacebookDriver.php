@@ -431,7 +431,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      */
     public function getUserWithFields(array $fields, IncomingMessage $matchingMessage)
     {
-        $messagingDetails = $this->event->get('messaging')[0];
+        $messagingDetails = $this->event->get('messaging', [null])[0];
         // implode field array to create concatinated comma string
         $fields = implode(',', $fields);
         // WORKPLACE (Facebook for companies)
