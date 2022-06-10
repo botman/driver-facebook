@@ -25,12 +25,11 @@ class AirlineCheckInTemplate extends AbstractAirlineTemplate
     protected $checkinUrl;
 
     /**
-     * @param string $introMessage
-     * @param string $locale
-     * @param string $pnrNumber
-     * @param array  $flightInfo
-     * @param string $checkinUrl
-     *
+     * @param  string  $introMessage
+     * @param  string  $locale
+     * @param  string  $pnrNumber
+     * @param  array  $flightInfo
+     * @param  string  $checkinUrl
      * @return static
      */
     public static function create(
@@ -46,11 +45,11 @@ class AirlineCheckInTemplate extends AbstractAirlineTemplate
     /**
      * AirlineCheckIn constructor.
      *
-     * @param string $introMessage
-     * @param string $locale
-     * @param string $pnrNumber
-     * @param array  $flightInfo
-     * @param string $checkinUrl
+     * @param  string  $introMessage
+     * @param  string  $locale
+     * @param  string  $pnrNumber
+     * @param  array  $flightInfo
+     * @param  string  $checkinUrl
      */
     public function __construct(
         string $introMessage,

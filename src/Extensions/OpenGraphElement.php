@@ -25,8 +25,7 @@ class OpenGraphElement implements JsonSerializable
     }
 
     /**
-     * @param string $url
-     *
+     * @param  string  $url
      * @return $this
      */
     public function url(string $url): self
@@ -37,8 +36,7 @@ class OpenGraphElement implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $button
-     *
+     * @param  ElementButton  $button
      * @return $this
      */
     public function addButton(ElementButton $button): self
@@ -49,8 +47,7 @@ class OpenGraphElement implements JsonSerializable
     }
 
     /**
-     * @param array $buttons
-     *
+     * @param  array  $buttons
      * @return $this
      */
     public function addButtons(array $buttons): self

@@ -69,7 +69,7 @@ class FacebookFileDriver extends FacebookDriver
     /**
      * Retrieve file urls from an incoming message.
      *
-     * @param array $message
+     * @param  array  $message
      * @return array A download for the file.
      */
     public function getFiles(array $message)

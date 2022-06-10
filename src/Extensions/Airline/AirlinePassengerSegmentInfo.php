@@ -32,11 +32,10 @@ class AirlinePassengerSegmentInfo implements JsonSerializable
     protected $productInfo = [];
 
     /**
-     * @param string $segmentId
-     * @param string $passengerId
-     * @param string $seat
-     * @param string $seatType
-     *
+     * @param  string  $segmentId
+     * @param  string  $passengerId
+     * @param  string  $seat
+     * @param  string  $seatType
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerSegmentInfo
      */
     public static function create(string $segmentId, string $passengerId, string $seat, string $seatType): self
@@ -47,10 +46,10 @@ class AirlinePassengerSegmentInfo implements JsonSerializable
     /**
      * AirlinePassengerSegmentInfo constructor.
      *
-     * @param string $segmentId
-     * @param string $passengerId
-     * @param string $seat
-     * @param string $seatType
+     * @param  string  $segmentId
+     * @param  string  $passengerId
+     * @param  string  $seat
+     * @param  string  $seatType
      */
     public function __construct(string $segmentId, string $passengerId, string $seat, string $seatType)
     {
@@ -61,9 +60,8 @@ class AirlinePassengerSegmentInfo implements JsonSerializable
     }
 
     /**
-     * @param string $title
-     * @param string $value
-     *
+     * @param  string  $title
+     * @param  string  $value
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerSegmentInfo
      */
     public function addProductInfo(string $title, string $value): self
@@ -77,8 +75,7 @@ class AirlinePassengerSegmentInfo implements JsonSerializable
     }
 
     /**
-     * @param array $productsInfo
-     *
+     * @param  array  $productsInfo
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerSegmentInfo
      */
     public function addProductsInfo(array $productsInfo): self

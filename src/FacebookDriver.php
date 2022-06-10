@@ -84,7 +84,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     const DRIVER_NAME = 'Facebook';
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      */
     public function buildPayload(Request $request)
     {
@@ -111,7 +111,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return null|Response
      */
     public function verifyRequest(Request $request)
@@ -149,7 +149,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
-     * @param array $eventData
+     * @param  array  $eventData
      * @return DriverEventInterface
      */
     protected function getEventFromEventData(array $eventData)
@@ -200,7 +200,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
-     * @param IncomingMessage $matchingMessage
+     * @param  IncomingMessage  $matchingMessage
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function markSeen(IncomingMessage $matchingMessage)
@@ -217,7 +217,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
-     * @param IncomingMessage $matchingMessage
+     * @param  IncomingMessage  $matchingMessage
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function types(IncomingMessage $matchingMessage)
@@ -234,7 +234,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
-     * @param  IncomingMessage $message
+     * @param  IncomingMessage  $message
      * @return Answer
      */
     public function getConversationAnswer(IncomingMessage $message)
@@ -320,7 +320,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
      * Convert a Question object into a valid Facebook
      * quick reply response object.
      *
-     * @param Question $question
+     * @param  Question  $question
      * @return array
      */
     private function convertQuestion(Question $question)
@@ -348,9 +348,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
-     * @param string|Question|IncomingMessage $message
-     * @param IncomingMessage $matchingMessage
-     * @param array $additionalParameters
+     * @param  string|Question|IncomingMessage  $message
+     * @param  IncomingMessage  $matchingMessage
+     * @param  array  $additionalParameters
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function buildServicePayload($message, $matchingMessage, $additionalParameters = [])
@@ -403,8 +403,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
-     * @param mixed $payload
+     * @param  mixed  $payload
      * @return Response
+     *
      * @throws FacebookException
      */
     public function sendPayload($payload)
@@ -426,9 +427,10 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /**
      * Retrieve specific User field information.
      *
-     * @param array $fields
-     * @param IncomingMessage $matchingMessage
+     * @param  array  $fields
+     * @param  IncomingMessage  $matchingMessage
      * @return User
+     *
      * @throws FacebookException
      */
     public function getUserWithFields(array $fields, IncomingMessage $matchingMessage)
@@ -453,8 +455,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /**
      * Retrieve User information.
      *
-     * @param IncomingMessage $matchingMessage
+     * @param  IncomingMessage  $matchingMessage
      * @return User
+     *
      * @throws FacebookException
      */
     public function getUser(IncomingMessage $matchingMessage)
@@ -484,9 +487,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /**
      * Low-level method to perform driver specific API requests.
      *
-     * @param string $endpoint
-     * @param array $parameters
-     * @param IncomingMessage $matchingMessage
+     * @param  string  $endpoint
+     * @param  array  $parameters
+     * @param  IncomingMessage  $matchingMessage
      * @return Response
      */
     public function sendRequest($endpoint, array $parameters, IncomingMessage $matchingMessage)
@@ -507,8 +510,9 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     }
 
     /**
-     * @param Response $facebookResponse
+     * @param  Response  $facebookResponse
      * @return mixed
+     *
      * @throws FacebookException
      */
     protected function throwExceptionIfResponseNotOk(Response $facebookResponse)
@@ -546,7 +550,7 @@ class FacebookDriver extends HttpDriver implements VerifiesService
     /**
      * Pass a conversation to the page inbox.
      *
-     * @param IncomingMessage $message
+     * @param  IncomingMessage  $message
      * @param $bot
      * @return Response
      */

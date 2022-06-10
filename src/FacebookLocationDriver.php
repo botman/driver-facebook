@@ -69,7 +69,7 @@ class FacebookLocationDriver extends FacebookDriver
     /**
      * Retrieve location from an incoming message.
      *
-     * @param array $messages
+     * @param  array  $messages
      * @return \BotMan\BotMan\Messages\Attachments\Location
      */
     public function getLocation(array $messages)

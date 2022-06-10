@@ -44,7 +44,7 @@ class MediaUrlElement implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $button
+     * @param  ElementButton  $button
      * @return $this
      */
     public function addButton(ElementButton $button)
@@ -55,7 +55,7 @@ class MediaUrlElement implements JsonSerializable
     }
 
     /**
-     * @param array $buttons
+     * @param  array  $buttons
      * @return $this
      */
     public function addButtons(array $buttons)

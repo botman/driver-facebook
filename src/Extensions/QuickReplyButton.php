@@ -21,7 +21,7 @@ class QuickReplyButton implements QuestionActionInterface
     const TYPE_TEXT = 'text';
 
     /**
-     * @param string $title
+     * @param  string  $title
      * @return static
      */
     public static function create($title = '')
@@ -30,7 +30,7 @@ class QuickReplyButton implements QuestionActionInterface
     }
 
     /**
-     * @param string $title
+     * @param  string  $title
      */
     public function __construct($title)
     {
@@ -40,7 +40,7 @@ class QuickReplyButton implements QuestionActionInterface
     /**
      * Set the button type.
      *
-     * @param string $type
+     * @param  string  $type
      * @return $this
      */
     public function type($type)
@@ -64,7 +64,7 @@ class QuickReplyButton implements QuestionActionInterface
     /**
      * Set the button URL.
      *
-     * @param string $url
+     * @param  string  $url
      * @return $this
      */
     public function imageUrl($url)

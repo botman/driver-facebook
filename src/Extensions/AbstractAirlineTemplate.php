@@ -21,7 +21,7 @@ abstract class AbstractAirlineTemplate implements JsonSerializable, WebAccess, A
     /**
      * AbstractAirlineTemplate constructor.
      *
-     * @param string $locale
+     * @param  string  $locale
      */
     public function __construct(string $locale)
     {
@@ -29,8 +29,7 @@ abstract class AbstractAirlineTemplate implements JsonSerializable, WebAccess, A
     }
 
     /**
-     * @param string $themeColor
-     *
+     * @param  string  $themeColor
      * @return \BotMan\Drivers\Facebook\Extensions\AbstractAirlineTemplate
      */
     public function themeColor(string $themeColor): self

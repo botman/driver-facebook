@@ -34,7 +34,7 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param string $title
+     * @param  string  $title
      */
     public function __construct($title)
     {
@@ -42,7 +42,7 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param string $title
+     * @param  string  $title
      * @return $this
      */
     public function title($title)
@@ -53,7 +53,7 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param string $subtitle
+     * @param  string  $subtitle
      * @return $this
      */
     public function subtitle($subtitle)
@@ -64,7 +64,7 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param string $image_url
+     * @param  string  $image_url
      * @return $this
      */
     public function image($image_url)
@@ -75,7 +75,7 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param string $item_url
+     * @param  string  $item_url
      * @return $this
      */
     public function itemUrl($item_url)
@@ -86,7 +86,7 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $button
+     * @param  ElementButton  $button
      * @return $this
      */
     public function addButton(ElementButton $button)
@@ -97,7 +97,7 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param array $buttons
+     * @param  array  $buttons
      * @return $this
      */
     public function addButtons(array $buttons)
@@ -114,8 +114,7 @@ class Element implements JsonSerializable
     }
 
     /**
-     * @param ElementButton $defaultAction
-     *
+     * @param  ElementButton  $defaultAction
      * @return $this
      */
     public function defaultAction(ElementButton $defaultAction)

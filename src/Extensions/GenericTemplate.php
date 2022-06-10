@@ -32,7 +32,7 @@ class GenericTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param Element $element
+     * @param  Element  $element
      * @return $this
      */
     public function addElement(Element $element)
@@ -43,7 +43,7 @@ class GenericTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param array $elements
+     * @param  array  $elements
      * @return $this
      */
     public function addElements(array $elements)
@@ -58,7 +58,7 @@ class GenericTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param QuickReplyButton $button
+     * @param  QuickReplyButton  $button
      * @return $this
      */
     public function addQuickReply(QuickReplyButton $button)
@@ -69,7 +69,7 @@ class GenericTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param array $buttons
+     * @param  array  $buttons
      * @return $this
      */
     public function addQuickReplies(array $buttons)
@@ -84,7 +84,7 @@ class GenericTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param string $ratio
+     * @param  string  $ratio
      * @return $this
      */
     public function addImageAspectRatio($ratio)

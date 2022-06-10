@@ -27,17 +27,16 @@ class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
     protected $travelClass;
 
     /**
-     * @param string                                                            $connectionId
-     * @param string                                                            $segmentId
-     * @param string                                                            $flightNumber
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport        $departureAirport
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport        $arrivalAirport
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule $flightSchedule
-     * @param string                                                            $travelClass
+     * @param  string  $connectionId
+     * @param  string  $segmentId
+     * @param  string  $flightNumber
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport  $departureAirport
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport  $arrivalAirport
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule  $flightSchedule
+     * @param  string  $travelClass
+     * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineExtendedFlightInfo
      *
      * @throws \BotMan\Drivers\Facebook\Exceptions\FacebookException
-     *
-     * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineExtendedFlightInfo
      */
     public static function create(
         string $connectionId,
@@ -62,13 +61,13 @@ class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
     /**
      * AirlineExtendedFlightInfo constructor.
      *
-     * @param string                                                            $connectionId
-     * @param string                                                            $segmentId
-     * @param string                                                            $flightNumber
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport        $departureAirport
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport        $arrivalAirport
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule $flightSchedule
-     * @param string                                                            $travelClass
+     * @param  string  $connectionId
+     * @param  string  $segmentId
+     * @param  string  $flightNumber
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport  $departureAirport
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport  $arrivalAirport
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule  $flightSchedule
+     * @param  string  $travelClass
      *
      * @throws \BotMan\Drivers\Facebook\Exceptions\FacebookException
      */
@@ -95,8 +94,7 @@ class AirlineExtendedFlightInfo extends AbstractAirlineFlightInfo
     }
 
     /**
-     * @param string $aircraftType
-     *
+     * @param  string  $aircraftType
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineExtendedFlightInfo
      */
     public function aircraftType(string $aircraftType): self

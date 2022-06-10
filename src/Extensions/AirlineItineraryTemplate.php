@@ -55,15 +55,14 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
     protected $currency;
 
     /**
-     * @param string $introMessage
-     * @param string $locale
-     * @param string $pnrNumber
-     * @param array  $passengerInfo
-     * @param array  $flightInfo
-     * @param array  $passengerSegmentInfo
-     * @param string $totalPrice
-     * @param string $currency
-     *
+     * @param  string  $introMessage
+     * @param  string  $locale
+     * @param  string  $pnrNumber
+     * @param  array  $passengerInfo
+     * @param  array  $flightInfo
+     * @param  array  $passengerSegmentInfo
+     * @param  string  $totalPrice
+     * @param  string  $currency
      * @return \BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate
      */
     public static function create(
@@ -91,14 +90,14 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
     /**
      * AirlineItineraryTemplate constructor.
      *
-     * @param string $introMessage
-     * @param string $locale
-     * @param string $pnrNumber
-     * @param array  $passengerInfo
-     * @param array  $flightInfo
-     * @param array  $passengerSegmentInfo
-     * @param string $totalPrice
-     * @param string $currency
+     * @param  string  $introMessage
+     * @param  string  $locale
+     * @param  string  $pnrNumber
+     * @param  array  $passengerInfo
+     * @param  array  $flightInfo
+     * @param  array  $passengerSegmentInfo
+     * @param  string  $totalPrice
+     * @param  string  $currency
      */
     public function __construct(
         string $introMessage,
@@ -122,10 +121,9 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
     }
 
     /**
-     * @param string      $title
-     * @param string      $amount
-     * @param string|null $currency
-     *
+     * @param  string  $title
+     * @param  string  $amount
+     * @param  string|null  $currency
      * @return \BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate
      */
     public function addPriceInfo(string $title, string $amount, string $currency = null): self
@@ -142,8 +140,7 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
     }
 
     /**
-     * @param string $basePrice
-     *
+     * @param  string  $basePrice
      * @return \BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate
      */
     public function basePrice(string $basePrice): self
@@ -154,8 +151,7 @@ class AirlineItineraryTemplate extends AbstractAirlineTemplate
     }
 
     /**
-     * @param string $tax
-     *
+     * @param  string  $tax
      * @return \BotMan\Drivers\Facebook\Extensions\AirlineItineraryTemplate
      */
     public function tax(string $tax): self

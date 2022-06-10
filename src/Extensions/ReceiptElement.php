@@ -34,7 +34,7 @@ class ReceiptElement implements JsonSerializable
     }
 
     /**
-     * @param string $title
+     * @param  string  $title
      */
     public function __construct($title)
     {
@@ -42,7 +42,7 @@ class ReceiptElement implements JsonSerializable
     }
 
     /**
-     * @param string $subtitle
+     * @param  string  $subtitle
      * @return $this
      */
     public function subtitle($subtitle)
@@ -86,7 +86,7 @@ class ReceiptElement implements JsonSerializable
     }
 
     /**
-     * @param string $image_url
+     * @param  string  $image_url
      * @return $this
      */
     public function image($image_url)

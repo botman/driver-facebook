@@ -27,9 +27,8 @@ class AirlineAirport implements JsonSerializable
     protected $gate;
 
     /**
-     * @param string $airportCode
-     * @param string $city
-     *
+     * @param  string  $airportCode
+     * @param  string  $city
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport
      */
     public static function create(string $airportCode, string $city): self
@@ -40,8 +39,8 @@ class AirlineAirport implements JsonSerializable
     /**
      * AirlineAirport constructor.
      *
-     * @param string $airportCode
-     * @param string $city
+     * @param  string  $airportCode
+     * @param  string  $city
      */
     public function __construct(string $airportCode, string $city)
     {
@@ -50,8 +49,7 @@ class AirlineAirport implements JsonSerializable
     }
 
     /**
-     * @param string $terminal
-     *
+     * @param  string  $terminal
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport
      */
     public function terminal(string $terminal): self
@@ -62,8 +60,7 @@ class AirlineAirport implements JsonSerializable
     }
 
     /**
-     * @param string $gate
-     *
+     * @param  string  $gate
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport
      */
     public function gate(string $gate): self

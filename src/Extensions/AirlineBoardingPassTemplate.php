@@ -15,10 +15,9 @@ class AirlineBoardingPassTemplate extends AbstractAirlineTemplate
     protected $boardingPass;
 
     /**
-     * @param string $introMessage
-     * @param string $locale
-     * @param array  $boardingPass
-     *
+     * @param  string  $introMessage
+     * @param  string  $locale
+     * @param  array  $boardingPass
      * @return static
      */
     public static function create(string $introMessage, string $locale, array $boardingPass)
@@ -27,9 +26,9 @@ class AirlineBoardingPassTemplate extends AbstractAirlineTemplate
     }
 
     /**
-     * @param string $introMessage
-     * @param string $locale
-     * @param array  $boardingPass
+     * @param  string  $introMessage
+     * @param  string  $locale
+     * @param  array  $boardingPass
      */
     public function __construct(string $introMessage, string $locale, array $boardingPass)
     {
