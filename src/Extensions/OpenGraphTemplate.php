@@ -26,8 +26,7 @@ class OpenGraphTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param OpenGraphElement $element
-     *
+     * @param  OpenGraphElement  $element
      * @return $this
      */
     public function addElement(OpenGraphElement $element): self
@@ -38,8 +37,7 @@ class OpenGraphTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param OpenGraphElement[] $elements
-     *
+     * @param  OpenGraphElement[]  $elements
      * @return $this
      */
     public function addElements(array $elements): self

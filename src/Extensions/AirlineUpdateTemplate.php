@@ -30,10 +30,10 @@ class AirlineUpdateTemplate extends AbstractAirlineTemplate
     /**
      * AirlineUpdateTemplate constructor.
      *
-     * @param string                                                        $updateType
-     * @param string                                                        $locale
-     * @param string                                                        $pnrNumber
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo $updateFlightInfo
+     * @param  string  $updateType
+     * @param  string  $locale
+     * @param  string  $pnrNumber
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo  $updateFlightInfo
      *
      * @throws \BotMan\Drivers\Facebook\Exceptions\FacebookException
      */
@@ -58,8 +58,7 @@ class AirlineUpdateTemplate extends AbstractAirlineTemplate
     }
 
     /**
-     * @param string $introMessage
-     *
+     * @param  string  $introMessage
      * @return \BotMan\Drivers\Facebook\Extensions\AirlineUpdateTemplate
      */
     public function introMessage(string $introMessage): self

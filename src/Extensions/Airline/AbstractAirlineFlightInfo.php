@@ -30,10 +30,10 @@ abstract class AbstractAirlineFlightInfo implements JsonSerializable, Airline
     /**
      * AbstractAirlineFlightInfo constructor.
      *
-     * @param string                                                            $flightNumber
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport        $departureAirport
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport        $arrivalAirport
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule $flightSchedule
+     * @param  string  $flightNumber
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport  $departureAirport
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineAirport  $arrivalAirport
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule  $flightSchedule
      */
     public function __construct(
         string $flightNumber,

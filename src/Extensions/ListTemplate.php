@@ -25,7 +25,7 @@ class ListTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param Element $element
+     * @param  Element  $element
      * @return $this
      */
     public function addElement(Element $element)
@@ -36,7 +36,7 @@ class ListTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param array $elements
+     * @param  array  $elements
      * @return $this
      */
     public function addElements(array $elements)
@@ -51,7 +51,7 @@ class ListTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ElementButton $button
+     * @param  ElementButton  $button
      * @return $this
      */
     public function addGlobalButton(ElementButton $button)

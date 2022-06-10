@@ -74,13 +74,12 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     protected $flightInfo;
 
     /**
-     * @param string                                                        $passengerName
-     * @param string                                                        $pnrNumber
-     * @param string                                                        $logoImageUrl
-     * @param string                                                        $code
-     * @param string                                                        $aboveBarcodeImageUrl
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo $flightInfo
-     *
+     * @param  string  $passengerName
+     * @param  string  $pnrNumber
+     * @param  string  $logoImageUrl
+     * @param  string  $code
+     * @param  string  $aboveBarcodeImageUrl
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo  $flightInfo
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public static function create(
@@ -97,12 +96,12 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     /**
      * AirlineBoardingPass constructor.
      *
-     * @param string                                                        $passengerName
-     * @param string                                                        $pnrNumber
-     * @param string                                                        $logoImageUrl
-     * @param string                                                        $code
-     * @param string                                                        $aboveBarcodeImageUrl
-     * @param \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo $flightInfo
+     * @param  string  $passengerName
+     * @param  string  $pnrNumber
+     * @param  string  $logoImageUrl
+     * @param  string  $code
+     * @param  string  $aboveBarcodeImageUrl
+     * @param  \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightInfo  $flightInfo
      */
     public function __construct(
         string $passengerName,
@@ -122,11 +121,10 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param string $travelClass
+     * @param  string  $travelClass
+     * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      *
      * @throws \BotMan\Drivers\Facebook\Exceptions\FacebookException
-     *
-     * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public function travelClass(string $travelClass): self
     {
@@ -142,8 +140,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param string $seat
-     *
+     * @param  string  $seat
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public function seat(string $seat): self
@@ -154,9 +151,8 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param string $label
-     * @param string $value
-     *
+     * @param  string  $label
+     * @param  string  $value
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public function addAuxiliaryField(string $label, string $value): self
@@ -167,8 +163,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param array $auxiliaryFields
-     *
+     * @param  array  $auxiliaryFields
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public function addAuxiliaryFields(array $auxiliaryFields): self
@@ -181,9 +176,8 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param string $label
-     * @param string $value
-     *
+     * @param  string  $label
+     * @param  string  $value
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public function addSecondaryField(string $label, string $value): self
@@ -194,8 +188,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param array $secondaryFields
-     *
+     * @param  array  $secondaryFields
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public function addSecondaryFields(array $secondaryFields): self
@@ -208,8 +201,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param string $headerImageUrl
-     *
+     * @param  string  $headerImageUrl
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public function headerImageUrl(string $headerImageUrl): self
@@ -220,8 +212,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param string $headerTextField
-     *
+     * @param  string  $headerTextField
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineBoardingPass
      */
     public function headerTextField(string $headerTextField): self
@@ -232,7 +223,7 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param string $code
+     * @param  string  $code
      */
     private function setCode(string $code)
     {
@@ -245,9 +236,8 @@ class AirlineBoardingPass implements JsonSerializable, Airline
     }
 
     /**
-     * @param string $label
-     * @param string $value
-     *
+     * @param  string  $label
+     * @param  string  $value
      * @return array
      */
     private function setLabelValue(string $label, string $value): array

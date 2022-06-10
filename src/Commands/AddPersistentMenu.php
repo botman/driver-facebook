@@ -29,7 +29,7 @@ class AddPersistentMenu extends Command
     /**
      * Create a new command instance.
      *
-     * @param Curl $http
+     * @param  Curl  $http
      */
     public function __construct(Curl $http)
     {

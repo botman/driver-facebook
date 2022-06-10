@@ -44,7 +44,7 @@ class ElementButton
     const RATIO_FULL = 'full';
 
     /**
-     * @param string $title
+     * @param  string  $title
      * @return static
      */
     public static function create($title)
@@ -53,7 +53,7 @@ class ElementButton
     }
 
     /**
-     * @param string $title
+     * @param  string  $title
      */
     public function __construct($title)
     {
@@ -62,7 +62,8 @@ class ElementButton
 
     /**
      * Set the button URL.
-     * @param string $url
+     *
+     * @param  string  $url
      * @return $this
      */
     public function url($url)
@@ -74,7 +75,8 @@ class ElementButton
 
     /**
      * Set the button type.
-     * @param string $type
+     *
+     * @param  string  $type
      * @return $this
      */
     public function type($type)
@@ -96,7 +98,7 @@ class ElementButton
     }
 
     /**
-     * @param string $fallback_url
+     * @param  string  $fallback_url
      * @return $this
      */
     public function fallbackUrl($fallback_url)
@@ -108,6 +110,7 @@ class ElementButton
 
     /**
      * enable messenger extensions.
+     *
      * @return $this
      */
     public function enableExtensions()
@@ -139,7 +142,8 @@ class ElementButton
 
     /**
      * Set ratio to one of RATIO_COMPACT, RATIO_TALL, RATIO_FULL.
-     * @param string $ratio
+     *
+     * @param  string  $ratio
      * @return $this
      */
     public function heightRatio($ratio = self::RATIO_FULL)
@@ -153,7 +157,8 @@ class ElementButton
      * Optional. The message that you wish the recipient of the share to see,
      * if it is different from the one this button is attached to.
      * The format follows that used in Send API, but must be a generic template with up to one URL button.
-     * @param GenericTemplate $shareContents
+     *
+     * @param  GenericTemplate  $shareContents
      * @return $this
      */
     public function shareContents($shareContents)

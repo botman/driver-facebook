@@ -33,7 +33,7 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param string $street
+     * @param  string  $street
      * @return $this
      */
     public function street1($street)
@@ -44,7 +44,7 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param string $street
+     * @param  string  $street
      * @return $this
      */
     public function street2($street)
@@ -88,7 +88,7 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param string $country
+     * @param  string  $country
      * @return $this
      */
     public function country($country)

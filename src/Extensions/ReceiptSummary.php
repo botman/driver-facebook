@@ -27,7 +27,7 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param string $subtotal
+     * @param  string  $subtotal
      * @return $this
      */
     public function subtotal($subtotal)
@@ -38,7 +38,7 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param string $shippingCost
+     * @param  string  $shippingCost
      * @return $this
      */
     public function shippingCost($shippingCost)

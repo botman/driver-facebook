@@ -22,9 +22,8 @@ class AirlinePassengerInfo implements JsonSerializable
     protected $name;
 
     /**
-     * @param string $passengerId
-     * @param string $name
-     *
+     * @param  string  $passengerId
+     * @param  string  $name
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerInfo
      */
     public static function create(string $passengerId, string $name): self
@@ -35,8 +34,8 @@ class AirlinePassengerInfo implements JsonSerializable
     /**
      * AirlinePassengerInfo constructor.
      *
-     * @param string $passengerId
-     * @param string $name
+     * @param  string  $passengerId
+     * @param  string  $name
      */
     public function __construct(string $passengerId, string $name)
     {
@@ -45,8 +44,7 @@ class AirlinePassengerInfo implements JsonSerializable
     }
 
     /**
-     * @param string $ticketNumber
-     *
+     * @param  string  $ticketNumber
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlinePassengerInfo
      */
     public function ticketNumber(string $ticketNumber): self

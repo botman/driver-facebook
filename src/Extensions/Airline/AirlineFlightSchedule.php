@@ -22,8 +22,7 @@ class AirlineFlightSchedule implements JsonSerializable
     protected $arrivalTime;
 
     /**
-     * @param string $departureTime
-     *
+     * @param  string  $departureTime
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule
      */
     public static function create(string $departureTime): self
@@ -34,7 +33,7 @@ class AirlineFlightSchedule implements JsonSerializable
     /**
      * AirlineFlightSchedule constructor.
      *
-     * @param string $departureTime
+     * @param  string  $departureTime
      */
     public function __construct(string $departureTime)
     {
@@ -42,8 +41,7 @@ class AirlineFlightSchedule implements JsonSerializable
     }
 
     /**
-     * @param string $boardingTime
-     *
+     * @param  string  $boardingTime
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule
      */
     public function boardingTime(string $boardingTime): self
@@ -54,8 +52,7 @@ class AirlineFlightSchedule implements JsonSerializable
     }
 
     /**
-     * @param string $arrivalTime
-     *
+     * @param  string  $arrivalTime
      * @return \BotMan\Drivers\Facebook\Extensions\Airline\AirlineFlightSchedule
      */
     public function arrivalTime(string $arrivalTime): self

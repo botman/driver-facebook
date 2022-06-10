@@ -126,7 +126,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ReceiptElement $element
+     * @param  ReceiptElement  $element
      * @return $this
      */
     public function addElement(ReceiptElement $element)
@@ -137,7 +137,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param array $elements
+     * @param  array  $elements
      * @return $this
      */
     public function addElements(array $elements)
@@ -152,7 +152,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ReceiptAddress $address
+     * @param  ReceiptAddress  $address
      * @return $this
      */
     public function addAddress(ReceiptAddress $address)
@@ -163,7 +163,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ReceiptSummary $summary
+     * @param  ReceiptSummary  $summary
      * @return $this
      */
     public function addSummary(ReceiptSummary $summary)
@@ -174,7 +174,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param ReceiptAdjustment $adjustment
+     * @param  ReceiptAdjustment  $adjustment
      * @return $this
      */
     public function addAdjustment(ReceiptAdjustment $adjustment)
@@ -185,7 +185,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param array $adjustments
+     * @param  array  $adjustments
      * @return $this
      */
     public function addAdjustments(array $adjustments)
