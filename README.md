@@ -9,7 +9,7 @@ BotMan driver to connect Facebook messenger with [BotMan](https://github.com/bot
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details. 
 
 ## Security Vulnerabilities
 
