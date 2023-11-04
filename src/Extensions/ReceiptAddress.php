@@ -55,7 +55,7 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param $city
+     * @param  $city
      * @return $this
      */
     public function city($city)
@@ -66,7 +66,7 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param $postalCode
+     * @param  $postalCode
      * @return $this
      */
     public function postalCode($postalCode)
@@ -77,7 +77,7 @@ class ReceiptAddress implements JsonSerializable
     }
 
     /**
-     * @param $state
+     * @param  $state
      * @return $this
      */
     public function state($state)

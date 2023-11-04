@@ -49,7 +49,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param $name
+     * @param  $name
      * @return $this
      */
     public function recipientName($name)
@@ -60,7 +60,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param $name
+     * @param  $name
      * @return $this
      */
     public function merchantName($name)
@@ -71,7 +71,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param $orderNumber
+     * @param  $orderNumber
      * @return $this
      */
     public function orderNumber($orderNumber)
@@ -82,7 +82,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param $currency
+     * @param  $currency
      * @return $this
      */
     public function currency($currency)
@@ -93,7 +93,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param $paymentMethod
+     * @param  $paymentMethod
      * @return $this
      */
     public function paymentMethod($paymentMethod)
@@ -104,7 +104,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param $orderUrl
+     * @param  $orderUrl
      * @return $this
      */
     public function orderUrl($orderUrl)
@@ -115,7 +115,7 @@ class ReceiptTemplate implements JsonSerializable, WebAccess
     }
 
     /**
-     * @param $timestamp
+     * @param  $timestamp
      * @return $this
      */
     public function timestamp($timestamp)

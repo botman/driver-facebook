@@ -13,7 +13,7 @@ class ReceiptAdjustment implements JsonSerializable
     protected $amount;
 
     /**
-     * @param $name
+     * @param  $name
      * @return static
      */
     public static function create($name)
@@ -24,7 +24,7 @@ class ReceiptAdjustment implements JsonSerializable
     /**
      * ReceiptAdjustment constructor.
      *
-     * @param $name
+     * @param  $name
      */
     public function __construct($name)
     {

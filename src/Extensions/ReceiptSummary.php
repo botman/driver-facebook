@@ -49,7 +49,7 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param $totalTax
+     * @param  $totalTax
      * @return $this
      */
     public function totalTax($totalTax)
@@ -60,7 +60,7 @@ class ReceiptSummary implements JsonSerializable
     }
 
     /**
-     * @param $totalCost
+     * @param  $totalCost
      * @return $this
      */
     public function totalCost($totalCost)
