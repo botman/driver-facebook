@@ -16,7 +16,7 @@ class MediaAttachmentElement implements JsonSerializable
     protected $buttons;
 
     /**
-     * @param $mediaType
+     * @param  $mediaType
      * @return static
      */
     public static function create($mediaType)
@@ -25,7 +25,7 @@ class MediaAttachmentElement implements JsonSerializable
     }
 
     /**
-     * @param $mediaType
+     * @param  $mediaType
      */
     public function __construct($mediaType)
     {
@@ -33,7 +33,7 @@ class MediaAttachmentElement implements JsonSerializable
     }
 
     /**
-     * @param $attachmentId
+     * @param  $attachmentId
      * @return $this
      */
     public function attachmentId($attachmentId)

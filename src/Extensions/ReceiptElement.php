@@ -25,7 +25,7 @@ class ReceiptElement implements JsonSerializable
     protected $image_url;
 
     /**
-     * @param $title
+     * @param  $title
      * @return static
      */
     public static function create($title)
@@ -53,7 +53,7 @@ class ReceiptElement implements JsonSerializable
     }
 
     /**
-     * @param $quantity
+     * @param  $quantity
      * @return $this
      */
     public function quantity($quantity)
@@ -64,7 +64,7 @@ class ReceiptElement implements JsonSerializable
     }
 
     /**
-     * @param $price
+     * @param  $price
      * @return $this
      */
     public function price($price)
@@ -75,7 +75,7 @@ class ReceiptElement implements JsonSerializable
     }
 
     /**
-     * @param $currency
+     * @param  $currency
      * @return $this
      */
     public function currency($currency)

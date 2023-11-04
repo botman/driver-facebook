@@ -9,7 +9,7 @@ abstract class FacebookEvent implements DriverEventInterface
     protected $payload;
 
     /**
-     * @param $payload
+     * @param  $payload
      */
     public function __construct($payload)
     {

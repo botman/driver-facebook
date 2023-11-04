@@ -25,7 +25,7 @@ class Element implements JsonSerializable
     protected $default_action;
 
     /**
-     * @param $title
+     * @param  $title
      * @return static
      */
     public static function create($title)

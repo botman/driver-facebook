@@ -87,7 +87,7 @@ class ElementButton
     }
 
     /**
-     * @param $payload
+     * @param  $payload
      * @return $this
      */
     public function payload($payload)
